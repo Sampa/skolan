@@ -5,7 +5,8 @@
  * Date: 2015-02-10
  * Time: 16:11
  */
-header('Content-type: text/plain');
+header('Content-type: text/html');
+//vilka vi vill visa
 $values = array(
 	"REMOTE_ADDR",
 	"REMOTE_PORT",
@@ -37,13 +38,32 @@ $values = array(
 	"SCRIPT_URI",
 	"SCRIPT_URL",
 );
-
+//traversera html med ett dom objekt
+$doc = new DOMDocument();
+$doc->loadHTMLFile("task.html");
+//hitta vår tabel
+$table = $doc->getElementsByTagName("tbody")->item(0);
+//vår template rad (kunde haft id:n för annan html markup än tables)
+$row = $doc->getElementsByTagName("tr")->item(1);
+$table->removeChild($row);
 foreach($values as $key){
-	echo $key . ":". getenv($key)."\n";
+	addNode($row,$key,getenv($key),$table);
 }
+
 $server = array("PHP_SELF","REQUEST_TIME_FLOAT","REQUEST_TIME","SERVER_SIGNATURE","QUERY_STRING",);
 foreach($server as $key){
-	echo $key.":".$_SERVER[$key]."\n";
+	addNode($row,$key,$_SERVER[$key],$table);
+}
+//Skriv ut det färdiga resultatet
+echo $doc->saveHTML();
+
+
+/* Undvika lite repeat*/
+function addNode($row,$key,$value,$table){
+	$row = $row->cloneNode(true);
+	$row->childNodes->item(0)->nodeValue = $key;
+	$row->childNodes->item(2)->nodeValue = $value;
+	$table->appendChild($row);
 }
 ?>
 
