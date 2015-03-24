@@ -4,7 +4,7 @@
     <title>Guestbook</title>
 </head>
 <body>
-<form method="post" action="index.php">
+<form method="post" action="index.php" enctype="multipart/form-data">
     <input type="hidden" name="pw" value="31415924">
     <table>
         <tr>
@@ -29,6 +29,14 @@
             </td>
             <td>
                 <input type="text" name="site" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Bild:
+            </td>
+            <td>
+                <input type="file" name="file"/>
             </td>
         </tr>
         <tr>
