@@ -46,7 +46,6 @@ if($conn = connectDb()){
 		//för varje resultat, visa mallen
 		while($row = $result->fetch_assoc()){
 			eval("print \"" . addcslashes(preg_replace("/(--(.+?)--)/", "\\2", $html), '"') . "\";");
-			echo "<hr/>";
 		}
 	}
 	$conn->close();
