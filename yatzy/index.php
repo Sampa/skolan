@@ -82,7 +82,7 @@
 					</tr>
 					<tr>
 						<td class="info">...</td>
-					</tr>
+					</tr><!-->
 				</table>
 			</div>
 			<div class="col-sm-1">
