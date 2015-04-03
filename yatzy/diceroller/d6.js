@@ -1,14 +1,14 @@
 ///////////////////////////////////////////////////////////////////////////////////////
 //    JavaScript Animated D6 Dice Roller - D6 Dice Rolling JavaScript classes
 //
-//    Written in 2005 by Michael K. Eidson, mike@eposic.org, http://eposic.org 
+//    Written in 2005 by Michael K. Eidson, mike@eposic.org, http://eposic.org
 //
 //    To the extent possible under law, the author(s) have dedicated all
 //    copyright and related and neighboring rights to this software to the
-//    public domain worldwide. This software is distributed without any warranty. 
+//    public domain worldwide. This software is distributed without any warranty.
 //
 //    You should have received a copy of the CC0 Public Domain Dedication along
-//    with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
+//    with this software. If not, see <http://creativecommons.org/publicdomain/zero/1.0/>.
 ///////////////////////////////////////////////////////////////////////////////////////
 
 // The D6Animator class
@@ -367,7 +367,8 @@ D6AnimBuilder.prototype.genDiceHtml = function(layout, callback, callbackData) {
 			++dieCount;
 			if (dieCount > numTotalImgs) break;
 			if (this.useImages) {
-				genHtml += "<img id='" + this.id + dieCount + "' class='die' src='" + this.baseUrl + "blank.gif' />";
+                var id =  this.id + dieCount;
+				genHtml += "<div id='container"+id+"'> <img id='" + id + "' class='die' src='" + this.baseUrl + "blank.gif' /></div>";
 			} else {
 				genHtml += "<span id='" + this.id + dieCount + "' class='dieNumber'>&nbsp;</span> ";
 			}

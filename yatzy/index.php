@@ -17,6 +17,7 @@
 
 	<!--bootstrap-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 	<!-- d6 dice roller -->
 	<script type="text/javascript" src='diceroller/d6.js'></script>
 	<!-- my own javascript -->
@@ -25,12 +26,22 @@
 <body>
 	<div class="container-fluid">
 		<div class="row">
+			<!-- tärningarna-->
+			<div id="dices" class="col-sm-1 col-xs-1 well" style="min-width: 70px;">
+				<script type='text/javascript'>
+					D6.setBaseUrl("diceroller/");
+					D6.dice(6,"D6.noop",null,true,"none");
+					D6AnimBuilder.get("dice").reset();
+					D6AnimBuilder.get("dice").start();
+				</script>
+				<button id="roll" class="btn btn-success">Roll</button>
+			</div>
 			<!-- scoreboard -->
-			<div class="col-sm-3">
+			<div class="col-sm-3 col-xs-9">
 				<table class="table table-hover table-striped table-bordered">
 					<thead>
 						<tr>
-							<td> Roll </td>
+							<td> Yatzy </td>
 							<?php
 								foreach($players as $player){
 									echo "<td>".$player."</td>";
@@ -38,66 +49,106 @@
 							?>
 						</tr>
 					</thead>
+					<?php for($i=1;$i<7;$i++){?>
 					<tr>
-						<td class="">1</td>
+						<td class=""><?=$i;?></td>
 						<?php
 							foreach($players as $player){
-								echo '<td><div id="1'.$player.'"></div></td>';
+								echo '<td><div id="'.$i.$player.'"></div></td>';
 							}
 						?>
 					</tr>
+					<?php }?>
+					<!-- One Pair -->
 					<tr>
-						<td class="">2</td>
-						<?php
-							foreach($players as $player){
-								echo '<td><div id="2'.$player.'"></div></td>';
-							}
-						?>
-					</tr>
-					<tr>
-						<td class="">3</td>
+						<td>One Pair</td>
 						<?php
 						foreach($players as $player){
-							echo '<td><div id="3'.$player.'"></div></td>';
+							echo '<td><div id="'.$player.'"></div></td>';
 						}
 						?>
 					</tr>
+					<!-- Two Pairs -->
 					<tr>
-						<td class="">4</td>
+						<td>Two Pairs</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+
+					<!--Three of a kind -->
 					<tr>
-						<td class="">5</td>
+						<td>Three of a kind</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+					<!-- Four of a kind -->
 					<tr>
-						<td class="">6</td>
+						<td>Four of a kind</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+					<!-- Small Straight -->
 					<tr>
-						<td class="success">...</td>
+						<td>Small straight</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+
+					<!-- Large Straight -->
 					<tr>
-						<td class="warning">...</td>
+						<td>Large Straight</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+
+					<!-- Full House -->
 					<tr>
-						<td class="danger">...</td>
+						<td>Full House</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
 					</tr>
+
+					<!-- Chance  -->
 					<tr>
-						<td class="info">...</td>
-					</tr><!-->
+						<td>Chance</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
+					</tr>
+
+					<!-- Yatzy  -->
+					<tr>
+						<td>Yatzy</td>
+						<?php
+						foreach($players as $player){
+							echo '<td><div id="'.$player.'"></div></td>';
+						}
+						?>
+					</tr>
 				</table>
 			</div>
-			<div class="col-sm-1">
-				<div id="dices" class="well">
-					<script type='text/javascript'>
-						D6.setBaseUrl("diceroller/");
-						D6.dice(6,"D6.noop",null,true,"none");
-						D6AnimBuilder.get("dice").reset();
-						D6AnimBuilder.get("dice").start();
-					</script>
-				</div>
-				<button id="roll" class="btn btn-success">Roll</button>
-			</div>
+
 		</div>
 	</div>
 </body>
 </html>
-<?php

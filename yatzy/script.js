@@ -6,4 +6,9 @@ window.onload = function(){
         D6AnimBuilder.get("dice").reset();
         D6AnimBuilder.get("dice").start();
     };
+
+    $("[id^='containerdice']").on("click",function(){
+        alert($(this).children("img").attr("id"));
+        $(this).css("border", "1px solid red");
+    });
 }
