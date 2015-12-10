@@ -1,3 +1,15 @@
+#diceResult{
+    margin-top:10px;
+}
+#start{
+    margin-left: 35px;
+}
+.largefont{
+    font-size: 150%;
+}
+.mediumfont{
+    font-size: 125%;
+}
 a[name="d1"] img{
     width: 54px;
     height: 50px;
@@ -6,12 +18,12 @@ a[name="d1"] img{
 a[name="d2"] img{
     width: 54px;
     height: 50px;
-    background: url('../dice.png') -65px 0;
+    background: url('../dice.png') -62px 0;
 }
 a[name="d3"] img{
     width: 54px;
     height: 50px;
-    background: url('../dice.png') -126px 0;
+    background: url('../dice.png') -125px 0;
 }
 a[name="d4"] img{
     width: 54px;
@@ -21,12 +33,18 @@ a[name="d4"] img{
 a[name="d5"] img{
     width: 54px;
     height: 50px;
-    background: url('../dice.png') -65px 66px;
+    background: url('../dice.png') -62px 66px;
 }
 a[name="d6"] img{
     width: 54px;
     height: 50px;
     background: url('../dice.png') -126px 66px;
+}
+.dices{
+    position: relative;
+    max-width: 70px;
+    float:left;
+    border: dotted 1px red;
 }
 /* dice animation */
 @keyframes spin {
@@ -72,15 +90,15 @@ a[name="d6"] img{
     animation-play-state: paused;
 }
 #wrapper {
-    position: relative;
+    position: absolute;
     width: 100px;
-    /*float:right;*/
     margin-top: 0px;
     margin-left: 30px;
     max-height: 400px;
-    /*margin: 0 auto;*/
     padding-top: 00px;
-    perspective: 100px;
+    perspective: 200px;
+    top: 50px;
+    left: 30px;
 }
 #platform {
     margin-top:0px;

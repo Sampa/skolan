@@ -8,42 +8,37 @@ function randomNumber(min, max) {
 /* Generates 5 random number 1-6 and sends them to the server for calculations*/
 function generateResult(){
     $("#roll").prop("checked", false);
-    var result = new Object(); //iniate json array
-    var element, roll;
-    var target = $("#dices"); //where we want to put the dice image matching the result
+    var element,roll, result = new Object(),target = $("#dices");
     target.html("");
     for(i=0;i<5;i++){
-        roll = randomNumber(1,6);
-        result[i] = roll;
+        result[i] = randomNumber(1,6);
         //clone the template element with the right dice image
-        element = $("#diceTemplate").find("[name='d"+roll+"']").clone();
+        element = $("#diceTemplate").find("[name='d"+result[i]+"']").clone();
         element.appendTo(target);
     };
-    //data passed to the server and on success we show the user his/hers options
+    sendToServer(result,showScoreOptions);
+}
+//data passed to the server and on success we show the user his/hers options
+function sendToServer(result,callback){
     $.ajax({
         type: "POST",
         url: "server.php",
         data: {"data":result},
         success: function (data){
-            console.log(data);
-            showScoreOptions(data);
-        },
-        error: function(data){
-            console.log(data);
+            callback(data);
         },
         dataType: "json"
     });
 }
 //shows the possible scoring options
 function showScoreOptions(data){
+    var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
-        if(value) {
-            var name = "[name='" + key + "']";
-            var parent = $(name);
-            var element = $(name + " > div");
-            console.log(element.html());//visar blank rad  eller undefined som bråkar
-            if (element.html() == "" || element.html() == "undefined") {
-                parent.addClass("bg-primary clickable");
+        if(value && value !="user") {
+            prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top");
+            element = $("[id='" + prefix + key + data.user+"']");
+            if (!element.attr("data-score")) {
+                element.addClass("bg-primary clickable");
                 element.html(value);
             }
         }
@@ -55,28 +50,43 @@ function setScore(element){
     $.each($(".clickable"),function(key,value){
         var obj = $(value);
         obj.removeClass("bg-primary clickable");
-        if(element != "undefined") {
-            if (!obj.is(element)) {
-                obj.html("");
-            } else {
-                obj.addClass("bg-success");
-            }
+        if (obj.is(element)){
+            obj.attr("data-score",obj.html());
+            obj.addClass("bg-success");
+        } else {
+            obj.html("");
         }
     });
 }
 //calculates the top total (1-6)
 function setTopTotal(user){
-    var elements = $("[id^='top']");
-    var total = 0;
-    var number;
+    var total = 0,number,elements = $("[id^='top']");
     $.each(elements,function(key,value){
-        number = $(this).find("div").html();
-        number = parseInt(number);
-        if(!isNaN(number)){
+        number = parseInt($(this).html());
+        if(!isNaN(number))
             total = total + number;
-        }
     });
     $("#total"+user).html(total);
+    setBonus(total,user);
+}
+function setBonus(topTotal,user){
+    if(topTotal > 62){
+        var element = $("#bonus"+user);
+        element.html("50");
+        element.addClass("bg-success");
+    }
+}
+function setResult(user){
+    var topTotal = parseInt($("#total"+user).html()), bonus = parseInt($("#bonus" + user).html());
+    var topScore = topTotal + bonus;
+    var number, result = 0, elements = $("[id^='bottom'][id$='"+user+"']");
+    $.each(elements, function(key,value){
+        number = $(value).html();
+        if(parseInt(number) >=0) {
+            result = result + parseInt(number);
+        }
+    });
+    $("#result"+user).html(topScore+result);
 }
 window.onload = function() {
     $("tr").on("click",".clickable",function(){
@@ -89,6 +99,7 @@ window.onload = function() {
                 setScore(element);
                 $("#start span").html("0");
                 setTopTotal("Adam");
+                setResult("Adam");
             },
             confirmButton: "Yes I am",
             cancelButton: "No",
@@ -98,38 +109,20 @@ window.onload = function() {
             dialogClass: "modal-dialog modal-sm"
         });
     });
-
     $("#start").on("click",function(){
-        //reset unused fields (we need dummy data to pass)
+        //reset unused fields
         setScore();
         //start animation and then generate results
         $("#roll").prop("checked", true);
         setTimeout(generateResult,1000);
         //find span element inside the button and then its contents as int
         var element = $(this).find("span");
-        var number = parseInt(element.html());
+        var number = parseInt(element.html()) +1;
         //replace with the new count of rolls
-        number = number +1;
         element.html(number);
         //if we reached our maximum number of throws prohibit more
         if(number > 2){
             $(this).attr("disabled","disabled");
         }
     });
-
-
-    //$("[id^='containerdice']").on("click",function(){
-    //    //move the correct element
-    //    var element = $(this).children("img");
-    //    var target = $("#selected");
-    //    var id = element.attr("id"); //which dice
-    //    //extract the value from src attribute
-    //    var src = element.attr("src");
-    //    src = src.substr(src.lastIndexOf('/') + 1);
-    //    src = src.charAt(4);
-    //    //move and hide
-    //    $(this).appendTo(target);
-    //});
-    //$("#selected").on("click", "img",function(){
-    //});
 }
