@@ -17,7 +17,6 @@ $players = $_SESSION['players'];
 	<!-- Latest compiled and minified Bootstrap CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
 <!-- Modal for usernames -->
@@ -41,18 +40,17 @@ $players = $_SESSION['players'];
 	<div class="container-fluid">
 		<div class="row">
 			<!-- tärningarna-->
-			<div class="col-md-2" style="max-width:230px;border: 0px solid red;" >
-				<div class="row" id="diceResult">
-					<button id="start" class="pull-left btn-lg btn-primary">Roll <span>0</span>/3</button>
-					<div id="dices" style="border: 0px solid black;" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-1"></div>
+			<div id="dices" class="row col-md-2">
+				<button id="start" class="pull-left btn-lg btn-success">Roll <span>0</span>/3</button>
+				<div id="diceResult" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-1">
 				</div>
-				<div id="diceTemplate" style="display:none;">
-					<a href="#" name="d1" class="diceresult"><img src="img_trans.gif" /></a>
-					<a href="#" name="d2" class="diceresult"><img src="img_trans.gif" /></a>
-					<a href="#" name="d3" class="diceresult"><img src="img_trans.gif" /></a>
-					<a href="#" name="d4" class="diceresult"><img src="img_trans.gif" /></a>
-					<a href="#" name="d5" class="diceresult"><img src="img_trans.gif" /></a>
-					<a href="#" name="d6" class="diceresult"><img src="img_trans.gif" /></a>
+				<div id="diceTemplate" class="hidden">
+					<div href="#" name="d1" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d2" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d3" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d4" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d5" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d6" class="rolledDice"><img src="img_trans.gif" /></div>
 				</div>
 				<div id="wrapper">
 					<input id="secondroll" name="roll" type="checkbox"/>

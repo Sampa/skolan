@@ -4,7 +4,7 @@ session_start();
 function has_duplicates($array) {
     return count($array) !== count(array_unique($array));
 }
-//looks
+//looks for straights
 function littleStraight($data,$results){
     if(!array_diff(array(1,2,3,4,5), $data)) $results["little"] = 15;
     return $results;
@@ -50,6 +50,7 @@ function pairs($numbers,$results){
     $results = house($pairs,$results);
     return $results;
 }
+//finds out if there is both a pair and a toak not using the same dice twice
 function house($pairs,$results){
     if(isset($results["pair"]) && isset($results["toak"])) { //there is house
         //make sure the pair and toak is diffrent dices
@@ -60,11 +61,9 @@ function house($pairs,$results){
     }
     return $results;
 }
-
-
 /* A request is sent from the client after each throw*/
 $data = $_POST["data"];
-$data = array(1,1,2,2,2);
+//$data = array(1,1,2,2,2);
 if(isset($data)) {
     $numbers = array_count_values($data); // frequency of each number (1-6)
     $results = []; //gets filled with the possible scoring options

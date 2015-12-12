@@ -1,14 +1,11 @@
-/**
- * Created by Happyjuiced on 2015-04-02.
- */
-/* get a random number without decimals */
+//get a random number without decimals
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min +1 ) + min);
 }
-/* Generates 5 random number 1-6 and sends them to the server for calculations*/
+//Generates a random number between 1-6 for each dice and sends them to the server for calculations
 function generateResult(){
     $("#roll").prop("checked", false);
-    var element,roll, result = new Object(),target = $("#dices");
+    var element,roll, result = new Object(),target = $("#diceResult");
     target.html("");
     for(i=0;i<5;i++){
         result[i] = randomNumber(1,6);
@@ -30,7 +27,7 @@ function sendToServer(result,callback){
         dataType: "json"
     });
 }
-//shows the possible scoring options
+//shows the possible scoring options and what point  each would give
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
@@ -45,20 +42,23 @@ function showScoreOptions(data){
     });
 }
 
-//after confirming the score, restore the other divs
+//after the user confirms his pick among the scoring options, set the correct score and restore the other options
 function setScore(element){
     $.each($(".clickable"),function(key,value){
-        var obj = $(value);
+        var start =$("#start"),obj = $(value);
         obj.removeClass("bg-primary clickable");
         if (obj.is(element)){
             obj.attr("data-score",obj.html());
             obj.addClass("bg-success");
         } else {
             obj.html("");
+            start.prop("disabled",false);
+            start.removeClass("btn-danger");
+            start.addClass("btn-success");
         }
     });
 }
-//calculates the top total (1-6)
+//calculates the total for the top half (1-6)
 function setTopTotal(user){
     var total = 0,number,elements = $("[id^='top']");
     $.each(elements,function(key,value){
@@ -69,6 +69,7 @@ function setTopTotal(user){
     $("#total"+user).html(total);
     setBonus(total,user);
 }
+//when the toptotal is 63 or more, this adds the 50 bonus points
 function setBonus(topTotal,user){
     if(topTotal > 62){
         var element = $("#bonus"+user);
@@ -76,6 +77,7 @@ function setBonus(topTotal,user){
         element.addClass("bg-success");
     }
 }
+//Sets the bottom result (toptotal+bonus+bottom half)
 function setResult(user){
     var topTotal = parseInt($("#total"+user).html()), bonus = parseInt($("#bonus" + user).html());
     var topScore = topTotal + bonus;
@@ -89,6 +91,26 @@ function setResult(user){
     $("#result"+user).html(topScore+result);
 }
 window.onload = function() {
+    var dices = new Object();
+    dices ={
+        1:false,
+        2:false,
+        3:false,
+        4:false,
+        5:false
+    };
+    $("#diceResult").on("click","div",function(){
+       //var dice = $(this).attr("name").substring(1);
+        var element = $(this);
+        //reverse selected status
+        element.prop("selected",!element.prop("selected"));
+        if(element.prop("selected")){
+            element.addClass("selectedDice");
+            element.prepend('<span></span>');
+        }else{
+            //element.removeClass("selectedDice");
+        }
+    });
     $("tr").on("click",".clickable",function(){
         var element = $(this);
         $.confirm({
@@ -104,8 +126,8 @@ window.onload = function() {
             confirmButton: "Yes I am",
             cancelButton: "No",
             post: true,
-            confirmButtonClass: "btn-primary",
-            cancelButtonClass: "btn-default",
+            confirmButtonClass: "btn-success",
+            cancelButtonClass: "btn-danger",
             dialogClass: "modal-dialog modal-sm"
         });
     });
@@ -122,7 +144,9 @@ window.onload = function() {
         element.html(number);
         //if we reached our maximum number of throws prohibit more
         if(number > 2){
-            $(this).attr("disabled","disabled");
+            $(this).prop("disabled",true);
+            $(this).removeClass("btn-success");
+            $(this).addClass("btn-danger");
         }
     });
 }

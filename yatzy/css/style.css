@@ -1,50 +1,66 @@
+/* added to / removed from a dice when clicked*/
+.selectedDice{
+    margin-left: 20px;
+    width: 100px;
+}
+/* inserted and displayed when a dice is clicked */
+#diceResult div span{
+    margin-top: 15px;
+    width: 0; height: 0px;
+    border-top: 10px solid transparent;
+    border-left: 20px solid #5cb85c;
+    border-bottom: 10px solid transparent;
+    float:left;
+}
+/* the dices that are showed as roll result*/
 #diceResult{
+    margin-left: -5px;
+    height: 260px;
+}
+/* diceresults, roll button and animation */
+#dices{
     margin-top:10px;
 }
 #start{
     margin-left: 35px;
+}
+/* dice results show after a roll */
+div[name="d1"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -3px  0;
+cursor: pointer;
+}
+div[name="d2"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -66px 0;
+}
+div[name="d3"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -129px 0;
+}
+div[name="d4"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -3px 66px;
+}
+div[name="d5"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -66px 66px;
+}
+div[name="d6"] img{
+width: 50px;
+height: 50px;
+background: url('../dice.png') -129px 66px;
 }
 .largefont{
     font-size: 150%;
 }
 .mediumfont{
     font-size: 125%;
-}
-a[name="d1"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') 0px  0;
-}
-a[name="d2"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') -62px 0;
-}
-a[name="d3"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') -125px 0;
-}
-a[name="d4"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') 0px 66px;
-}
-a[name="d5"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') -62px 66px;
-}
-a[name="d6"] img{
-    width: 54px;
-    height: 50px;
-    background: url('../dice.png') -126px 66px;
-}
-.dices{
-    position: relative;
-    max-width: 70px;
-    float:left;
-    border: dotted 1px red;
 }
 /* dice animation */
 @keyframes spin {
