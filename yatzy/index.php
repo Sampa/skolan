@@ -45,12 +45,12 @@ $players = $_SESSION['players'];
 				<div id="diceResult" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-1">
 				</div>
 				<div id="diceTemplate" class="hidden">
-					<div href="#" name="d1" class="rolledDice"><img src="img_trans.gif" /></div>
-					<div href="#" name="d2" class="rolledDice"><img src="img_trans.gif" /></div>
-					<div href="#" name="d3" class="rolledDice"><img src="img_trans.gif" /></div>
-					<div href="#" name="d4" class="rolledDice"><img src="img_trans.gif" /></div>
-					<div href="#" name="d5" class="rolledDice"><img src="img_trans.gif" /></div>
-					<div href="#" name="d6" class="rolledDice"><img src="img_trans.gif" /></div>
+					<div href="#" name="d1" ><img src="img_trans.gif" alt=""/></div>
+					<div href="#" name="d2" ><img src="img_trans.gif" alt=""/></div>
+					<div href="#" name="d3" ><img src="img_trans.gif" alt=""/></div>
+					<div href="#" name="d4" ><img src="img_trans.gif" alt=""/></div>
+					<div href="#" name="d5" ><img src="img_trans.gif" alt=""/></div>
+					<div href="#" name="d6" ><img src="img_trans.gif" alt=""/></div>
 				</div>
 				<div id="wrapper">
 					<input id="secondroll" name="roll" type="checkbox"/>

@@ -16,6 +16,7 @@
 #diceResult{
     margin-left: -5px;
     height: 260px;
+    cursor: pointer;
 }
 /* diceresults, roll button and animation */
 #dices{

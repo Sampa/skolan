@@ -1,19 +1,44 @@
+var dices = new Object();
+dices ={
+    0:false,
+    1:false,
+    2:false,
+    3:false,
+    4:false
+};
+var diceElements = [];
+var diceResults = [];
 //get a random number without decimals
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min +1 ) + min);
 }
 //Generates a random number between 1-6 for each dice and sends them to the server for calculations
-function generateResult(){
+function rollDices(){
     $("#roll").prop("checked", false);
-    var element,roll, result = new Object(),target = $("#diceResult");
-    target.html("");
+    var diceValues,target = $("#diceResult");
     for(i=0;i<5;i++){
-        result[i] = randomNumber(1,6);
-        //clone the template element with the right dice image
-        element = $("#diceTemplate").find("[name='d"+result[i]+"']").clone();
-        element.appendTo(target);
+        diceValues = getCorrectDiceValues(i);
     };
-    sendToServer(result,showScoreOptions);
+    target.html("");//empty the div with the dices
+    $.each(diceElements,function(key,element){
+        target.append(element); //add/display the elements from our merged array
+    });
+    //send the result to the server
+    sendToServer(diceResults,showScoreOptions);
+}
+function getCorrectDiceValues(dicePosition){
+    var element;
+    if(!dices[dicePosition]) { //first roll or the dice isn't selected
+        diceResults[dicePosition] = randomNumber(1, 6);
+        //find the element with the correct backgroundimage
+        element = $("#diceTemplate").find("[name='d" + diceResults[dicePosition] + "']").clone();
+        element.attr("data-dicePosition", dicePosition); //give the cloned copy a dicePosition value (can be 0-4)
+        diceElements[dicePosition] = element; //save the copied element so it can be inserted later
+    }else{//it must be the second or third roll and the element is selected so we fetch its dicePosition
+        element = $('[data-dicePosition="'+dicePosition+'"]');
+        diceResults[dicePosition] = element.attr("name").substring(1); //add the value to the result list again
+        diceElements[dicePosition] = element; //save the selected dice element so it can be inserted later
+    }
 }
 //data passed to the server and on success we show the user his/hers options
 function sendToServer(result,callback){
@@ -43,6 +68,7 @@ function showScoreOptions(data){
 }
 
 //after the user confirms his pick among the scoring options, set the correct score and restore the other options
+//if element is not passed it only clear all fields (used on second or third roll)
 function setScore(element){
     $.each($(".clickable"),function(key,value){
         var start =$("#start"),obj = $(value);
@@ -91,26 +117,24 @@ function setResult(user){
     $("#result"+user).html(topScore+result);
 }
 window.onload = function() {
-    var dices = new Object();
-    dices ={
-        1:false,
-        2:false,
-        3:false,
-        4:false,
-        5:false
-    };
+    //clicking a dice after making a roll
     $("#diceResult").on("click","div",function(){
-       //var dice = $(this).attr("name").substring(1);
         var element = $(this);
+        //var dice = $(this).attr("name").substring(1);
+        var pos = element.attr("data-position");
         //reverse selected status
         element.prop("selected",!element.prop("selected"));
         if(element.prop("selected")){
+            dices[pos] = true;
             element.addClass("selectedDice");
             element.prepend('<span></span>');
         }else{
-            //element.removeClass("selectedDice");
+            dices[pos] = false;
+            element.removeClass("selectedDice");
+            element.find("span").remove();
         }
     });
+    //pressing a scoring option td
     $("tr").on("click",".clickable",function(){
         var element = $(this);
         $.confirm({
@@ -131,12 +155,13 @@ window.onload = function() {
             dialogClass: "modal-dialog modal-sm"
         });
     });
+    //dont need "live element" selector
     $("#start").on("click",function(){
-        //reset unused fields
+        //reset unused fields because we are doing a new roll
         setScore();
         //start animation and then generate results
         $("#roll").prop("checked", true);
-        setTimeout(generateResult,1000);
+        setTimeout(rollDices,1000);
         //find span element inside the button and then its contents as int
         var element = $(this).find("span");
         var number = parseInt(element.html()) +1;
