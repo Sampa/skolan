@@ -1,3 +1,4 @@
+var scoreOptionClass =".clickable";
 var dices = new Object();
 dices ={
     0:false,
@@ -15,9 +16,9 @@ function randomNumber(min, max) {
 //Generates a random number between 1-6 for each dice and sends them to the server for calculations
 function rollDices(){
     $("#roll").prop("checked", false);
-    var diceValues,target = $("#diceResult");
+    var target = $("#diceResult");
     for(i=0;i<5;i++){
-        diceValues = getCorrectDiceValues(i);
+        getCorrectDiceValues(i);
     };
     target.html("");//empty the div with the dices
     $.each(diceElements,function(key,element){
@@ -32,13 +33,14 @@ function getCorrectDiceValues(dicePosition){
         diceResults[dicePosition] = randomNumber(1, 6);
         //find the element with the correct backgroundimage
         element = $("#diceTemplate").find("[name='d" + diceResults[dicePosition] + "']").clone();
-        element.attr("data-dicePosition", dicePosition); //give the cloned copy a dicePosition value (can be 0-4)
+        element.attr("data-position", dicePosition); //give the cloned copy a dicePosition value (can be 0-4)
         diceElements[dicePosition] = element; //save the copied element so it can be inserted later
     }else{//it must be the second or third roll and the element is selected so we fetch its dicePosition
-        element = $('[data-dicePosition="'+dicePosition+'"]');
+        element = $('[data-position="'+dicePosition+'"]');
         diceResults[dicePosition] = element.attr("name").substring(1); //add the value to the result list again
         diceElements[dicePosition] = element; //save the selected dice element so it can be inserted later
     }
+    //console.log(dices);
 }
 //data passed to the server and on success we show the user his/hers options
 function sendToServer(result,callback){
@@ -69,20 +71,30 @@ function showScoreOptions(data){
 
 //after the user confirms his pick among the scoring options, set the correct score and restore the other options
 //if element is not passed it only clear all fields (used on second or third roll)
-function setScore(element){
-    $.each($(".clickable"),function(key,value){
-        var start =$("#start"),obj = $(value);
+function setRowScore(element){
+    $.each($(scoreOptionClass),function(key,value){
+        var obj = $(value);
         obj.removeClass("bg-primary clickable");
         if (obj.is(element)){
-            obj.attr("data-score",obj.html());
-            obj.addClass("bg-success");
+            obj.addClass("bg-success").attr("data-score",obj.html());
         } else {
-            obj.html("");
-            start.prop("disabled",false);
-            start.removeClass("btn-danger");
-            start.addClass("btn-success");
+            obj.empty();
         }
     });
+    $("#diceResult").empty();
+    //restore startbutton
+    resetStartButton();
+}
+function clearRowFields(){
+    $.each($(scoreOptionClass),function(key,value) {
+        $(value).removeClass("bg-primary clickable").empty();
+    });
+}
+function resetStartButton(){
+    var start = $("#start");
+    start.prop("disabled", false);
+    start.removeClass("btn-danger");
+    start.addClass("btn-success");
 }
 //calculates the total for the top half (1-6)
 function setTopTotal(user){
@@ -104,14 +116,13 @@ function setBonus(topTotal,user){
     }
 }
 //Sets the bottom result (toptotal+bonus+bottom half)
-function setResult(user){
-    var topTotal = parseInt($("#total"+user).html()), bonus = parseInt($("#bonus" + user).html());
-    var topScore = topTotal + bonus;
+function setTotal(user){
+    var topScore = parseInt($("#total"+user).html()) + parseInt($("#bonus" + user).html());
     var number, result = 0, elements = $("[id^='bottom'][id$='"+user+"']");
     $.each(elements, function(key,value){
-        number = $(value).html();
-        if(parseInt(number) >=0) {
-            result = result + parseInt(number);
+        number = parseInt($(value).html());
+        if(number >=0) {
+            result = result + number;
         }
     });
     $("#result"+user).html(topScore+result);
@@ -126,12 +137,10 @@ window.onload = function() {
         element.prop("selected",!element.prop("selected"));
         if(element.prop("selected")){
             dices[pos] = true;
-            element.addClass("selectedDice");
-            element.prepend('<span></span>');
+            element.addClass("selectedDice").prepend('<span></span>');
         }else{
             dices[pos] = false;
-            element.removeClass("selectedDice");
-            element.find("span").remove();
+            element.removeClass("selectedDice").find("span").remove();
         }
     });
     //pressing a scoring option td
@@ -142,10 +151,10 @@ window.onload = function() {
             title: "Confirm choice",
             confirm: function(button) {
                 //sets score for element and resets unused fields and allow new throws
-                setScore(element);
+                setRowScore(element);
                 $("#start span").html("0");
                 setTopTotal("Adam");
-                setResult("Adam");
+                setTotal("Adam");
             },
             confirmButton: "Yes I am",
             cancelButton: "No",
@@ -158,7 +167,7 @@ window.onload = function() {
     //dont need "live element" selector
     $("#start").on("click",function(){
         //reset unused fields because we are doing a new roll
-        setScore();
+        clearRowFields();
         //start animation and then generate results
         $("#roll").prop("checked", true);
         setTimeout(rollDices,1000);
@@ -169,9 +178,9 @@ window.onload = function() {
         element.html(number);
         //if we reached our maximum number of throws prohibit more
         if(number > 2){
-            $(this).prop("disabled",true);
-            $(this).removeClass("btn-success");
-            $(this).addClass("btn-danger");
+            $(this).prop("disabled",true).removeClass("btn-success").addClass("btn-danger");
         }
     });
 }
+
+

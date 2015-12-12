@@ -71,7 +71,7 @@
     </tr>
     <!-- Endscore -->
     <tr class="mediumfont">
-        <td class="bg-info">Result</td>
+        <td class="bg-info">End score</td>
         <?php foreach($players as $player){ echo '<td id="result'.$player.'" class="bg-info"></td>'; }?>
     </tr>
 </table>
