@@ -61,21 +61,46 @@ function house($pairs,$results){
     }
     return $results;
 }
+/* returns the current user */
+function getUser(){
+    return array_values($_SESSION['players'])[$_SESSION['turn']]; //pass the correct playername
+}
 /* A request is sent from the client after each throw*/
-$data = $_POST["data"];
-//$data = array(1,1,2,2,2);
-if(isset($data)) {
-    $numbers = array_count_values($data); // frequency of each number (1-6)
+$dices = $_POST["dices"];
+//$dices = array(1,1,2,2,2);
+if(isset($dices)) {
+    $numbers = array_count_values($dices); // frequency of each number (1-6)
     $results = []; //gets filled with the possible scoring options
-    $results["chance"] = array_sum($data); //chance is always possible
+    $results["chance"] = array_sum($dices); //chance is always possible
     $results = setTopPoints($numbers,$results); //calculates the points for each number (1-6)
-    if (!has_duplicates($data)) { //no doubles, might be a straight
-        $results = littleStraight($data,$results);
-        $results = bigStraight($data,$results);
+    if (!has_duplicates($dices)) { //no doubles, might be a straight
+        $results = littleStraight($dices,$results);
+        $results = bigStraight($dices,$results);
     }else{ //must be atleast one pair
         $results = yatzy($numbers,$results);
         $results = pairs($numbers,$results); //pair,2pairs,three/four of a kind
     }
-    $results['user'] = $_SESSION['players'][0]; //pass the correct playername
+    $results['user'] = getUser();
     echo json_encode($results);
+}
+/*
+ * updates whos turn it is
+ */
+if(isset($_POST['turn'])){
+    if($_SESSION['turn'] <  1){
+        $_SESSION['turn'] = $_SESSION['turn']+1;
+    }else{
+        $_SESSION['turn']=0;
+    }
+    echo json_encode(array());
+}
+/*
+ * Take care of the playernames form
+ */
+if(isset($_POST["playerNames"])) {
+    foreach($_POST['playerNames'] as $key=>$values) {
+        $_SESSION['players'][$values['name']] = $values['value'];
+    }
+    $_SESSION['turn'] = 0;
+    echo json_encode($_SESSION['players']);
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['players']  = array("Adam","Martin");
+//$_SESSION['players']  = array("Adam","Martin");
 $players = $_SESSION['players'];
 ?>
 <!DOCTYPE html>
@@ -20,23 +20,34 @@ $players = $_SESSION['players'];
 </head>
 <body>
 <!-- Modal for usernames -->
-	<div class="modal fade" tabindex="-1" role="dialog">
+	<div id="modal" class="modal fade" tabindex="-1" role="dialog">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Choose your player name</h4>
+					<h4 class="modal-title">Choose player names</h4>
 				</div>
-				<div class="modal-body">
-					<label for="name">Playername</label>
-					<input type="text" title="name" value="My name..."/>
+				<div class="modal-body" style="min-height: 200px;">
+					<form id="playerNames" name="playerNames">
+						<div class="form-group col-md-8" >
+							<label for="player" class="control-label">Player 1</label>
+
+							<input type="text" class="form-control" name="player1"/>
+						</div>
+						<div class="form-group col-md-8">
+							<label for="player2" class="control-label">Player 2</label>
+							<input type="text" class="form-control" name="player2"/>
+						</div>
+					</form>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-primary">I'm ready!</button>
+					<button id="setPlayerNames" class="btn btn-primary">I'm ready!</button>
 				</div>
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
+
+	<!-- visible content -->
 	<div class="container-fluid">
 		<div class="row">
 			<!-- tärningarna-->

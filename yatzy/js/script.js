@@ -1,5 +1,5 @@
 var scoreOptionClass =".clickable",dices = new Object(),
-    diceElements = [],diceResults = [];
+    diceElements = [],diceResults = [],diceResultDiv = "#diceResult",user;
 dices ={
     0:false,
     1:false,
@@ -7,8 +7,57 @@ dices ={
     3:false,
     4:false
 };
-var diceResultDiv = "#diceResult";
+function setPlayerNames(data){
+    var currentRow,nameCell,currentCell,i= 1,
+        table = document.getElementById("scoreboard"),
+        row = table.rows.item(0);
+    var fields=[
+        'topTotal','bonus','bottompair','bottomtwopairs','bottomtoak','bottomfoak',
+        'bottomlittle','bottombig','bottomhouse','bottomchance','bottomyatzy','result'
+        ];
+    $.each(data,function(key,player){
+        nameCell = row.insertCell(i);
+        nameCell.innerHTML = player;
+        for(var r=1;r<=6;r++){
+            currentRow= table.rows.item(r);
+            currentCell = currentRow.insertCell(i);
+            currentCell.setAttribute("id","top"+r+player);
+            currentCell.setAttribute("data-user",player);
+        }
+        for(var r= 0; r<fields.length;r++){
+            currentRow = table.rows.item(r+7);
+            currentCell = currentRow.insertCell(i);
+            currentCell.setAttribute("id",fields[r]+player);
+            currentCell.setAttribute("data-user",player);
+            //toptotal/bonus/endresult
+            if(r == 0|| r== 1 || r ==fields.length-1){
+                currentCell.innerHTML = 0;
+            }
+        }
+        i++;
+    });
+    $("#modal").modal("hide");
+}
 window.onload = function() {
+    /*
+        Js related to modal for playernames
+     */
+    //display modal and focus on first input
+    $("#modal").modal();
+    $('#modal').on('shown.bs.modal', function () {
+        $('[name="player1"]').focus();
+    });
+    $("#modal").on("click","#setPlayerNames",function(){
+        $("#playerNames").submit();
+    });
+    $("#playerNames").submit(function(event){
+        event.preventDefault();
+        sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
+    });
+
+    /*
+        Various click triggers
+     */
     //clicking a dice after making a roll
     $(diceResultDiv).on("click","div",function(){
         var element = $(this);
@@ -26,13 +75,15 @@ window.onload = function() {
     //pressing a scoring option td
     $("tr").on("click",".clickable",function(){
         var element = $(this);
+        user = element.attr("data-user");
+        //user = $("thead").find("td[data-user='"+name+"']");
         $.confirm({
             text: "Are you sure?",
             title: "Confirm choice",
             confirm: function(button) {
                 //sets score for element and resets unused fields and allow new throws
                 setRowScore(element);
-                setTotals("Adam");
+                setTotals(user);
             },
             confirmButton: "Yes I am",
             cancelButton: "No, I want to repick",
@@ -76,7 +127,7 @@ function rollDices(){
         diceResultDiv.append(element); //add/display the elements from our merged array
     });
     //send the result to the server
-    sendToServer(diceResults,showScoreOptions);
+    sendToServer({"dices":diceResults},showScoreOptions);
 }
 //keeps the users selected dices and rolls new values for the others
 function getCorrectDiceValues(dicePosition){
@@ -89,19 +140,23 @@ function getCorrectDiceValues(dicePosition){
         diceElements[dicePosition] = element; //save the copied element so it can be inserted later
     }else{//it must be the second or third roll and the element is selected so we fetch its dicePosition
         element = $('[data-position="'+dicePosition+'"]');
-        console.log(element);
         diceResults[dicePosition] = element.attr("name").substring(1); //add the value to the result list again
         diceElements[dicePosition] = element; //save the selected dice element so it can be inserted later
     }
 }
-//data passed to the server and on success we show the user his/hers options
-function sendToServer(result,callback){
+//passes data to the server as $_POST[postname] and calls the function callback on success
+function sendToServer(data,callback){
     $.ajax({
         type: "POST",
         url: "server.php",
-        data: {"data":result},
+        data: data,
         success: function (data){
-            callback(data);
+            if(callback !=undefined) {
+                callback(data);
+            }
+        },
+        error: function(data){
+            console.log("error"+data);
         },
         dataType: "json"
     });
@@ -145,20 +200,22 @@ function newTurn(){
         dices[i] = false;
     }
     resetStartButton();
+    sendToServer({turn:""})
 }
 function resetStartButton(){
     $("#start").prop("disabled", false).removeClass("btn-danger").addClass("btn-success").find("span").html("0");
 }
 //calculates the total for the top half (1-6)
 function setTopTotal(user){
-    var total = 0,number,elements = $("[id^='top']");
+    var topTotal = 0,number=0,elements = $("[id^=top][id$="+user+"]");
+    $("#topTotal"+user).html("");
     $.each(elements,function(key,value){
-        number = parseInt($(this).html());
+        number = $(this).attr("data-score");
         if(!isNaN(number))
-            total = total + number;
+            topTotal = parseInt(topTotal) + parseInt(number);
     });
-    $("#total"+user).html(total);
-    setBonus(total,user);
+    $("#topTotal"+user).html(topTotal);
+    setBonus(topTotal,user);
 }
 //when the toptotal is 63 or more, this adds the 50 bonus points
 function setBonus(topTotal,user){
@@ -168,15 +225,16 @@ function setBonus(topTotal,user){
 }
 //Sets the bottom result (toptotal+bonus+bottom half)
 function setTotal(user){
-    var topScore = parseInt($("#total"+user).html()) + parseInt($("#bonus" + user).html());
-    var number, result = 0, elements = $("[id^='bottom'][id$='"+user+"']");
+    var topScore = parseInt($("#topTotal"+user).html()) + parseInt($("#bonus" + user).html());
+    var number=0, result = 0, elements = $("[id^=bottom][id$="+user+"]");
+    $("#result"+user).html("");//topScore+result);
     $.each(elements, function(key,value){
-        number = parseInt($(value).html());
-        if(number >=0) {
-            result = result + number;
+        number = $(this).attr("data-score");
+        if(!isNaN(number) && number > 0) {
+            result = parseInt(result) + parseInt(number);;
         }
     });
-    $("#result"+user).html(topScore+result);
+    $("#result"+user).html(topScore+result);//topScore+result);
 }
 function setTotals(user){
     setTopTotal(user);
