@@ -87,7 +87,7 @@ if(isset($dices)) {
  * updates whos turn it is
  */
 if(isset($_POST['turn'])){
-    if($_SESSION['turn'] <  1){
+    if($_SESSION['turn'] <  count($_SESSION['players'])-1){
         $_SESSION['turn'] = $_SESSION['turn']+1;
     }else{
         $_SESSION['turn']=0;

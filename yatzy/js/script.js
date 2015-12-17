@@ -87,7 +87,7 @@ window.onload = function() {
         element.html(number);
         //if we reached our maximum number of throws prohibit more
         if(number > 2){
-            $("#start").prop("disabled",true).removeClass("btn-success").addClass("btn-danger");
+            $("#start").removeClass("alert-success").addClass("alert-danger");
         }
     });
 }
@@ -188,7 +188,7 @@ function newTurn(){
     sendToServer({turn:""})
 }
 function resetStartButton(){
-    $("#start").prop("disabled", false).removeClass("btn-danger").addClass("btn-success").find("span").html("0");
+    $("#start").removeClass("alert-danger").addClass("alert-success").find("span").html("0");
 }
 //calculates the total for the top half (1-6)
 function setTopTotal(user){

@@ -1,3 +1,6 @@
+.clickable{
+    cursor: pointer;
+}
 /* added to / removed from a dice when clicked*/
 .selectedDice{
     margin-left: 20px;
