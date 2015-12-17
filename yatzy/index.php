@@ -1,8 +1,3 @@
-<?php
-session_start();
-//$_SESSION['players']  = array("Adam","Martin");
-$players = $_SESSION['players'];
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,42 +14,14 @@ $players = $_SESSION['players'];
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!-- Modal for usernames -->
-	<div id="modal" class="modal fade" tabindex="-1" role="dialog">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Choose player names</h4>
-				</div>
-				<div class="modal-body" style="min-height: 200px;">
-					<form id="playerNames" name="playerNames">
-						<div class="form-group col-md-8" >
-							<label for="player" class="control-label">Player 1</label>
-
-							<input type="text" class="form-control" name="player1"/>
-						</div>
-						<div class="form-group col-md-8">
-							<label for="player2" class="control-label">Player 2</label>
-							<input type="text" class="form-control" name="player2"/>
-						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
-					<button id="setPlayerNames" class="btn btn-primary">I'm ready!</button>
-				</div>
-			</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
-
+<?php include_once("playerform.html");?>
 	<!-- visible content -->
 	<div class="container-fluid">
 		<div class="row">
 			<!-- tärningarna-->
 			<div id="dices" class="row col-md-2">
-				<button id="start" class="pull-left btn-lg btn-success">Roll <span>0</span>/3</button>
-				<div id="diceResult" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-1">
-				</div>
+				<div id="start" class="alert alert-success  pull-left largefont"><span>0</span>/3</div>
+				<div id="diceResult" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-2"></div>
 				<div id="diceTemplate" class="hidden">
 					<div href="#" name="d1" ><img src="img_trans.gif" alt=""/></div>
 					<div href="#" name="d2" ><img src="img_trans.gif" alt=""/></div>
@@ -71,10 +38,33 @@ $players = $_SESSION['players'];
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4" style="border: 0px solid red;">
+			<div class="col-md-5 col-lg-5 col-sm-5">
+				<h2>Leaderboard</h2>
 				<?php include_once("scoreboard.php");?>
 			</div>
-		</div>
+			<div class="col-md-2 col-lg-2 col-sm-2">
+				<h2>Toplist</h2>
+				<table id="leaderboard" class="table table-hover table-striped table-bordered">
+					<thead>
+					<!-- Player names -->
+					<tr class="largefont">
+						<td class="col-md-2 col-xs-2 col-lg-2"> Score </td>
+						<td>Playername</td>
+					</tr>
+
+					</thead>
+					<!-- Top 10 list -->
+					<?php for($i=1;$i<11;$i++){?>
+						<tr>
+							<td ><?=$i;?></td>
+							<td ></td>
+						</tr>
+					<?php }?>
+				</table>
+			</div>
+			<div class="col-md-3 col-lg-3 col-sm-3">
+				 <h2>Instructions</h2>
+			</div>
 	</div>
 </body>
 </html>

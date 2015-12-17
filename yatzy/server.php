@@ -98,9 +98,14 @@ if(isset($_POST['turn'])){
  * Take care of the playernames form
  */
 if(isset($_POST["playerNames"])) {
+    $_SESSION['players'] =[];
     foreach($_POST['playerNames'] as $key=>$values) {
-        $_SESSION['players'][$values['name']] = $values['value'];
+        if(strlen($values['value']) > 0)
+            $_SESSION['players'][$values['name']] = $values['value'];
     }
     $_SESSION['turn'] = 0;
-    echo json_encode($_SESSION['players']);
+    if(has_duplicates($_SESSION['players']))
+        echo json_encode(array("status"=>"dublicate"));
+    else
+        echo json_encode($_SESSION['players']);
 }

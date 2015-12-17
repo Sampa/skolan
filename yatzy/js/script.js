@@ -7,45 +7,15 @@ dices ={
     3:false,
     4:false
 };
-function setPlayerNames(data){
-    var currentRow,nameCell,currentCell,i= 1,
-        table = document.getElementById("scoreboard"),
-        row = table.rows.item(0);
-    var fields=[
-        'topTotal','bonus','bottompair','bottomtwopairs','bottomtoak','bottomfoak',
-        'bottomlittle','bottombig','bottomhouse','bottomchance','bottomyatzy','result'
-        ];
-    $.each(data,function(key,player){
-        nameCell = row.insertCell(i);
-        nameCell.innerHTML = player;
-        for(var r=1;r<=6;r++){
-            currentRow= table.rows.item(r);
-            currentCell = currentRow.insertCell(i);
-            currentCell.setAttribute("id","top"+r+player);
-            currentCell.setAttribute("data-user",player);
-        }
-        for(var r= 0; r<fields.length;r++){
-            currentRow = table.rows.item(r+7);
-            currentCell = currentRow.insertCell(i);
-            currentCell.setAttribute("id",fields[r]+player);
-            currentCell.setAttribute("data-user",player);
-            //toptotal/bonus/endresult
-            if(r == 0|| r== 1 || r ==fields.length-1){
-                currentCell.innerHTML = 0;
-            }
-        }
-        i++;
-    });
-    $("#modal").modal("hide");
-}
 window.onload = function() {
+
     /*
         Js related to modal for playernames
      */
     //display modal and focus on first input
     $("#modal").modal();
     $('#modal').on('shown.bs.modal', function () {
-        $('[name="player1"]').focus();
+        $('[name="setplayer1"]').focus();
     });
     $("#modal").on("click","#setPlayerNames",function(){
         $("#playerNames").submit();
@@ -54,7 +24,17 @@ window.onload = function() {
         event.preventDefault();
         sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
     });
-
+    //controls which inputfields that should be active
+    $("[name^='setplayer']").keydown(function(event){
+       var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
+        next = 1+playerNumber;
+        nextElement = $("[name='setplayer"+next+"']");
+        if($("[name='setplayer"+playerNumber+"']").val().length > 0){
+           nextElement.prop("disabled",false);
+       }else{
+           nextElement.prop("disabled",true);
+       }
+    });
     /*
         Various click triggers
      */
@@ -94,20 +74,20 @@ window.onload = function() {
         });
     });
     //dont need "live element" selector
-    $("#start").on("click",function(){
+    $(".dice").on("click",function(){
         //reset unused fields because we are doing a new roll
         clearRowFields();
         //start animation and then generate results
         $("#roll").prop("checked", true);
         setTimeout(rollDices,1000);
         //find span element inside the button and then its contents as int
-        var element = $(this).find("span");
+        var element = $("#start").find("span");
         var number = parseInt(element.html()) +1;
         //replace with the new count of rolls
         element.html(number);
         //if we reached our maximum number of throws prohibit more
         if(number > 2){
-            $(this).prop("disabled",true).removeClass("btn-success").addClass("btn-danger");
+            $("#start").prop("disabled",true).removeClass("btn-success").addClass("btn-danger");
         }
     });
 }
@@ -195,6 +175,11 @@ function clearRowFields(){
     });
 }
 function newTurn(){
+    var turns = $(".bg-success");
+    var players = $("#scoreboard thead tr td").length;
+    if(turns.length == 15 *( players-1)){
+        alert("game over");
+    };
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
         dices[i] = false;
@@ -239,4 +224,35 @@ function setTotal(user){
 function setTotals(user){
     setTopTotal(user);
     setTotal(user);
+}
+function setPlayerNames(data){
+    //if dublicate usernames
+    if(data.status=="dublicate"){
+        $(".modal-header").append("<h4 class='text-danger'>").find("h4").html("Names must be unique");
+        return;
+    }
+    var currentRow,nameCell,currentCell,i= 1,
+        table = document.getElementById("scoreboard"),
+        row = table.rows.item(0);
+    var fields=["top1","top2","top3","top4","top5","top6",
+        'topTotal','bonus','bottompair','bottomtwopairs','bottomtoak','bottomfoak',
+        'bottomlittle','bottombig','bottomhouse','bottomchance','bottomyatzy','result'
+    ];
+    //create scoreboard
+    $.each(data,function(key,player){
+        nameCell = row.insertCell(i);
+        nameCell.innerHTML = player;
+        for(var r= 0; r<fields.length;r++){
+            currentRow = table.rows.item(r+1);
+            currentCell = currentRow.insertCell(i);
+            currentCell.setAttribute("id",fields[r]+player);
+            currentCell.setAttribute("data-user",player);
+            //toptotal/bonus/endresult
+            if(r == 6|| r== 7 || r ==fields.length-1){
+                currentCell.innerHTML = 0;
+            }
+        }
+        i++;
+    });
+    $("#modal").modal("hide");
 }

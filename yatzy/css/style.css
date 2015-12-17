@@ -24,6 +24,7 @@
 }
 #start{
     margin-left: 35px;
+    margin-right: 35px;
 }
 /* dice results show after a roll */
 div[name="d1"] img{
@@ -134,6 +135,7 @@ background: url('../dice.png') -129px 66px;
     margin-top: 25px;
     transform-style: preserve-3d;
     animation: spin 50s infinite linear;
+    cursor: pointer;
 }
 .side {
     position: absolute;
