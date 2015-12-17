@@ -87,12 +87,14 @@ if(isset($dices)) {
  * updates whos turn it is
  */
 if(isset($_POST['turn'])){
-    if($_SESSION['turn'] <  count($_SESSION['players'])-1){
-        $_SESSION['turn'] = $_SESSION['turn']+1;
-    }else{
-        $_SESSION['turn']=0;
-    }
-    echo json_encode(array());
+    $_SESSION['totalTurns'] = $_SESSION['totalTurns']+1;
+    //next players turn (playernumber+1)  or if current player is the last player start from the beginning
+    $_SESSION['turn'] = $_SESSION['turn'] <  count($_SESSION['players'])-1 ? $_SESSION['turn']+1 : 0;
+    $status["gameOver"] = false;
+    //each player has 15 turns totally
+    if($_SESSION['totalTurns'] == count($_SESSION['players'])*15)
+        $status = array("gameOver"=>true);
+    echo json_encode($status);
 }
 /*
  * Take care of the playernames form
@@ -104,8 +106,12 @@ if(isset($_POST["playerNames"])) {
             $_SESSION['players'][$values['name']] = $values['value'];
     }
     $_SESSION['turn'] = 0;
-    if(has_duplicates($_SESSION['players']))
-        echo json_encode(array("status"=>"dublicate"));
-    else
+    $_SESSION['totalTurns'] =0;
+    if(has_duplicates($_SESSION['players'])) {
+        echo json_encode(array("status" => "dublicate"));
+    }elseif(count($_SESSION['players'])==0){
+        echo json_encode(array("status"=>"empty"));
+    }else {
         echo json_encode($_SESSION['players']);
+    }
 }

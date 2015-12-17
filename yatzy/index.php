@@ -69,9 +69,9 @@
 				</table>
 			</div>
 			<div class="col-md-3 col-lg-3 col-sm-3 ">
-				 <h2>Information</h2>
-				<div class="text-info mediumfont">
-					<ul>
+				<h2>Information</h2
+				<div >
+					<ul class="text-info mediumfont">
 						<li>Press the spinning dices to throw</li>
 						<li>Each player have 3 throws per turn</li>
 						<li>The toplist shows the best scores of all time</li>

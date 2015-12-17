@@ -8,12 +8,13 @@ dices ={
     4:false
 };
 window.onload = function() {
-
     /*
         Js related to modal for playernames
      */
     //display modal and focus on first input
     $("#modal").modal();
+    $('#modal').on('hide.bs.modal', function (event) {
+    });
     $('#modal').on('shown.bs.modal', function () {
         $('[name="setplayer1"]').focus();
     });
@@ -148,11 +149,12 @@ function showScoreOptions(data){
         if(value && value !="user") {
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top");
             element = $("[id='" + prefix + key + data.user+"']");
-            if (!element.attr("data-score")) {
+            if (!element.attr("data-score")){
                 element.addClass("bg-primary clickable").html(value);
             }
         }
     });
+
 }
 
 //after the user confirms his pick among the scoring options, set the correct score and restore the other options
@@ -174,18 +176,29 @@ function clearRowFields(){
         $(value).removeClass("bg-primary clickable").empty();
     });
 }
+/*
+   Runs before each turn
+   unselect all dices, resets throw count, sets turn to next player
+*/
 function newTurn(){
-    var turns = $(".bg-success");
-    var players = $("#scoreboard thead tr td").length;
-    if(turns.length == 15 *( players-1)){
-        alert("game over");
-    };
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
         dices[i] = false;
     }
     resetStartButton();
-    sendToServer({turn:""})
+    //next turn and see if its end of game
+    sendToServer({turn:""},endgame);
+}
+function endgame(data){
+    if(data.gameOver)
+        alert("game over");
+    var turns = $(".bg-success");
+    //-1 because we there is no player in the first column
+    var players = $("#scoreboard thead tr td").length - 1;
+//each player has 15 turns
+    if(turns.length == 1 *( players)){
+        //alert("game over");
+    }
 }
 function resetStartButton(){
     $("#start").removeClass("alert-danger").addClass("alert-success").find("span").html("0");
@@ -228,31 +241,38 @@ function setTotals(user){
 function setPlayerNames(data){
     //if dublicate usernames
     if(data.status=="dublicate"){
-        $(".modal-header").append("<h4 class='text-danger'>").find("h4").html("Names must be unique");
+        $(".modal-header").append("<h4 class='text-danger notunique'>").find(".notunique").html("Names must be unique");
         return;
     }
-    var currentRow,nameCell,currentCell,i= 1,
-        table = document.getElementById("scoreboard"),
-        row = table.rows.item(0);
+    if(data.status=="empty"){
+        $(".modal-header").append("<h4 class='text-danger emptyname'>").find(".emptyname").html("Name cannot be empty");
+        return;
+    }
+    createScoreboard(data);
+    $("#modal").modal("hide");
+}
+//generates the scoreboard
+function createScoreboard(data){
+    var currentRow,nameCell,currentCell,i= 1,table = document.getElementById("scoreboard"),row = table.rows.item(0);
+    //list of fields and ther id (playername will be added so its unique)
     var fields=["top1","top2","top3","top4","top5","top6",
         'topTotal','bonus','bottompair','bottomtwopairs','bottomtoak','bottomfoak',
         'bottomlittle','bottombig','bottomhouse','bottomchance','bottomyatzy','result'
     ];
-    //create scoreboard
+    //for each player
     $.each(data,function(key,player){
         nameCell = row.insertCell(i);
         nameCell.innerHTML = player;
+        //create each field and sets it proper attributes
         for(var r= 0; r<fields.length;r++){
             currentRow = table.rows.item(r+1);
-            currentCell = currentRow.insertCell(i);
-            currentCell.setAttribute("id",fields[r]+player);
-            currentCell.setAttribute("data-user",player);
+            currentCell = $(currentRow.insertCell(i));
+            currentCell.attr("id",fields[r]+player).attr("data-user",player);
             //toptotal/bonus/endresult
             if(r == 6|| r== 7 || r ==fields.length-1){
-                currentCell.innerHTML = 0;
+                currentCell.html(0);
             }
         }
         i++;
     });
-    $("#modal").modal("hide");
 }
