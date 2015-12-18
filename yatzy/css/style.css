@@ -3,31 +3,39 @@
 }
 /* added to / removed from a dice when clicked*/
 .selectedDice{
-    margin-left: 20px;
-    width: 100px;
+    /*border: 1px solid black;*/
+    /*margin-left: 35px;*/
+    margin-top: 10px;
+    width: 50px;
+}
+#diceResult div{
+    float:left;
+    margin-left:3px;
 }
 /* inserted and displayed when a dice is clicked */
 #diceResult div span{
-    margin-top: 15px;
+    margin-left: -35px;
     width: 0; height: 0px;
-    border-top: 10px solid transparent;
-    border-left: 20px solid #5cb85c;
-    border-bottom: 10px solid transparent;
-    float:left;
+    border-left: 10px dashed transparent;
+    border-top: 20px inset #5cb85c;
+    border-right: 10px ridge transparent;
+    /*float:left;*/
 }
 /* the dices that are showed as roll result*/
 #diceResult{
-    margin-left: -5px;
-    height: 260px;
+    height: 60px;
     cursor: pointer;
+    position: absolute;
+    top: 3px;
+    left:205px;
 }
 /* diceresults, roll button and animation */
 #dices{
     margin-top:10px;
 }
 #start{
-    margin-left: 35px;
-    margin-right: 35px;
+    margin-left: 10px;
+    /*margin-right: 35px;*/
 }
 /* dice results show after a roll */
 div[name="d1"] img{
@@ -114,11 +122,11 @@ background: url('../dice.png') -129px 66px;
     position: absolute;
     width: 100px;
     margin-top: 0px;
-    margin-left: 30px;
+    /*margin-left: 10px;*/
     max-height: 400px;
     padding-top: 00px;
     perspective: 200px;
-    top: 50px;
+    top: 75px;
     left: 30px;
 }
 #platform {

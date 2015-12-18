@@ -43,6 +43,7 @@ window.onload = function() {
         Various click triggers
      */
     //clicking a dice after making a roll
+    //.selecteddice
     $(diceResultDiv).on("click","div",function(){
         var element = $(this);
         var pos = element.attr("data-position");
@@ -50,7 +51,7 @@ window.onload = function() {
         element.prop("selected",!element.prop("selected"));
         if(element.prop("selected")){
             dices[pos] = true;
-            element.addClass("selectedDice").prepend('<span></span>');
+            element.addClass("selectedDice").append('<span></span>');
         }else{
             dices[pos] = false;
             element.removeClass("selectedDice").find("span").remove();
@@ -104,21 +105,24 @@ function rollDices(){
     diceResultDiv = $(diceResultDiv);
     $("#roll").prop("checked", false);
     for(var i=0;i<5;i++){
-        getCorrectDiceValues(i);
+        getCorrectDiceValue(i);
     };
     diceResultDiv.html("");//empty the div with the dices
     $.each(diceElements,function(key,element){
         diceResultDiv.append(element); //add/display the elements from our merged array
     });
-    //send the result to the server
+    //send the result to the server to calculate the options
     sendToServer({"dices":diceResults},showScoreOptions);
 }
-//keeps the users selected dices and rolls new values for the others
-function getCorrectDiceValues(dicePosition){
+/**
+ * keeps the users selected dices and rolls new values for the others
+ */
+function getCorrectDiceValue(dicePosition){
     var element;
     if(!dices[dicePosition]) { //first roll or the dice isn't selected
+        //get a dice result
         diceResults[dicePosition] = randomNumber(1, 6);
-        //find the element with the correct backgroundimage
+        //find the element with the corresponding backgroundimage
         element = $("#diceTemplate").find("[name='d" + diceResults[dicePosition] + "']").clone();
         element.attr("data-position", dicePosition); //give the cloned copy a dicePosition value (can be 0-4)
         diceElements[dicePosition] = element; //save the copied element so it can be inserted later
@@ -128,7 +132,10 @@ function getCorrectDiceValues(dicePosition){
         diceElements[dicePosition] = element; //save the selected dice element so it can be inserted later
     }
 }
-//passes data to the server as $_POST[postname] and calls the function callback on success
+/**
+ * passes data (json object) to the server as $_POST[postname] and calls
+ * the function callback(optional) on success
+ */
 function sendToServer(data,callback){
     $.ajax({
         type: "POST",
@@ -145,7 +152,10 @@ function sendToServer(data,callback){
         dataType: "json"
     });
 }
-//shows the possible scoring options and what point  each would give
+/**
+ * shows the possible scoring options and what point  each would give
+ * adds classes to the element for visibily and to make other js triggers work
+ */
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
@@ -159,10 +169,11 @@ function showScoreOptions(data){
     });
 
 }
-
-//after the user confirms his pick among the scoring options, set the correct score and restore the other options
-//if element is not passed it only clear all fields (used on second or third roll)
-function setRowScore(element){
+/**
+ * after the user confirms his pick among the scoring options,
+ * set the correct score and restore the other fields
+**/
+ function setRowScore(element){
     $.each($(scoreOptionClass),function(key,value){
         var obj = $(value);
         obj.removeClass("bg-primary clickable");
@@ -172,46 +183,49 @@ function setRowScore(element){
             obj.empty();
         }
     });
-    newTurn();//reset so we can start a new turn
+    //prepare the game for a new turn (also calls endgame callback)
+    newTurn();
 }
+/**
+ * clears all fields that the player did not choose to put points on
+ */
 function clearRowFields(){
     $.each($(scoreOptionClass),function(key,value) {
         $(value).removeClass("bg-primary clickable").empty();
     });
 }
 /*
-   Runs before each turn
-   unselect all dices, resets throw count, sets turn to next player
+* Runs after each turn
+*  unselect all dices, resets throw count, sets turn to next player and see if the game has ended
 */
 function newTurn(){
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
         dices[i] = false;
     }
-    resetStartButton();
+    resetTurnCount();
     //next turn and see if its end of game
     sendToServer({turn:""},endgame);
 }
+
+/* A callback that runs after each turn
+* data is a json object from the server with a boolean telling us if the game is over
+* saves the endresult to the database and notify the players
+*/
 function endgame(data){
     if(data.gameOver){
         alert("game over");
         var resultElement,results = {};
+        //get each players endresult
         $.each($(".playername"),function(key,value){
             resultElement = $("#result"+value.innerHTML);
             results[value.innerHTML] = resultElement.html();
         });
-        console.log(results);
+        //save end result to database
         sendToServer({"saveToDB":results});
     }
-    var turns = $(".bg-success");
-    //-1 because we there is no player in the first column
-    var players = $("#scoreboard thead tr td").length - 1;
-//each player has 15 turns
-    if(turns.length == 1 *( players)){
-        //alert("game over");
-    }
 }
-function resetStartButton(){
+function resetTurnCount(){
     $("#start").removeClass("alert-danger").addClass("alert-success").find("span").html("0");
 }
 //calculates the total for the top half (1-6)
@@ -261,6 +275,7 @@ function setPlayerNames(data){
     }
     createScoreboard(data);
     $("#modal").modal("hide");
+    $("[data-target='#modal']").hide();
 }
 //generates the scoreboard
 function createScoreboard(data){

@@ -22,9 +22,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<!-- dices -->
-			<div id="dices" class="row col-md-2">
-				<div id="start" class="alert alert-success  pull-left largefont"><span>0</span>/3</div>
-				<div id="diceResult" class="col-md-3 col-sm-3 col-lg-3 col-md-offset-2"></div>
+			<div id="dices" class="row col-md-1 col-lg-1 col-sm-1">
+				<!-- Counter for throws per turn -->
+				<div id="start" class="alert alert-success largefont"><span>0</span>/3</div>
 				<!-- templates for dices showing the result uses css to display correct image-->
 				<div id="diceTemplate" class="hidden">
 					<div href="#" name="d1" ><img src="img_trans.gif" alt=""/></div>
@@ -38,39 +38,42 @@
 				<div id="wrapper">
 					<input id="secondroll" name="roll" type="checkbox"/>
 					<input id="roll" name="roll" type="checkbox"/>
+					<!-- get 5 animated dices -->
 					<div id="platform">
-						<!-- get 5 animated dices -->
 						<?php for($i=0;$i<5;$i++) {require("animation.html");}?>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5 col-lg-5 col-sm-5">
+			<div class="col-md-7 col-lg-7 col-sm-7">
 				<h2>Leaderboard</h2>
+				<!-- Target div for the result from each throw-->
+				<div id="diceResult" class=""></div>
 				<?php require_once("scoreboard.html");?>
 			</div>
-			<div class="col-md-2 col-lg-2 col-sm-2">
-				<h2>Toplist</h2>
-				<table id="leaderboard" class="table table-hover table-striped table-bordered">
-					<thead>
-					<!-- Player names -->
-					<tr class="largefont">
-						<td>Player</td>
-						<td class="col-md-2 col-xs-2 col-lg-2"> Score </td>
-					</tr>
-					</thead>
-					<!-- Top 10 list -->
-					<?php include_once("toplist.php");?>
-				</table>
-			</div>
-			<div class="col-md-3 col-lg-3 col-sm-3 ">
-				<h2>Information</h2
-				<div class="well well-sm">
+<!--			<div class="col-md-3 col-lg-3 col-sm-3">-->
+
+<!--			</div>-->
+			<div class="col-md-4 col-lg-4 col-sm-4 ">
+				<a class="" data-toggle="collapse" href="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
+					<h2>Information <span class="caret"></span></h2>
+				</a>
+				<div id="collapseInfo">
+					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal">
+						Enter player names
+					</button>
 					<ul class="text-info mediumfont">
 						<li>Press the spinning dices to throw</li>
 						<li>Each player have 3 throws per turn</li>
 						<li>The toplist shows the best scores of all time</li>
 						<li>A player needs to score atleast 63 points in the top half to get bonus</li>
 					</ul>
+				</div>
+				<a data-toggle="collapse" href="#collapseToplist" aria-expanded="false" aria-controls="collapseToplist">
+					<h2>Toplist <span class="caret"></span></h2>
+				</a>
+				<div id="collapseToplist">
+					<!-- Top 10 list -->
+					<?php include_once("toplist.php");?>
 				</div>
 			</div>
 	</div>
