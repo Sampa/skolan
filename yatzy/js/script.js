@@ -214,7 +214,6 @@ function newTurn(){
 */
 function endgame(data){
     if(data.gameOver){
-        alert("game over");
         var resultElement,results = {};
         //get each players endresult
         $.each($(".playername"),function(key,value){
@@ -223,6 +222,11 @@ function endgame(data){
         });
         //save end result to database
         sendToServer({"saveToDB":results});
+        //update toplist
+        //show endview with results and winner
+        $("#endview").modal();
+        //$("#endview").modal("show");
+
     }
 }
 function resetTurnCount(){

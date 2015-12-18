@@ -77,5 +77,6 @@
 				</div>
 			</div>
 	</div>
+	<?php include_once("endview.html");?>
 </body>
 </html>
