@@ -21,8 +21,10 @@ window.onload = function() {
     $("#modal").on("click","#setPlayerNames",function(){
         $("#playerNames").submit();
     });
+    /*submitting the player names form*/
     $("#playerNames").submit(function(event){
         event.preventDefault();
+        //save the names in a session
         sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
     });
     //controls which inputfields that should be active
@@ -30,9 +32,10 @@ window.onload = function() {
        var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
         next = 1+playerNumber;
         nextElement = $("[name='setplayer"+next+"']");
+        //if input field is not empty
         if($("[name='setplayer"+playerNumber+"']").val().length > 0){
            nextElement.prop("disabled",false);
-       }else{
+       }else{ //empty
            nextElement.prop("disabled",true);
        }
     });
@@ -53,7 +56,7 @@ window.onload = function() {
             element.removeClass("selectedDice").find("span").remove();
         }
     });
-    //pressing a scoring option td
+    //pressing a scoring option td, confirm choice
     $("tr").on("click",".clickable",function(){
         var element = $(this);
         user = element.attr("data-user");
@@ -74,7 +77,7 @@ window.onload = function() {
             dialogClass: "modal-dialog modal-sm"
         });
     });
-    //dont need "live element" selector
+    //prepares and iniates the rollincg of dices
     $(".dice").on("click",function(){
         //reset unused fields because we are doing a new roll
         clearRowFields();
@@ -190,8 +193,16 @@ function newTurn(){
     sendToServer({turn:""},endgame);
 }
 function endgame(data){
-    if(data.gameOver)
+    if(data.gameOver){
         alert("game over");
+        var resultElement,results = {};
+        $.each($(".playername"),function(key,value){
+            resultElement = $("#result"+value.innerHTML);
+            results[value.innerHTML] = resultElement.html();
+        });
+        console.log(results);
+        sendToServer({"saveToDB":results});
+    }
     var turns = $(".bg-success");
     //-1 because we there is no player in the first column
     var players = $("#scoreboard thead tr td").length - 1;
@@ -263,6 +274,7 @@ function createScoreboard(data){
     $.each(data,function(key,player){
         nameCell = row.insertCell(i);
         nameCell.innerHTML = player;
+        nameCell.setAttribute("class","playername");
         //create each field and sets it proper attributes
         for(var r= 0; r<fields.length;r++){
             currentRow = table.rows.item(r+1);

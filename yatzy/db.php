@@ -5,11 +5,11 @@ function connectDb(){
 	$servername = "localhost";
 	$username = "root";
 	$password = "root";
-	$db = "skolan";
+	$db = "yatzy";
 	$conn = new mysqli($servername, $username, $password,$db);
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	}
-	$conn->autocommit(false);
+//	$conn->autocommit(false);
 	return $conn;
 }

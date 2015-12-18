@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once("db.php");
 //makes us able to skip looking for straight unessecarly
 function has_duplicates($array) {
     return count($array) !== count(array_unique($array));
@@ -92,9 +93,29 @@ if(isset($_POST['turn'])){
     $_SESSION['turn'] = $_SESSION['turn'] <  count($_SESSION['players'])-1 ? $_SESSION['turn']+1 : 0;
     $status["gameOver"] = false;
     //each player has 15 turns totally
-    if($_SESSION['totalTurns'] == count($_SESSION['players'])*15)
-        $status = array("gameOver"=>true);
+    if($_SESSION['totalTurns'] >= count($_SESSION['players'])*1) {
+        $status = array("gameOver" => true);
+    }
     echo json_encode($status);
+}
+/*
+ * Called when game is over
+ * Connects to db and saves each player name with their endscore
+ * primarykey and timestamp is handled by db
+ */
+if(isset($_POST['saveToDB'])){
+    try {
+        $conn = connectDb();
+        foreach ($_SESSION['players'] as $key => $player) {
+            $score = $_POST['saveToDB'][$player];
+            $select = "INSERT INTO yatzy (player,score) VALUES('" . $player . "'," . $score . ")";
+            mysqli_query($conn, $select);
+        }
+        echo json_encode(array("saved" => true));
+        mysqli_close($conn);
+    }catch(Exception $error){
+        echo json_encode(array("saved"=>false,"error"=>$error->getMessage()));
+    }
 }
 /*
  * Take care of the playernames form

@@ -54,23 +54,17 @@
 					<thead>
 					<!-- Player names -->
 					<tr class="largefont">
+						<td>Player</td>
 						<td class="col-md-2 col-xs-2 col-lg-2"> Score </td>
-						<td>Playername</td>
 					</tr>
-
 					</thead>
 					<!-- Top 10 list -->
-					<?php for($i=1;$i<11;$i++){?>
-						<tr>
-							<td ><?=$i;?></td>
-							<td ></td>
-						</tr>
-					<?php }?>
+					<?php include_once("toplist.php");?>
 				</table>
 			</div>
 			<div class="col-md-3 col-lg-3 col-sm-3 ">
 				<h2>Information</h2
-				<div >
+				<div class="well well-sm">
 					<ul class="text-info mediumfont">
 						<li>Press the spinning dices to throw</li>
 						<li>Each player have 3 throws per turn</li>
