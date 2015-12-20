@@ -7,10 +7,24 @@ dices ={
     3:false,
     4:false
 };
+
 window.onload = function() {
+    getTopList();
+    $('#collapseToplist').collapse({
+        parent:"#collapseToplist"
+
+    });
+    $('#collapseInfo').collapse({
+        parent:"#collapseInfo"
+    });
+    /* update the toplist when the user hides the endgame view*/
+    $("#endview").on("hide.bs.modal",function(){
+        getTopList();
+    });
     /*
-        Js related to modal for playernames
+        Js related to entering playernames
      */
+
     //display modal and focus on first input
     $("#modal").modal();
     $('#modal').on('hide.bs.modal', function (event) {
@@ -214,12 +228,9 @@ function newTurn(){
 */
 function endgame(data){
     if(data.gameOver){
-        var resultElement,results = {};
+        var resultElement,results = {},sortable=[];
         //get each players endresult
-        $.each($(".playername"),function(key,value){
-            resultElement = $("#result"+value.innerHTML);
-            results[value.innerHTML] = resultElement.html();
-        });
+        createEndTable(results,sortable);
         //save end result to database
         sendToServer({"saveToDB":results});
         //update toplist
@@ -228,6 +239,30 @@ function endgame(data){
         //$("#endview").modal("show");
 
     }
+}
+function createEndTable(results,sortable){
+    var row,table = document.getElementById("endboard"),i=0;
+    $.each($(".playername"),function(key,value){
+        resultElement = $("#result"+value.innerHTML);
+        results[value.innerHTML] = parseInt(resultElement.html());
+    });
+    for(var player in results)
+        sortable.push([player,results[player]]);
+
+    sortable.sort(function(a, b) {return b[1] - a[1]});
+    $.each(sortable,function(key,player) {
+        table.insertRow();
+        row = table.rows.item(i+1);
+        //placement
+        row.insertCell(0).innerHTML = i+1;
+        //player
+        row.insertCell(1).innerHTML = player[0];
+        //score
+        row.insertCell(2).innerHTML = player[1];
+        //diff
+        row.insertCell(3).innerHTML = sortable[0][1] - player[1];
+        i++;
+    });
 }
 function resetTurnCount(){
     $("#start").removeClass("alert-danger").addClass("alert-success").find("span").html("0");
@@ -306,4 +341,11 @@ function createScoreboard(data){
         }
         i++;
     });
+}
+function displayToplist(data){
+    $("#collapseToplist").html(data.table);
+    $("#leaderboard").html(data.toplist);
+}
+function getTopList(){
+    sendToServer({"toplist":true}, displayToplist);
 }

@@ -73,10 +73,10 @@
 				</a>
 				<div id="collapseToplist">
 					<!-- Top 10 list -->
-					<?php include_once("toplist.php");?>
+<!--					--><?php //include_once("toplist.php");?>
 				</div>
 			</div>
-	</div>
-	<?php include_once("endview.html");?>
+			<?php include_once("endview.html");?>
+		</div>
 </body>
 </html>
