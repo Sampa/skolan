@@ -7,8 +7,6 @@
         <td class="col-md-2 col-xs-2 col-lg-2">Score</td>
         <td class="col-md-4 col-xs-4 col-lg-4">Date</td>
     </tr>
-<?php
 
-?>
     </thead>
 </table>

@@ -7,109 +7,6 @@ dices ={
     3:false,
     4:false
 };
-
-window.onload = function() {
-    getTopList();
-    $('#collapseToplist').collapse({
-        parent:"#collapseToplist"
-
-    });
-    $('#collapseInfo').collapse({
-        parent:"#collapseInfo"
-    });
-    /* update the toplist when the user hides the endgame view*/
-    $("#endview").on("hide.bs.modal",function(){
-        getTopList();
-    });
-    /*
-        Js related to entering playernames
-     */
-
-    //display modal and focus on first input
-    $("#modal").modal();
-    $('#modal').on('hide.bs.modal', function (event) {
-    });
-    $('#modal').on('shown.bs.modal', function () {
-        $('[name="setplayer1"]').focus();
-    });
-    $("#modal").on("click","#setPlayerNames",function(){
-        $("#playerNames").submit();
-    });
-    /*submitting the player names form*/
-    $("#playerNames").submit(function(event){
-        event.preventDefault();
-        //save the names in a session
-        sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
-    });
-    //controls which inputfields that should be active
-    $("[name^='setplayer']").keydown(function(event){
-       var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
-        next = 1+playerNumber;
-        nextElement = $("[name='setplayer"+next+"']");
-        //if input field is not empty
-        if($("[name='setplayer"+playerNumber+"']").val().length > 0){
-           nextElement.prop("disabled",false);
-       }else{ //empty
-           nextElement.prop("disabled",true);
-       }
-    });
-    /*
-        Various click triggers
-     */
-    //clicking a dice after making a roll
-    //.selecteddice
-    $(diceResultDiv).on("click","div",function(){
-        var element = $(this);
-        var pos = element.attr("data-position");
-        //reverse selected status
-        element.prop("selected",!element.prop("selected"));
-        if(element.prop("selected")){
-            dices[pos] = true;
-            element.addClass("selectedDice").append('<span></span>');
-        }else{
-            dices[pos] = false;
-            element.removeClass("selectedDice").find("span").remove();
-        }
-    });
-    //pressing a scoring option td, confirm choice
-    $("tr").on("click",".clickable",function(){
-        var element = $(this);
-        user = element.attr("data-user");
-        //user = $("thead").find("td[data-user='"+name+"']");
-        $.confirm({
-            text: "Are you sure?",
-            title: "Confirm choice",
-            confirm: function(button) {
-                //sets score for element and resets unused fields and allow new throws
-                setRowScore(element);
-                setTotals(user);
-            },
-            confirmButton: "Yes I am",
-            cancelButton: "No, I want to repick",
-            post: true,
-            confirmButtonClass: "btn-success",
-            cancelButtonClass: "btn-danger",
-            dialogClass: "modal-dialog modal-sm"
-        });
-    });
-    //prepares and iniates the rollincg of dices
-    $(".dice").on("click",function(){
-        //reset unused fields because we are doing a new roll
-        clearRowFields();
-        //start animation and then generate results
-        $("#roll").prop("checked", true);
-        setTimeout(rollDices,1000);
-        //find span element inside the button and then its contents as int
-        var element = $("#start").find("span");
-        var number = parseInt(element.html()) +1;
-        //replace with the new count of rolls
-        element.html(number);
-        //if we reached our maximum number of throws prohibit more
-        if(number > 2){
-            $("#start").removeClass("alert-success").addClass("alert-danger");
-        }
-    });
-}
 //get a random number without decimals
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min +1 ) + min);
@@ -186,8 +83,8 @@ function showScoreOptions(data){
 /**
  * after the user confirms his pick among the scoring options,
  * set the correct score and restore the other fields
-**/
- function setRowScore(element){
+ **/
+function setRowScore(element){
     $.each($(scoreOptionClass),function(key,value){
         var obj = $(value);
         obj.removeClass("bg-primary clickable");
@@ -209,9 +106,9 @@ function clearRowFields(){
     });
 }
 /*
-* Runs after each turn
-*  unselect all dices, resets throw count, sets turn to next player and see if the game has ended
-*/
+ * Runs after each turn
+ *  unselect all dices, resets throw count, sets turn to next player and see if the game has ended
+ */
 function newTurn(){
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
@@ -223,44 +120,50 @@ function newTurn(){
 }
 
 /* A callback that runs after each turn
-* data is a json object from the server with a boolean telling us if the game is over
-* saves the endresult to the database and notify the players
-*/
+ * data is a json object from the server with a boolean telling us if the game is over
+ * saves the endresult to the database and notify the players
+ */
 function endgame(data){
     if(data.gameOver){
-        var resultElement,results = {},sortable=[];
-        //get each players endresult
-        createEndTable(results,sortable);
+        //gets and array with the players sorted (index 0] and as json objekt [index 1]
+        var arr = sortPlayers();
+        createEndTable(arr[0]);
         //save end result to database
-        sendToServer({"saveToDB":results});
-        //update toplist
+        sendToServer({"saveToDB":arr[1]});
         //show endview with results and winner
         $("#endview").modal();
-        //$("#endview").modal("show");
 
     }
 }
-function createEndTable(results,sortable){
-    var row,table = document.getElementById("endboard"),i=0;
+/*
+    Sorts the players by result and returns an array with
+    a) the sorted result as array
+    b) all the players and their score in a objekt
+ */
+function sortPlayers(){
+    var resultElement,results={},result=[],sortable = [];
     $.each($(".playername"),function(key,value){
         resultElement = $("#result"+value.innerHTML);
         results[value.innerHTML] = parseInt(resultElement.html());
     });
-    for(var player in results)
-        sortable.push([player,results[player]]);
-
+    for(var player in results) {
+        sortable.push([player, results[player]]);
+    }
     sortable.sort(function(a, b) {return b[1] - a[1]});
+    result[0] = sortable;
+    result[1] = results;
+    return result;
+}
+function createEndTable(sortable){
+    var row, table = $("#endboard"), i = 0;
+    table.find("tr:not(:first)").remove();
     $.each(sortable,function(key,player) {
-        table.insertRow();
-        row = table.rows.item(i+1);
-        //placement
-        row.insertCell(0).innerHTML = i+1;
-        //player
-        row.insertCell(1).innerHTML = player[0];
-        //score
-        row.insertCell(2).innerHTML = player[1];
-        //diff
-        row.insertCell(3).innerHTML = sortable[0][1] - player[1];
+        row = $("<tr></tr>");
+        table.append(row);
+        row.html("<td>"+(i+1)+"</td>>");//placement
+        row.append("<td>"+player[1]+"</td>");//player
+        row.append("<td>"+player[0]+"</td>");// score
+        row.append("<td>"+(sortable[0][1] - player[1])+"</td>");//diff
         i++;
     });
 }
@@ -314,7 +217,7 @@ function setPlayerNames(data){
     }
     createScoreboard(data);
     $("#modal").modal("hide");
-    $("[data-target='#modal']").hide();
+    $("#enterNamesButton").hide();
 }
 //generates the scoreboard
 function createScoreboard(data){
@@ -344,7 +247,7 @@ function createScoreboard(data){
 }
 function displayToplist(data){
     $("#collapseToplist").html(data.table);
-    $("#leaderboard").html(data.toplist);
+    $(data.toplist).insertAfter("#leaderboard tr");
 }
 function getTopList(){
     sendToServer({"toplist":true}, displayToplist);

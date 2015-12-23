@@ -67,9 +67,9 @@ if(isset($_POST["playerNames"])) {
     $_SESSION['players'] =[];
     foreach($_POST['playerNames'] as $key=>$values) {
         //only accept the inputs with atleast 1 character
-        $values = htmlspecialchars($values);
+        $values = $values;
         if(strlen($values['value']) > 0)
-            $_SESSION['players'][$values['name']] = $values['value'];
+            $_SESSION['players'][$values['name']] = htmlspecialchars($values['value']);
     }
 
     //we dont allow duplicates or empty usernames

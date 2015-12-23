@@ -9,7 +9,8 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src='js/jquery.confirm.min.js'></script>
 	<!-- Yatzy javascript -->
-	<script type="text/javascript" src='js/script.js'></script>
+	<script type="text/javascript" src='js/functions.js'></script>
+	<script type="text/javascript" src='js/events.js'></script>
 	<!-- Latest compiled and minified Bootstrap CSS -->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<!-- Yatzy css-->
@@ -58,7 +59,7 @@
 					<h2>Information <span class="caret"></span></h2>
 				</a>
 				<div id="collapseInfo">
-					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal">
+					<button id="enterNamesButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal">
 						Enter player names
 					</button>
 					<ul class="text-info mediumfont">
