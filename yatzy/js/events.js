@@ -1,4 +1,4 @@
-var dices = new Object(),diceResultDiv = "#diceResult",user;
+var dices,diceResultDiv = "#diceResult",user;
 dices ={
     0:false,
     1:false,
@@ -91,6 +91,8 @@ window.onload = function() {
                 //sets score for element and resets unused fields and allow new throws
                 setRowScore(element);
                 setTotals(user);
+                //prepare the game for a new turn (also calls endgame callback)
+                newTurn(user);
             },
             confirmButton: "Yes I am",
             cancelButton: "No, I want to repick",

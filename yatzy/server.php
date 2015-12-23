@@ -32,7 +32,7 @@ if(isset($_POST['turn'])){
     $_SESSION['turn'] = $_SESSION['turn'] <  count($_SESSION['players'])-1 ? $_SESSION['turn']+1 : 0;
     $status["gameOver"] = false;
     //each player has 15 turns totally
-    if($_SESSION['totalTurns'] >= count($_SESSION['players'])*1) {
+    if($_SESSION['totalTurns'] >= count($_SESSION['players'])*15) {
         $status = array("gameOver" => true);
     }
     echo json_encode($status);

@@ -94,8 +94,6 @@ function setRowScore(element){
             obj.empty();
         }
     });
-    //prepare the game for a new turn (also calls endgame callback)
-    newTurn();
 }
 /**
  * clears all fields that the player did not choose to put points on
@@ -109,7 +107,14 @@ function clearRowFields(){
  * Runs after each turn
  *  unselect all dices, resets throw count, sets turn to next player and see if the game has ended
  */
-function newTurn(){
+function newTurn(user){
+    var element = $("#playername"+user);
+    element.removeClass("bg-warning");
+    var next = element.next(".playername");
+    if(next.length ==0){ //there is no next element, this was the last player
+        next = $(".playername").first();
+    }
+    next.addClass("bg-warning");
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
         dices[i] = false;
@@ -128,8 +133,9 @@ function endgame(data){
         //gets and array with the players sorted (index 0] and as json objekt [index 1]
         var arr = sortPlayers();
         createEndTable(arr[0]);
+        var results = arr[1];
         //save end result to database
-        sendToServer({"saveToDB":arr[1]});
+        sendToServer({"saveToDB":results});
         //show endview with results and winner
         $("#endview").modal();
 
@@ -232,6 +238,9 @@ function createScoreboard(data){
         nameCell = row.insertCell(i);
         nameCell.innerHTML = player;
         nameCell.setAttribute("class","playername");
+        nameCell.setAttribute("id","playername"+player);
+        if(i==1)
+            nameCell.setAttribute("class","playername bg-warning");
         //create each field and sets it proper attributes
         for(var r= 0; r<fields.length;r++){
             currentRow = table.rows.item(r+1);
