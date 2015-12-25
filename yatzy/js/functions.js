@@ -1,4 +1,4 @@
-var scoreOptionClass =".clickable",dices = new Object(),
+var playerTurnClass = "bg-warning",scoreOptionClass =".clickable",dices,
     diceElements = [],diceResults = [],diceResultDiv = "#diceResult",user;
 dices ={
     0:false,
@@ -109,12 +109,12 @@ function clearRowFields(){
  */
 function newTurn(user){
     var element = $("#playername"+user);
-    element.removeClass("bg-warning");
+    element.removeClass(playerTurnClass);
     var next = element.next(".playername");
     if(next.length ==0){ //there is no next element, this was the last player
         next = $(".playername").first();
     }
-    next.addClass("bg-warning");
+    next.addClass(playerTurnClass);
     $(diceResultDiv).empty();
     for(i=0;i<5;i++){
         dices[i] = false;

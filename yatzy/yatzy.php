@@ -68,7 +68,9 @@ function pairs($numbers,$results){
     $results = house($pairs,$results);
     return $results;
 }
-//finds out if there is both a pair and a toak not using the same dice twice
+/*
+ * finds out if there is both a pair and a toak not using the same dice twice
+ */
 function house($pairs,$results){
     if(isset($results["pair"]) && isset($results["toak"])) { //there is house
         //make sure the pair and toak is diffrent dices
@@ -82,4 +84,17 @@ function house($pairs,$results){
 /* returns the current user */
 function getUser(){
     return array_values($_SESSION['players'])[$_SESSION['turn']]; //pass the correct playername
+}
+/*
+ * checks if an array is empty or contains duplicates
+ * returns: json encoded array with the status or false
+ */
+function emptyOrDubplicate($array){
+    //only unique usernames
+    if(has_duplicates($array)) {
+        return json_encode(array("status" => "dublicate"));
+    }elseif(count($array)==0){ //must have atleast one player
+        return json_encode(array("status"=>"empty"));
+    }
+    return false;
 }

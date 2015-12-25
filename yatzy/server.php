@@ -79,15 +79,6 @@ if(isset($_POST["playerNames"])) {
     else
         echo $error;
 }
-function emptyOrDubplicate($array){
-    //only unique usernames
-    if(has_duplicates($array)) {
-        return json_encode(array("status" => "dublicate"));
-    }elseif(count($array)==0){ //must have atleast one player
-        return json_encode(array("status"=>"empty"));
-    }
-    return false;
-}
 /* fetching the toplist is done at page load and after the endview is displayed*/
 if(isset($_POST['toplist'])){
     //get table wrapper html

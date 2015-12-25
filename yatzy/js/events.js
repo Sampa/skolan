@@ -1,12 +1,4 @@
-var dices,diceResultDiv = "#diceResult",user;
-dices ={
-    0:false,
-    1:false,
-    2:false,
-    3:false,
-    4:false
-};
-
+var diceResultDiv = "#diceResult",user;
 window.onload = function() {
     //get the latest toplist from the database
     getTopList();
@@ -22,6 +14,7 @@ window.onload = function() {
         //update to latest database
         getTopList();
     });
+    /* To start a new game we remove the old scoreboard, hide the endview and displays the modal/button to enter usernames*/
     $("#newgame").on('click',function(){
        $("#scoreboard tr td[data-user]").remove();
        $("#scoreboard .playername").remove();
