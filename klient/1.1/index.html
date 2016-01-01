@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Daniel van den Berg">
@@ -9,11 +9,6 @@
     <title>Title</title>
 </head>
 <body>
-<!--
-& med &amp;
-< med &lt;
-> med &gt;
--->
     <div class="text">
         <h4>"Must have" taggar</h4>
         <p>
@@ -42,8 +37,12 @@
                     Det finns olika "charsets", utf-8 är den vanligaste idag då den klarar av miljontals tecken medans äldre varianter
                     kan leda till att språkspecefika tecken som å,ä,ö inte visas korrekt för användaren.
                 </dd>
-            <dt>Språk</dt>
-                <!--- Vadå språk -->          
+            <dt>Språk/lang</dt>
+                <dd>
+                    Lang attributet används för att deklarera språket texten
+                    på sidan och kan användas för att anpassa sidan<br/>
+                    om det behövs. T.ex genom att anpassa typsnittet
+                </dd>
             <dt>Validering</dt>
                 <dd>
                     Validering av kod görs mot en kodstandard för att se så att koden uppfyller de krav som finns.<br/>
@@ -54,7 +53,7 @@
                     Ett minimalt html dokument ser ut såhär:
                     <p>
                     &lt;!DOCTYPE html&gt;<br/>
-                    &lt;html lang="en"&gt<br/>
+                    &lt;html lang="en"&gt;<br/>
                         &lt;head&gt;<br/>
                             &lt;meta charset="UTF-8"&gt;<br/>
                             &lt;title&gt;Title&lt;/title&gt;<br/>
@@ -158,31 +157,37 @@
         <h4>Övriga</h4>
         <dl>
             <dt>A</dt>
-            <dd> Används för att länka till <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">andra sidor</a> inom eller utanför sidans domän. </dd>
-            <dt><a href="aa.html" title="relativ länk">Relativ länk </a><dd>använder sig av en sökväg som utgår från nuvarande plats ex /site/page/3</dd></dt>
-            <dt><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Absolut länk </a>
+                <dd>
+                    Används för att länka till <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">andra sidor</a>
+                    inom eller utanför sidans domän.
+                </dd>
+            <dt><a href="aa.html" title="relativ länk">Relativ länk </a></dt>
+                <dd>Använder sig av en sökväg som utgår från nuvarande plats ex /site/page/3</dd>
+            <dt><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Absolut länk </a></dt>
                 <dd>
                     Använder sig av en absolut sökväg inkl protokoll, t.ex http://foo.com/site/page/3.
                     En länk till en extern sida måste vara absolut
                 </dd>
-            </dt>
-            <dt><a href="#textrubrik">Ankarlänk</a>
+            <dt><a href="#textrubrik">Ankarlänk</a></dt>
                 <dd>Används för att länka till andra html element på sidan med hjälp av dess id som sökväg, t.ex #textrubrik</dd>
-            </dt>
-            <dt>Bildlänk
+            <dt>Bildlänk</dt>
                 <dd>
                     En bildlänk är en länk som består av en bild man klickar på.<br/>
                     <a href="http://aftonbladet.se" title="bildlänk">
                         <img src="http://tinyurl.com/navwwkh" alt="bild"/>
                     </a>
                 </dd>
-            </dt>
             <dt>Protokolllänk</dt>
-            <dt><a href="mailto:dava4507@student.su.se">Mailto-länk</a>
+                <dd>
+                    En <a href="//aftonbladet.se">protokolllänk</a> använder det protokoll den nuvarande sidan är hämtad med<br/>
+                    genom att url:en inleds med //. På det sättet behöver man inte veta om sidan är tillgänglig via t.ex https eller http
+                </dd>
+            <dt><a href="mailto:dava4507@student.su.se">Mailto-länk</a></dt>
                 <dd>Används för att länka till användarens associerade program för att skriva ett nytt mail till den angivna adressen</dd>
-            </dt>
-            <dt>Listor
-                <dd><p>Det finns tre typer av listor. <dfn title="Dl">Description list</dfn> (dl), unordered list (ul) och ordered list (ol).
+            <dt>Listor</dt>
+                <dd>
+                    <p>
+                        Det finns tre typer av listor. <dfn title="Dl">Description list</dfn> (dl), unordered list (ul) och ordered list (ol).
                         Dl använder sig av dt taggen för att ange en titelbeskrivning och dd för själva beskrivningen.
                         Ol och ul använder sig av li taggen för sitt innehåll och saknar titel för varje item.
                         Den här sidan är ett exempel på en description list, se nedan för exempel på ordnade och oordnade listor.
@@ -206,13 +211,11 @@
                         <li>li</li>
                     </ol>
                 </dd>
-            </dt>
-            <dt>Img
+            <dt>Img</dt>
                 <dd>Används för att visa en bild
                     <img src="http://tinyurl.com/navwwkh" alt="bild"/>
                 </dd>
-            </dt>
-            <dt>Map och Area
+            <dt>Map och Area </dt>
                 <dd>
                     En bildkarta är en bild med klickbara ytor. Area taggen skrivs alltid inom map taggen som kopplas ihop
                     med önskad bild via sitt namn attribut och bildens usemap attribut.
@@ -231,8 +234,7 @@
                         <area shape="circle" coords="90,58,3" alt="Mercury" href="mercur.htm">
                         <area shape="circle" coords="124,58,8" alt="Venus" href="venus.htm">
                     </map>
-        </dd>
-            </dt>
+                </dd>
         </dl>
     </div>
 </body>

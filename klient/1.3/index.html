@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>1.3 - Semantiska element för text</title>
+</head>
+<body>
+<!--  Skapa ett HTML5-dokument som beskriver och exemplifierar följande nya HTML5 taggar:
+
+    mark
+    time med datetime attributet
+    wbr
+
+Frivillig överkurs är att även lägga till två exempel som stämmer med mikroformaten hCard och hCalendar. -->
+    <h1><dfn>Mark</dfn>-taggen</h1>
+    <p>Mark taggen används för att <mark>markera</mark> en del av en text</p>
+
+    <h1><dfn>Time</dfn> med <dfn>datetime</dfn></h1>
+    <p>
+        Time används runt ett tid/datum i ett format för människor, exempel:
+        <code>&lt;time&gt;10:00&lt;/time&gt;</code> vilket ger: <time>10:00</time>.<br/>
+        Tiden/datumet ska vara i ett giltigt format som de är definerade på w3.org
+    </p>
+    <p>
+        Time med datetime attribut kan användas för att definera en tid/datum maskiner kan läsa.<br/>
+        <code>&lt;time datetime="2016-12-24 15:00"&gt;Kalle Ankas Jul på tv!&lt;/time&gt;</code> ger:<br/>
+        <time datetime="2016-12-24 15:00">Kalle Ankas Jul på tv!</time><br/>
+        Då kan det i time elementet vara valfri text. Datumet/tiden kan därmed översättas mellan olika format vilket är användbart
+        då olika länder har olika format för att beskriva samma datum.<br/>
+        Andra fördelar är smartare sökresultat från sökmotorer eller att man kan schemalägga händelser för en användare utan att
+        veta vilket datumformat hen använder.
+    </p>
+
+    <h1><dfn>Wbr</dfn></h1>
+    <p>
+        Wbr taggen används för att "upplysa" webbläsaren om vart det är lämpligt att bryta en text med ny rad OM det behövs,
+        annars visas hela texten på en rad. <br/>Prova att ändra storleken på webbläsarfönstret för att se effekten i texten nedan
+        som har en wbr tag vid varje kommatecken,punkt eller frågetecken. <wbr>Texten är sammanhängande utan &lt;br/&gt;, eller mellanslag.
+    </p>
+    <p>
+        Sedutperspiciatisundeomnisistenatuserrorsitvoluptatemaccusantiumdoloremquelaudantium,<wbr>totamremaperiameaqueipsaquaeabilloinventoreveritatisetquasiarchitectobeataevitaedictasuntexplicabo.<wbr>Nemoenimipsamvoluptatemquiavoluptassitaspernaturautoditautfugisedquiaconsequunturmagnidoloreseosquirationevoluptatemsequinesciunt.<wbr>Nequeporroquisquamestquidoloremipsumquiadolorsitametconsecteturadipiscivelitsedquianonnumquameiusmoditemporainciduntutlaboreetdoloremagnamaliquamquaeratvoluptatem.<wbr>Utenimadminimaveniamquisnostrumexercitationemullamcorporissuscipitlaboriosamnisiutaliquidexeacommodiconsequatur?<wbr>Quisautemveleumiurereprehenderitquiineavoluptatevelitessequamnihilmolestiaeconsequatur,<wbr>velillumquidoloremeumfugiatquovoluptasnullapariatur
+    </p>
+</body>
+</html>
