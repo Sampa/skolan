@@ -1,0 +1,30 @@
+#fontfamilExp p {
+    color: red;
+}
+#fontfamilExp span{
+    color: #0088ae;
+}
+#fontfamilExp .rgb {
+    color: rgb(063 103 101);
+}
+#teckensnitt{
+    font-family: "Arial Black", Helvetica, Arial, sans-serif;
+    font-stretch: condensed;
+    font-size: large;
+    font-size-adjust: none;
+    font-style: italic;
+    font-variant: small-caps;
+    font-weight: bold;
+}
+#demotext{
+    letter-spacing: 1.5pt;
+    word-spacing: 3px;
+    line-height: 100%;
+    text-align: center;
+    text-decoration: dashed;
+    text-shadow: hoff voff blur #000;
+    text-indent: 5pt;
+    text-transform: capitalize;
+    white-space: pre-wrap;
+
+}
