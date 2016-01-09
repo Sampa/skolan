@@ -1,0 +1,90 @@
+.mbox{
+    border: 3px solid goldenrod;
+    padding: 5px;
+    width: 400px;
+}
+#mtop{
+    margin-top: 30px;
+}
+#mright{
+    margin-right: 19px;
+    padding: 10px;
+}
+#mbottom{
+    margin-left: 14px;
+}
+#mleft{
+    margin-left: 19px;
+}
+#borderdemo{
+    width: 400px;
+    border: 3px dashed #1b6d85;
+    border-right: inset #66FF99;
+    border-bottom: groove #5bc0de;
+    border-left: double #ac2925;
+}
+#borderdemo2{
+    border-top-style: dashed;
+    border-right-style: inset;
+    border-bottom-style: groove;
+    border-left-style: double;
+    border-top-color: #1b6d85;
+    border-right-color: #66FF99;
+    border-bottom-color: #5bc0de;
+    border-left-color: #ac2925;
+    border-top-width: 3px;
+    border-right-width: 3px;
+    border-bottom-width: 3px;
+    border-left-width: 3px;
+}
+#padding{
+    background-color: #ac2925;
+    padding-top: 40px;
+    padding-right: 11px;
+    padding-bottom: 12px;
+    padding-left: 33px;
+    width: 300px;
+    border: 5px solid royalblue;
+}
+#outline{
+    outline: #00FF00 dotted thick;
+}
+#synlighet{
+    background-image: url(w3css.gif);
+    overflow:scroll;
+    position: absolute;
+    clip: rect(3px,100px,100px,0px);
+    width: 40%;
+    height: 50px;
+
+}
+#effekter{
+    border-radius: 30%;
+    box-shadow: 10px 10px 5px #888888;
+    opacity: 0.4;
+    width: 40%;
+    height: 50px;
+    background: rgba(255,0,0,1);/*#ac2925;*/ /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(#ac2925, yellow); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(#ac2925, yellow); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(#ac2925, yellow); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#ac2925, yellow); /* Standard syntax */
+}
+/*radial gradient*/
+#radial{
+    width: 40%;
+    height: 100px;
+    background: goldenrod; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(red, yellow, green); /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(red, yellow, green); /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(red, yellow, green); /* For Firefox 3.6 to 15 */
+    background: radial-gradient(red, yellow, green); /* Standard syntax */
+
+}
+#multipla{
+    background-image: url(img_flwr.gif), url(paper.gif);
+    background-position: right bottom, left top;
+    background-repeat: no-repeat, repeat;
+
+}
+
