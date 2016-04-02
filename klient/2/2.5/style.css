@@ -1,0 +1,76 @@
+.button{
+    border: 2px solid #006600;
+    border-radius: 5px;
+    background-color: #009900;
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+    margin : 20px;
+    padding: 10px 20px 10px 20px;
+    display: inline-block;
+}
+.buttton:hover{
+    border: 2px solid #009900;
+    background-color: #00cc00;
+}
+.buttton:visited{
+    border: 2px dashed #009900;
+    background-color: #22ee22;
+}
+.buttton:active{
+    border: 4px solid #009900;
+    background-color: #cccc00;
+}
+.imageLink{
+    border: 4px solid #006600;
+    border-radius: 5px;
+    background-color: #009900;
+    margin : 20px;
+    padding: 10px 20px 10px 20px;
+    display: inline-block;
+}
+.imageLink:hover {
+    border: 4px solid #aa4400;
+    background-color: #aa44ff;
+}
+.imageLink:visited{
+    border: 4px dashed #009900;
+    background-color: #000000;
+}
+.imageLink:active{
+    border: 4px solid #009900;
+    background-color: #cccc00;
+}
+#linkex a[title="link"]{
+    color:darkred;
+}
+#linkex a[title="visited"]:visited{
+    color:deeppink;
+}
+#linkex a[title="hover"]:hover {
+    color: dodgerblue;
+}
+#linkex a[title="active"]:active{
+    color: #00FF00;
+ }
+
+#cursorauto{ cursor: auto;}
+#cursorcrosshair{ cursor: crosshair ;}
+#cursordefault{ cursor:default ;}
+#cursore-resize{ cursor:e-resize;}
+#cursorgrab{ cursor: grab;}
+#cursorhelp{ cursor: help;}
+#cursormove{ cursor: move;}
+#cursorn-resize{ cursor: n-resize;}
+#cursorne-resize{ cursor: ne-resize;}
+#cursornw-resize{ cursor: nw-resize;}
+#cursorpointer{ cursor: pointer;}
+#cursorprogress{ cursor: progress;}
+#cursors-resize{ cursor: s-resize;}
+#cursorse-resize{ cursor: se-resize;}
+#cursorsw-resize{ cursor: sw-resize;}
+#cursortext{ cursor: text;}
+#cursorw-resize{ cursor: w-resize;}
+#cursorwait{ cursor: wait;}
+#cursornot-allowed{ cursor: not-allowed;}
+#cursorno-drop{ cursor: no-drop;}

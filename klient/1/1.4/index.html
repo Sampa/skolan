@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>1.4</title>
+</head>
+<body>
+    <!--
+    regex förklaring för minnet
+    (               # Start of group
+    (?=.*\d)        # must contain at least one digit
+    (?=.*[a-zA-Z])  # must contain at least one character
+    (?=.*\W)        # must contain at least one special symbol
+       .            # match anything with previous condition checking
+         {6,10}     # length at least 6 characters and maximum of 10
+)                   # End of group
+    -->
+    <h3>Fält med * är obligatoriska</h3>
+    <form method="get" action="http://people.dsv.su.se/~pierre/courses/05_ass/ip2/2/2.2.1/perl/example.cgi">
+        <fieldset>
+            <legend>Inloggnings information</legend>
+            <label for="user">Användarnamn *</label>
+            <input type="text" name="user" id="user" placeholder="Användarnamn" required autofocus/>
+            <label for="password">Lösenord *</label>
+            <input type="password" name="password" id="password" placeholder="Lösenord" title="6-10 tecken. Minst en siffra,bokstav och specialtecken" pattern="((?=.*\d)(?=.*[a-zA-Z])(?=.*\W).{6,30})" />
+            <label for="email">E-post</label>
+            <input type="email" name="email" id="email" placeholder="E-post" required/>
+        </fieldset>
+        <fieldset>
+            <legend>Om dig</legend>
+            <label for="male">Man</label>
+            <input type="radio" name="sex" id="male" value="male"/>
+            <label for="female">Kvinna</label>
+            <input type="radio" name="sex" id="female" value="female"/>
+            <br/>
+            <label for="born">Född</label>
+            <input type="date" name="born" id="born" value="1989-11-15"/>
+            <br/>
+            <label for="children">Antal barn</label>
+            <input type="number" min="0" max="10" step="1" name="children" id="children" value="0"/>
+            <br/>
+            <label for="presentation">Presentation *</label>
+            <br/>
+            <textarea name="presentation" id="presentation" placeholder="Beskriv dig själv" required></textarea>
+        </fieldset>
+        <fieldset>
+            <legend>Intressen</legend>
+            <label for="soccer">Fotboll</label>
+            <input type="checkbox" name="sport" id="soccer"/>
+            <label for="hockey">Hockey</label>
+            <input type="checkbox" name="sport" id="hockey"/>
+            <br/>
+            <label for="site">Url till en rolig hemsida</label>
+            <input type="url" name="site" id="site" placeholder="http://9gag.com"/>
+            <br/>
+            <label for="season">Favorit årstid</label>
+            <select name="season" id="season">
+                <option value="blank" selected>--Välj--</option>
+                <optgroup label="Med fina löv">
+                    <option value="host">Höst</option>
+                    <option value="var">Vår</option>
+                </optgroup>
+                <optgroup label="Älska eller hata">
+                    <option value="vinter">Vinter</option>
+                    <option value="sommar">Sommar</option>
+                </optgroup>
+            </select>
+            <br/>
+            <label for="hobbies">Hobbys</label>
+            <input list="hobbiesData" id="hobbies"/>
+            <datalist id="hobbiesData">
+                <option value="Sport">Sport</option>
+                <option value="music">Musik</option>
+                <option value="art">Konst</option>
+                <option value="prog">Programmering</option>
+                <option value="cook">Matlagning</option>
+            </datalist>
+        </fieldset>
+        <fieldset>
+            <legend>Vanor</legend>
+            <label for="resturant">Resturang besök per månad</label>
+            <input type="range" name="resturant" id="resturant" min="0" max="30" value="0" oninput="rangePut.value=resturant.value"/>
+            <output name ="rangePut" for="resturant">0</output>
+            <br/>
+            <label for="latest">Månaden du senast åt ute</label>
+            <input type="month" name="latest" id="latest"/>
+            <br/>
+            <label for="week">Senaste semestervecka</label>
+            <input type="week" name="week" id="week"/>
+            <br/>
+            <label for="wakeup">När brukar du vakna?</label>
+            <input type="time" name="wakeup" id="wakeup"/>
+            <br/>
+            <label for="contact">När kan vi senast kontakta dig?</label>
+            <input type="datetime-local" name="contact" id="contact"/>
+
+        </fieldset>
+        <fieldset>
+            <legend>Spara eller återställ</legend>
+            <input type="reset" id="reset"/>
+            <input type="submit" value="Spara" id="save"/>
+            <input type="button" value="Foo-Button" id="foo"/>
+            <input type="image" alt="Bild knapp" id="imgbutton" src="img_submit.gif" width="48" height="48"/>
+            <label for="keygen">Keygen (depricated)</label>
+            <!-- denna är depricated egentligen -->
+            <keygen name="keygen" id="keygen"/>
+        </fieldset>
+    </form>
+    <!-- File upload form-->
+    <form method="post" action="http://people.dsv.su.se/~pierre/courses/05_ass/ip2/2/2.2.2/perl/example.cgi" enctype="multipart/form-data">
+        <input type="file" name="file"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <title>2.2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section>
+    <header><h1>Begrepp</h1></header>
+    <article>
+        <header><h2>Fontfamily</h2></header>
+        <p>
+            Regeln <dfn>font-family</dfn> styr typsnittet på texten i ett/flera element. I värdet kan man ange flera fonter, om <br/>
+            webbläsaren inte  stödjer den första prövar den nästa. Det finns namn på generiska familjer, exempelvis  <dfn>serif</dfn> och <dfn>sans-serif</dfn>.<br/>
+            Vanligtvis börjar man med ett fontnamn och avslutar med namnet på en generisk familj för att låta webbläsaren välja en snarlik font om inget annat alternativ ges.
+        </p>
+        <h3>Exempel</h3>
+        <pre><code>
+            p{
+            font-family: "Times New Roman", Times, serif;
+            }
+        </code></pre>
+        <p>
+            <em>Serif</em>, <em>Sans-serif</em> och <em>monospace</em> är tre olika typer av fonter.<br/>
+            Fonter i serif-familjen är de med serifer, de utan är Sans-serif fonter. Monospace-fonter har fast bredd på hokstäverna.
+        </p>
+    </article>
+    <article>
+        <header><h2>Enheter</h2></header>
+        <p>Textstorleken kan anges i olika enheter</p>
+        <dl>
+            <dt>Em</dt>
+            <dd>Relativt till textstorleken på elementets nuvarande font (2em = 2 gånger så stor )</dd>
+            <dt>%</dt>
+            <dd>Procent av det omgivande elementet</dd>
+            <dt>Absoluta</dt>
+            <dd>
+                Några enheter fasta storlekar finns, de är baserade på användarens standard font (som är medium). <br/>
+                De är:xx-small, x-small, small, medium, large, x-large och xx-large
+            </dd>
+        </dl>
+    </article>
+</section>
+<section>
+    <header><h1>Exempel med korta förklaringar</h1></header>
+    <article id="fontfamilExp">
+        <header>
+            <h3>Färg</h3>
+        </header>
+        <p> Med <em>color</em> styr textfärgen i ett element</p>
+        <pre><code>
+            p {
+            color: green;
+            }
+            span {
+            color: #0088ae;
+            }
+            .rgb {
+            color: rgb(234 187 101);
+            }
+
+            &lt;p&gt;Systemfärg, &lt;span&gt;hexadecimalt&lt;/span&gt; och &lt;span class="rgb"&gt;rgb&lt;/span&gt; &lt;/p&gt;
+        </code></pre>
+        <p>Systemfärg, <span>hexadecimalt</span> och </p>
+        <div class="rgb">rgb</div>
+
+    </article>
+    <article>
+        <header>
+            <h3>Text och teckensnitt</h3>
+        </header>
+        <p id="teckensnitt">
+            Teckensnittet kan styras med css. Här beskriver vi följade regler som kan sättas och ger exempel med värden.
+        </p>
+        <dl>
+            <dt>font-family</dt>
+            <dd>Styr typsnittet</dd>
+            <dt>font-stretch</dt>
+            <dd>Gör texten bredare eller smalare</dd>
+            <dt>font-size</dt>
+            <dd>Styr storleken på texten, kan anges i absoluta eller relativa mått. Default: 16px</dd>
+            <dt>font-size-adjust</dt>
+            <dd>Gör att browsern sätter samma storlek på texten oavsett typsnitt</dd>
+            <dt>font-style</dt>
+            <dd>Styr om texten ska vara italic, normal eller oblique (liknar italic)</dd>
+            <dt>font-variant</dt>
+            <dd>Styr om texten ska visas med small-caps font (alla gemener blir versaler, fast i en mindre storlek än ursprungliga versaler)</dd>
+            <dt>font-weight</dt>
+            <dd>Specifierar vikten på texten, t.ex normal eller bold.</dd>
+        </dl>
+        <pre><code>
+            #teckensnitt{
+            font-family: "Arial Black", Helvetica, Arial, sans-serif;
+            font-stretch: condensed;
+            font-size: large;
+            font-size-adjust: 0.58;
+            font-style: italic;
+            font-variant: all-small-caps;
+            font-weight: bold;
+            }
+            &lt;article id="tecxensnitt"&gt;Teckensnittet kan styras med css &lt;/article&gt;
+        </code></pre>
+        <h3>Texten kan även styras på andra sätt. Nedan har vi lite tramstext.</h3>
+        <p id="demotext">
+            Lorum ispum topsum Lorum ispum topsumLorum ispum topsum Lorum ispum topsum Lorum ispum topsumLorum ispum topsumLorum ispum topsum
+            Lorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsum
+            Lorum ispum topsumLorum ispum topsumLorum ispum topsum Lorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsum
+            Lorum ispum topsumLorum ispum topsumLorum ispum topsumLorum ispum topsum
+
+        </p>
+        <dl>
+            <dt>letter-spacing</dt>
+            <dd>Styr avståndet mellan tecknen i en text</dd>
+            <dt>word-spacing</dt>
+            <dd>Styr avståndet mellan orden i en text</dd>
+            <dt>line-height</dt>
+            <dd>Styr avståndet mellan raderna i en text</dd>
+            <dt>text-align</dt>
+            <dd>Sätter texten till vänster, höger eler i mitten.</dd>
+            <dt>text-decoration</dt>
+            <dd>Visar text understruken,överstruken eller genomstruken</dd>
+            <dt>text-shadow</dt>
+            <dd>Lägger till en skugga till texten</dd>
+            <dt>text-indent</dt>
+            <dd>Identerar den första raden i ett text block (&lt;p&gt; element)</dd>
+            <dt>text-transform</dt>
+            <dd>Styr stora/små bokstäver i en text.</dd>
+            <dt>white-space</dt>
+            <dd>Styr hur mellanrum hanteras och därmed hur texten kan radbrytas.</dd>
+        </dl>
+    </article>
+    <article>
+        <header>
+            <h3>Stycken och listor</h3>
+        </header>
+        <dl>
+            <dt>First-line</dt>
+            <dd><dfn>:first-line</dfn> är ett pseudo element som låter dig styra den första raden i varje &lt;p&gt; stycke</dd>
+            <dt>First-letter</dt>
+            <dd><dfn>:first-letter</dfn> är ett pseudo element som låter dig styra det första tecknet i varje &lt;p&gt; stycke.</dd>
+            <dd>List-style-image</dd>
+            <dd>Specifierar en bild att använda istället för punkterna i en lista</dd>
+            <dt>List-style-position</dt>
+            <dd>Styr om listan ska indenteras en extra bit (inside) defaultär outside</dd>
+            <dt>List-style-type</dt>
+            <dd>Styr utseendet på punkterna i en lista</dd>
+        </dl>
+        <pre><code>
+        #demotext{
+            letter-spacing: 1.5pt;
+            word-spacing: 3px;
+            line-height: 100%;
+            text-align: center;
+            text-decoration: dashed;
+            text-shadow: hoff voff blur #000;
+            text-indent: 5pt;
+            text-transform: capitalize;
+            white-space: pre-wrap;
+        }
+        </code></pre>
+        <p>
+
+        </p>
+    </article>
+</section>
+</body>
+</html>
