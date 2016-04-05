@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>2.6</title>
+    <style type="text/css" rel="stylesheet" href="style.css"></style>
 </head>
 <body>
 <section>
     <article>
         <header><h1>Tabeller</h1></header>
+
         <dl>
             <dt>Table-layout</dt>
-            <dd></dd>
+            <dd>
+                Ett css attribut, kan sättas till auto eller fixed.Auto sätter columnbrädden utifrån det bredaste, ej delbara, innehållet.
+                Det gör att hela tabellen måste läsas igenom innan den kan börja visas. Fixed bryr sig inte om innehållet, utan tabellens bredd och bredden på kolumnerna
+                och kan börja visas när första raden tagigts emot.
+            </dd>
             <dt>Border-collapse</dt>
             <dd></dd>
             <dt>Border-spacing</dt>
@@ -20,12 +26,29 @@
             <dt>Empty-cells</dt>
             <dd></dd>
         </dl>
+
+        <h2>table-layout: auto:</h2>
+        <table class="auto">
+            <tr>
+                <td width="5%">1000000000000000000000000000</td>
+                <td width="95%">10000000</td>
+            </tr>
+        </table>
+
+        <h2>table-layout: fixed:</h2>
+        <table class="fixed">
+            <tr>
+                <td width="5%">1000000000000000000000000000</td>
+                <td width="95%">10000000</td>
+            </tr>
+        </table>
     </article>
     <article>
         <header><h1>CSS med formulär</h1></header>
         <p>
             Beskrivning...
         </p>
+
         <h2>Exempel</h2>
         <pre><code>
             Exempel...
