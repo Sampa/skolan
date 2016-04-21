@@ -1,0 +1,25 @@
+body,html{
+    height: 100%;
+    width: 100%;
+    margin:0 auto;
+    padding:0;
+}
+header, footer{
+    height: 20%;
+    background-color: #46b8da;
+}
+footer{
+    clear: both;
+}
+#left, #right,#center{
+    float: left;
+    min-height: 60%;
+}
+#left, #right{
+    width: 25%;
+    background-color: #1b6d85;
+}
+#center{
+    width: 50%;
+    background-color: #2b542c;
+}

@@ -2,26 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>2.7 - webbsidelayout</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <section>
+        <article>
+            <header><h1>De tre olika webbsidelayouterna</h1></header>
+            <p>
+                En <dfn>webbsidelayout</dfn> kan vara <dfn>fixed</dfn>, <dfn>fluid</dfn> eller <dfn>elastic</dfn>.
+                Använd CSS och inte tabeller för att skapa din webbsidelayout. Tabeller är enbart ämnade för att visa <dfn>tabulär data</dfn>, förr
+                var det dock vanligt att man använde tabeller för att få ett rutnät att placera ut innehåll i. Det är dock ej korrekt och det
+                går utmärkt att uppnå samma utseende med CSS. Fördelar är bland annat att sidan fungerar bättre för sökmotorer, fungerar bättre
+                (mer konsekvent) i olika webbläsare och klienter. Du får även snabbare laddtider då presentationsdatan inte behöver laddas ner för varje sida
+                (eftersom den finns i din externa CSS-mall). Och ju mindre data din sida kräver destu lägre kostnader får du för bandbredd.
+            </p>
+            <h2>Vilken layout ska man välja?</h2>
+            <p>
+                Det finns inte ett rätt svar, utan de har alla sina för och nackdelar. Planerar du noga och tänker efter före
+                så kan du lyckas skapa en bra, användarvänlig, design som drar nytta av de olika fördelarna. Några saker en utvecklare
+                måste tänka på som skiljer sig mellan besökarna är skärmupplösning, val av webbläsare, hur stor del av skärmen som används
+                åt fliken (är webbläsaren inte maximerad? har användaren extra toolbars?)
+            </p>
+            <h2>Fixed</h2>
+            <p>
+                En fixerad layout har en <dfn>wrapper</dfn>, ett element som får en fast bredd. Elementen inuti får sedan
+                antingen fast bredd eller en bredd i %. Det viktiga är att användarna får se samma bredd oavsett upplösning. Fördelar är att det blir enklare
+                att förutse hur det kommer se ut för användarna, designen är enklare att bygga och ändra och man får mindre problem med bilder, videos och liknande
+                som har en fast storlek. Nackdelar är bland annat att mindre skärmar kan kräva en horizontal scrollbar, användare med stora skärmar kan få onödigt
+                tomrum på sidorna och rankas vanligtvis lägre när det pratas om användarvänlighet.
+            </p>
+            <h2>Fluid</h2>
+            <p>
+                I en flytande layout sätts bredden på elementen i % av användarens tillgängliga ytan även om vissa saker, t.ex marginaler kan ha sin
+                storlek i px. En väldesignad flytande layout anpassar sig väl för olika användare och kan ta bort behovet av horizontella scrollbars på
+                mindre skärmar vilket anses störande och inte så visuellt tilltalanade. Det kan däremot vara svårare att upptäcka och förutse problem för
+                designern om hen inte testar på olika skärmupplösningar.
 
+            </p>
+            <h2>Elastic</h2>
+            <p>
+                En elastisk design är en mix av fixerad och flytande. Här används enheten <dfn>em</dfn> för att sätta storleken på element. Em är en enhet styrd
+                av storleken på användarens textstorlek. Eftersom användare kan ha olika preferenser så gör det att sidan anpassas utifrån dessa. Utfört korrekt
+                kan en elastisk layout vara väldigt användarvänlig då elementen kan växa sig större/mindre. Däremot är en elastisk design den svåraste att göra
+                och kräver mer testning för att få allt att stämma.
+            </p>
+        </article>
+        <article>
+            <header><h1>Begrepp</h1></header>
+            <dl>
+                <dt>Position</dt>
+                <dd>
+                    Styr hur elementet ska placeras, absolut antal pixlar från övre vänstra hörnet,
+                    relativt från dess placering eller fixerat så det följer med när du scrollar.
+                </dd>
+                <dt>Top, left, bottom, right</dt>
+                <dd> Används tillsammans med position för att placera elementet. <code>top:50px;</code> flyttar t.ex ett element 50px neråt (från toppen)</dd>
+                <dt>Z-index</dt>
+                <dd>
+                    Styr vilka element som ska ligga överst/underst. Det styr vad användaren ser ifall två element överlappar varandra. T.ex vill en designer
+                    nog att text ska synas framför/över bakgrundsbilden. Z-index fungerar enbart på positionerade element. Det element som ska vara längst fram
+                    i förgrunden ska ha högst värde.
+                </dd>
+                <dt>Float och clear</dt>
+                <dd>
+                    <dfn>Float</dfn> styr hurvida ett element ska "flyta" åt höger eller vänster. Det innebär att elementet flyttas så långt som möjligt
+                    i vald riktning. Element som kommer efter ett flytande element kommer flöda runt detta (t.ex text som flödar på sidan och under en bild).
+                    För att stoppa detta, använd <dfn>clear</dfn>. Clear styr vilka sidor om ett element andra element ej får flyta. Exempel:
+                    <pre><code>
+                        img {
+                            clear: left;
+                        }
+                    </code></pre>
+                </dd>
+                <dt>Width, height, max-width, max-height, min-width, min-height</dt>
+                <dd>
+                    Dessa attribut styr storleken på element. <dfn>width</dfn> säger att ett element är X stor medans <dfn>min-width</dfn> och
+                    <dfn>max-width</dfn> säger att ett element inte får vara mindre eller mer än X. Ett element med <code>min-width:100px;</code>
+                    kan alltså vara 100px eller större, men ej 99px eller mindre. Tvärtom gäller såklart om man sätter en maximal bredd. Man kan även använda
+                    det i <dfn>media queries</dfn> för att skapa stilregler som bara gäller på skärmar med en storlek på minst X pixlar osv.
+                </dd>
+                <dt>Vertical-align</dt>
+                <dd>
+                    Styr ett elements placering i vertikal riktning.
+                </dd>
+            </dl>
+        </article>
+        <article>
+            <header><h1>Exempel</h1></header>
+            <a href="fixed.html">Fixed</a>
+            <a href="fluid.html">Fluid</a>
+            <a href="elastic.html">Elastic</a>
+        </article>
+    </section>
 </body>
 </html>
-<!-- Gör en webbsida som beskriver begreppet webbsideslayout (fixerad, flytande och elastisk) (fixed, fluid, and elastic)
-och varför man ska använda CSS och inte tabeller för detta. Beskriv kortfattat och exemplifiera även följande egenskaper:
-
-    Position: position, top, left, bottom, right, z-index, float, clear
-    Storlek: width, height, max-width, max-height, min-width, min-height, vertical-align
-
-Gör detta genom att göra tre webbsideslayouter, en fixerad, en flytande och en elastisk, som var och en har:
-
+<!--
+    Gör detta genom att göra tre webbsideslayouter, en fixerad, en flytande och en elastisk, som var och en har:
     Överst: ett rubrikområde
     Mellan: tre kolumner där mellankolumnen är störst
     Längst ner: ett fotområde
-
 Om användaren väljer att förstora webbsidan så ska alla inbördes proportioner bibehållas.
-
 Gör även en webbsida där man låter texten flöda mellan flera kolumner (se column-count och column-width).
-
-Använd inte tabeller. -->
+-->

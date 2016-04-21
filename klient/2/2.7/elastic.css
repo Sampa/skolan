@@ -1,0 +1,29 @@
+body,html{
+    font-size: 62.5%;
+    height: 100%;
+    width: 530em;
+    max-width: 100%;
+    margin:0 auto;
+    padding:0;
+    max-height: 100%
+}
+header, footer{
+    height: 25em;
+    width: 180em;
+    background-color: #46b8da;
+}
+#left, #right,#center{
+    float: left;
+    height: 60em
+}
+#left, #right{
+    width: 60em;
+    background-color: #1b6d85;
+}
+#center{
+    width: 60em;
+    background-color: #2b542c;
+}
+footer{
+    clear: both;
+}

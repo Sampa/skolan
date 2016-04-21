@@ -1,17 +1,56 @@
-table {
-    border-collapse: separate;
+/*table*/
+table{
     width: 100%;
-    border: 1px solid black;
+    border: 1px solid #000000;
 }
 
 td {
     border: 1px solid #2e6da4;
 }
-
 table.auto {
     table-layout: auto;
+    empty-cells: hide;
+    border-collapse: separate;
 }
 
 table.fixed {
+    caption-side: bottom;
     table-layout: fixed;
+    border-collapse: collapse;
+}
+
+/*formulär */
+fieldset{
+    width: 40%;
+    margin: auto;
+    padding: 20px 5px 20px 5px;
+    background-color: #f8f8f8;
+}
+legend {
+    color: #ff3333;
+    letter-spacing: 5px;
+    margin-left: 100px;
+}
+textarea{
+    border: 1px solid #99cc00;
+    padding: 5px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    background-color: transparent;
+    margin-left: -16px;
+}
+label {
+    letter-spacing: 3px;
+    color: #8a6d3b;
+    font-size: 10px;
+    margin-right: 15px;
+}
+#name{
+    margin-left: -2px;
+}
+fieldset section {
+    margin: auto;
+}
+form{
+    background-color: #46b8da;
 }

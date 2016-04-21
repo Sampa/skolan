@@ -1,0 +1,25 @@
+body,html{
+    height: 100%;
+    width: 960px;
+    margin:0 auto;
+    padding:0;
+}
+header, footer{
+    height: 150px;
+    background-color: #46b8da;
+}
+#left, #right,#center{
+    float: left;
+    height: 400px;
+}
+#left, #right{
+    width: 240px;
+    background-color: #1b6d85;
+}
+#center{
+    width: 480px;
+    background-color: #2b542c;
+}
+footer{
+    clear: both;
+}

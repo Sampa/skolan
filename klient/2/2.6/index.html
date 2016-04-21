@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>2.6</title>
-    <style type="text/css" rel="stylesheet" href="style.css"></style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <section>
     <article>
         <header><h1>Tabeller</h1></header>
-
         <dl>
             <dt>Table-layout</dt>
             <dd>
@@ -18,25 +17,32 @@
                 och kan börja visas när första raden tagigts emot.
             </dd>
             <dt>Border-collapse</dt>
-            <dd></dd>
+            <dd>Styr hurvida linjerna hålls seperata eller slås samman till en gränslinje. Exemplet med fixed tabell har kolappsade gränser,
+            medans auto tabellen har sepererade gränslinjer.</dd>
             <dt>Border-spacing</dt>
-            <dd></dd>
+            <dd>Sätter avtåndet mellan linjerna ifall <dfn>border-collapse</dfn> är satt till seperate. Exempel,
+                5px horizontalt och 10px vertikalt avstånd: <pre><code>border-spacing:5px 10px;</code></pre></dd>
             <dt>Caption-side</dt>
-            <dd></dd>
+            <dd>En tabell kan ha en caption, vars position (top/bottom) kan sättas med detta attribut.</dd>
             <dt>Empty-cells</dt>
-            <dd></dd>
+            <dd>Med <code>border-spacing:seperate;</code> kan man med <code>empty-cells:hide;</code> dölja tomma celler.
+            Standard är att de visas.
+            </dd>
         </dl>
-
-        <h2>table-layout: auto:</h2>
+    </article>
+    <article>
+        <header><h2>Exempel</h2></header>
         <table class="auto">
+            <caption><code>table-layout:auto;</code></caption>
             <tr>
                 <td width="5%">1000000000000000000000000000</td>
                 <td width="95%">10000000</td>
+                <td></td>
             </tr>
         </table>
 
-        <h2>table-layout: fixed:</h2>
         <table class="fixed">
+            <caption><code>table-layout:fixed;</code></caption>
             <tr>
                 <td width="5%">1000000000000000000000000000</td>
                 <td width="95%">10000000</td>
@@ -46,12 +52,101 @@
     <article>
         <header><h1>CSS med formulär</h1></header>
         <p>
-            Beskrivning...
+            Ett formulär kan stilsättas på många olika sätt. Ett tips är att utnyttja de olika taggarna och ge dem stilattribut.
+            Det kan även vara användbart att gruppera ihop <code><label></code> taggen med dess formulärfält i ett omslutande element
+            för att underlätta stilsättning och positionering.
         </p>
-
         <h2>Exempel</h2>
+        <form>
+            <fieldset>
+                <legend>Formulär formaterat med CSS</legend>
+                <section>
+                    <label for="name">Name</label>
+                    <input type="text" id="name">
+                </section>
+                <section>
+                    <label for="man">Man</label>
+                    <input type="radio" id="man" name="sex">
+                    <label for="woman">Kvinna</label>
+                    <input type="radio" id="woman" name="sex">
+                    <label for="country">Land</label>
+                </section>
+                <section>
+                    <label for="country">Land</label>
+                    <select id="country">
+                        <option value="sweden">Sverige</option>
+                        <option value="finland">Finland</option>
+                    </select>
+                </section>
+                <section>
+                    <label for="about">Om dig</label>
+                    <textarea id="about"></textarea>
+                </section>
+            </fieldset>
+        </form>
         <pre><code>
-            Exempel...
+            &lt;form&gt;
+                &lt;fieldset&gt;
+                    &lt;legend&gt;Formulär formaterat med CSS&lt;/legend&gt;
+                    &lt;section&gt;
+                        &lt;label for="name"&gt;Name&lt;/label&gt;
+                        &lt;input type="text" id="name"&gt;
+                    &lt;/section&gt;
+                    &lt;section&gt;
+                        &lt;label for="man"&gt;Man&lt;/label&gt;
+                        &lt;input type="radio" id="man" name="sex"&gt;
+                        &lt;label for="woman"&gt;Kvinna&lt;/label&gt;
+                        &lt;input type="radio" id="woman" name="sex"&gt;
+                        &lt;label for="country"&gt;Land&lt;/label&gt;
+                    &lt;/section&gt;
+                    &lt;section&gt;
+                        &lt;label for="country"&gt;Land&lt;/label&gt;
+                        &lt;select id="country"&gt;
+                            &lt;option value="sweden"&gt;Sverige&lt;/option&gt;
+                            &lt;option value="finland"&gt;Finland&lt;/option&gt;
+                        &lt;/select&gt;
+                    &lt;/section&gt;
+                    &lt;section&gt;
+                         &lt;label for="about"&gt;Om dig&lt;/label&gt;
+                        &lt;textarea id="about"&gt;&lt;/textarea&gt;
+                    &lt;/section&gt;
+                &lt;/fieldset&gt;
+            &lt;/form&gt;
+
+            fieldset{
+            width: 40%;
+            margin: auto;
+            padding: 20px 5px 20px 5px;
+            background-color: #f8f8f8;
+            }
+            legend {
+            color: #ff3333;
+            letter-spacing: 5px;
+            margin-left: 100px;
+            }
+            textarea{
+            border: 1px solid #99cc00;
+            padding: 5px;
+            font-size: 11px;
+            letter-spacing: 2px;
+            background-color: transparent;
+            margin-left: -16px;
+            }
+            label {
+            letter-spacing: 3px;
+            color: #8a6d3b;
+            font-size: 10px;
+            margin-right: 15px;
+            }
+            #name{
+            margin-left: -2px;
+            }
+            .row {
+            margin: auto;
+            }
+            form{
+            background-color: #46b8da;
+            }
         </code></pre>
     </article>
 </section>
