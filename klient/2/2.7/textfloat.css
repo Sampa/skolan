@@ -1,0 +1,13 @@
+#text{
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+    
+    -webkit-column-width: 130px; /* Chrome, Safari, Opera */
+    -moz-column-width: 130px; /* Firefox */
+    column-width: 130px;
+}

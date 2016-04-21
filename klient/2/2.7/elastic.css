@@ -1,8 +1,9 @@
+*{
+    max-width: 100%;
+}
 body,html{
     font-size: 62.5%;
     height: 100%;
-    width: 530em;
-    max-width: 100%;
     margin:0 auto;
     padding:0;
     max-height: 100%
@@ -14,14 +15,14 @@ header, footer{
 }
 #left, #right,#center{
     float: left;
-    height: 60em
+    height: 60em;
 }
 #left, #right{
-    width: 60em;
+    width: 45em;
     background-color: #1b6d85;
 }
 #center{
-    width: 60em;
+    width: 90em;
     background-color: #2b542c;
 }
 footer{
