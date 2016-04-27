@@ -19,32 +19,42 @@
 
 }
 /* Horizontal menu */
-#hnav nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #843534;
-    width: 350px;
+#hnav nav ul li {
+    display: inline; /* Fix IE Step Down */
 }
-#hnav nav ul li{
-    padding: 5px;
-    float: left;
-    display: inline;
-}
-#hnav nav ul li a{
-    text-align: center;
-    width: 75px;
+
+#hnav nav ul li a:link, #hnav nav ul li a:visited {
     display: block;
-    height: 25px;
-    padding: 1%;
-    color: white;
+    height: 37px;
+    float: left;
+    background: url(navtab-right.png) top right no-repeat;
+    margin: 0 1px 0 1px;
+
+    font-family: "verdana", sans-serif;
+    font-size: 14px;
+    font-weight: bold;
     text-decoration: none;
+    color: #fff;
 }
-#hnav nav ul li a:hover {
-    background-color: white;
-    color: #843534;
+
+#hnav nav ul li a span {
+    display: block;
+    height: 28px;
+    float: left; /* IE 6 Fix */
+    padding: 8px 10px 0px 10px;
+    background: url(navtab-left.png) top left no-repeat;
 }
+
+#hnav nav ul li a:hover, #hnav nav ul li a:active {
+    background-position: bottom right;
+}
+
+#hnav nav ul li a:hover span {
+    background-position: bottom left;
+    color: #dae1ea;
+    cursor: pointer; /* Remind IE which cursor to use! */
+}
+
 /* Link as button */
 .button{
     border: 2px solid #006600;
