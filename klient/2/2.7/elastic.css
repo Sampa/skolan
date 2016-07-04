@@ -2,27 +2,27 @@
     max-width: 100%;
 }
 body,html{
-    font-size: 62.5%;
+    /*font-size: 62.5%;*/
     height: 100%;
     margin:0 auto;
     padding:0;
     max-height: 100%
 }
 header, footer{
-    height: 25em;
-    width: 180em;
+    height: 15em;
+    width: 78em;
     background-color: #46b8da;
 }
 #left, #right,#center{
     float: left;
-    height: 60em;
+    height: 40em;
 }
 #left, #right{
-    width: 45em;
+    width: 18em;
     background-color: #1b6d85;
 }
 #center{
-    width: 90em;
+    width: 42em;
     background-color: #2b542c;
 }
 footer{

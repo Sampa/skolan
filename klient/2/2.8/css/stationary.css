@@ -57,7 +57,9 @@ body {
     padding-top: 8px;
     font-size: 1.4em;
 }
-
+#social{
+    max-width: 150px;
+}
 #social-title {
     display: block;
     border-bottom: 1px dashed #221F51;
@@ -95,14 +97,15 @@ main {
     width: 317px;
     display: inline-block;
     font-size: .9em;
-    margin-right: 60px;
-    padding-top: 5px;
+    margin-right: 0px;
+    padding-top: 0px;
 }
 
 .email-input {
     height: 30px;
     width: 170px;
-    margin-right: 30px;
+    margin-left: 15px;
+    padding: 0px;
 }
 
 .button {
@@ -127,7 +130,7 @@ main {
 
 .subscribe-span{
     position: absolute;
-    bottom: 10;
+    bottom: 3px;
     margin-top: 8px;
 }
 

@@ -1,39 +1,15 @@
-.butttonLink{
+#foo{
+    width: 200px;
+    min-height: 200px;
+    background-color: red;
+    -webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
+}
+#foo:hover{
+    width: 300px;
+    background-color: white;
+}
 
+*{
+    background-color: black;
 }
-.imageLink{
-
-}
-#linkex a[title="link"]{
-    color:darkred;
-}
-#linkex a[title="visited"]:visited{
-    color:deeppink;
-}
-#linkex a[title="hover"]:hover {
-    color: dodgerblue;
-}
-#linkex a[title="active"]:active{
-    color: #00FF00;
- }
-
-#cursorauto{ cursor: auto;}
-#cursorcrosshair{ cursor: crosshair ;}
-#cursordefault{ cursor:default ;}
-#cursore-resize{ cursor:e-resize;}
-#cursorgrab{ cursor: grab;}
-#cursorhelp{ cursor: help;}
-#cursormove{ cursor: move;}
-#cursorn-resize{ cursor: n-resize;}
-#cursorne-resize{ cursor: ne-resize;}
-#cursornw-resize{ cursor: nw-resize;}
-#cursorpointer{ cursor: pointer;}
-#cursorprogress{ cursor: progress;}
-#cursors-resize{ cursor: s-resize;}
-#cursorse-resize{ cursor: se-resize;}
-#cursorsw-resize{ cursor: sw-resize;}
-#cursortext{ cursor: text;}
-#cursorw-resize{ cursor: w-resize;}
-#cursorwait{ cursor: wait;}
-#cursornot-allowed{ cursor: not-allowed;}
-#cursorno-drop{ cursor: no-drop;}
