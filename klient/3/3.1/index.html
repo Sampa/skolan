@@ -216,8 +216,36 @@
     <h3>Reguljära uttryck</h3>
     <p>
         Ett reguljärt uttryck är ett mönster som körs mot en text för att hitta de instanser som passar in på mönstret
-        (uppfyller alla "krav" i uttrycket)
+        (uppfyller alla "krav" i uttrycket). Varje reguljärt uttryck består av en serie tecken och kan användas till
+        allt från att titta ifall en sträng innehåller ett särskiljt ord, till mycket mer avancerade exempel.
+        Reguljära uttryck kan ta tid att få till rätt, och är väldigt svåra att komma ihåg. Därför är det en bra idé att
+        ha ett litet "cheatsheet" där du samlar dina reguljära uttryck och vad dem gör.
+
+        När du kört ett reguljärt uttryck skapat ett objekt med information om resultatet.
+        <pre><code>
+            var foo = "jag Jag jag";
+            //Se ifall en sträng innehåller ordet "jag".
+            var match = foo.match(/Jag/); //ger resultatet "Jag", då det är case-sensitiv
+            var match = foo.match(/Jag/i); //ger resultatet "jag", tack vare modifieraren i. Ej case-sensitiv
+            var match = foo.match(/Jag/ig); //ger resultatet "jag, Jag, jag", då modifieraren g hittar alla instanser, inte bara den första
+        </code></pre>
     </p>
+    <p>
+        Exemplet testar ett lösenord för att se att det innehåller minst 6 tecken,
+        både stor och liten bokstav samt minst en siffra. Visar exempel på lösenord som skulle ge true,
+        och vilka som ger false.
+    </p>
+    <ul>
+        <li>abcABC - ej giltigt, saknar siffror</li>
+        <li>abc123 - ej giltigt, saknar stor bokstav</li>
+        <li>abAB1 - ej giltigt, för kort</li>
+        <li>abAB12 - giltigt</li>
+        <li>Aa123456 - giltigt</li>
+    </ul>
+     <pre><code>
+         //Minst en siffra, en liten och en stor bokstav. Minst 6 tecken
+         var password = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
+     </code></pre>
 </section>
 </body>
 </html>
