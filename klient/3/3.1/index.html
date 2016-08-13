@@ -2,9 +2,222 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>3.1 - Javascript</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="sampa.js"></script>
 </head>
 <body>
+<section>
+    <header><h1>Grundläggande Javascript</h1></header>
+    <h3>Externt länkad JavaScript-fil och dess fördelar</h3>
+    <p>
+        Javascript kod bör skrivas i ett eget dokument med filändelsen .js, du inkluderar sedan
+        filen i ditt html-dokument.
+        Exempel: <pre><code>&lt;script src="minjavascript.js"&gt;&lt;/script&gt;</code></pre>
+        (koden skrivs i dokumentets &lt;head&gt; tag).<br/> Ibland inkluderar man javascript filerna i slutet av
+        dokumentet, då laddas de in efter övrig kod körts vilket gör att din sida upplevs snabbare för besökarna.
+    </p>
+    <p>
+        Du kan såklart ha flera olika javascript filer i samma dokument, och inkludera samma fil på flera olika
+        html-sidor. Din kod blir lättare att dela med sig av eller återanvända. Du får även tydligare/renare och
+        mer användbar kod när olika språk hålls seperat.
+    </p>
+    <h3>Satser</h3>
+    <p>
+        Satser på en rad i javascript avslutas med ett ; (semikolon) medans satser som består av ett block av kod
+        skrivs
+        inom <cite>"måsvingar"</cite><pre><code>
+        {
 
+        }
+        </code></pre>
+    </p>
+    <h3>Datatyper och variabler</h3>
+    <p>
+        I javascript behöver du inte ange datatyp för dina <dfn>variabler</dfn>. Men tänk på att koden exekveras från vänster till
+        höger och därmed kan ge olika resultat, så var noga med att se till att svaret blir det du förväntar dig. <br/>
+        Du kan använda både ' och " för att omsluta en <dfn>sträng</dfn>. Innehåller en sträng det ena tecknet, använd det andra runtom.
+        För att <dfn>tilldela</dfn> värden i Javascript används <dfn>operatorn</dfn> =.
+        Exempel på hur du skapar variabler och tilldelar :
+        <pre><code>
+            var foo = 10+10+"foo"; //Sträng, foo= 20foo
+            foo = 'foo'+10+10; //Sträng, foo är nu = foo1010
+            foo = "It's funny"; //Enkelfnutt innanför dubbelfnuttar
+            foo = 'He said "hey man"'; //tvärtom från ovan
+            var ett = 1; //Int
+            //eller skapa fler på en gång
+            var etta, tva, tre; //okänd datatyp
+            etta = 1;
+            tva = 2;
+            tre = 3;
+            var summa = etta+tva+tre; //Int, Summa=6
+        </code></pre>
+
+    </p>
+    <h3>Array, en datastruktur</h3>
+    <p>
+        Arrayer i javascript är nollbaserad, dvs första värdet finns på index (plats) 0, det andra på plats 1 osv.<br/>
+        En array skapas såhär:
+        <pre><code>
+            //variant 1
+            var myArray = ["a","b",c"];
+            //variant 2
+            var myArray;
+            myArray[0] = "a"; //index 0
+            myArray[1] = "b"; //index 1
+            myArray[2] = "c"; //index 2
+            myArray[3] = "d"; //index 3
+            //variant 3
+            var myArray = new Array("a","b","c","d");
+        </code></pre>
+        För att komma åt värden i en array är refererar du till dess index:
+        <pre><code>
+            //genererar en popup med värdet på index 0 = "a"
+            console.log(myArray[0];
+        </code></pre>
+    </p>
+    <h3>Operatorer och stränghantering</h3>
+    <h4>Strängar</h4>
+    <p>
+        En sträng kan ses som en array av bokstäver som tillsammans bildar text.
+        Därför går det enkelt att få reda på vilken bokstav som döljer sig på en viss position
+    </p>
+    <pre><code>
+        //Skapa en sträng
+        var foo = "Hej"; //eller 'Hej'
+        var first = foo[0]; //first = H
+        //med citat i strängen
+        var quote = "En person sade \"Vi hade iallafall tur med vädret\""; // \ krävs för att ett citat tecken ska tolkas som vanlig text
+        var quote2 = 'En person sade "Vi hade iallafall tur med vädret"';// med enkelfnuttar runtom behövs inget \
+        //Sätta ihop flera olika strängar med hjälp av + (Konkatenera)
+        var all = foo+", första bokstaven är: " + first + ". Och här är " + 1 + " citat " + quote;
+    </code></pre>
+    <p>
+        Det finns även en mängd <dfn>funktioner</dfn> som går att användas på strängar.
+        Mer om funktioner senare i den här tutorialen, men här är ett enkelt exempel på hur man hittar vilken position en bokstav har.
+    </p>
+    <pre><code>
+        var foo = "Hej";
+        var bar = foo.indexOf("j"); //bar = 2
+    </code></pre>
+    <h4>Aritmetrik</h4>
+    <dl>
+        <dt>Addition</dt>
+        <dd>
+            För att addera 2 med 1 kan du välja på:
+            2+1, 2++ samt ++2. "++" adderar alltid med 1.
+            Du kan även addera strängar:
+            <pre><code>
+                var foo= "Hatt";
+                var bar = "ar";
+                var fooBar= foo+bar; //fooBar = Hattar
+                var mix = foo+1+"tur";//mix = hatt1turq§
+            </code></pre>
+        </dd>
+        <dt>Subtraktion</dt>
+        <dd>
+            För att subtrahera 2 med 1 kan du välja på:
+            2-1, 2-- samt --2. "--" subtraherar alltid med 1
+        </dd>
+        <dt>Multiplera 2 med 3: 2*3</dt>
+        <dt>Dividera 6 med 3: 6/2</dt>
+        <dt>Modulo: 67%10</dt>
+    </dl>
+    <h4>Jämförelse</h4>
+    <ul>
+
+        <li>Är dem lika? foo==fooBar</li>
+        <li>Är dem olika? foo!=fooBar</li>
+        <li>Är foo minst? foo < fooBar</li>
+        <li>Är foo mindre eller lika med fooBar? foo <= fooBar</li>
+        <li>Är fooBar minst? foo > fooBar</li>
+        <li>Är fooBar mindre eller lika med foo? foo >= fooBar</li>
+    </ul>
+    <h3>Flödeshantering (if-satser och loopar)</h3>
+    <p>
+        If-satser ("antingen eller") används för att köra olika satser beroende på ett villkor.
+
+    </p>
+    <pre><code>
+        //Exempel som alltid kommer att köras (1 kommer ju alltid vara mindre än 2):
+        if(1<2){
+            console.log("1 är mindre än 2)";
+        }
+        //Exempel som skapar en console.log med olika text beroende på en variabels värde
+        var foo = 11;
+        if(foo<10){
+            console.log("foo är mindre än 10");
+        }else{
+            console.log("foo är större eller lika med 10");
+        }
+    </code></pre>
+        En loop består av ett villkor och en sats. Satsen körs sedan sålänge villkoret är <dfn>true</dfn>. Därför
+        är det viktigt att undvika oändliga loopar. Det går att göra loopar på tre sätt:<br/>
+        <dl>
+            <dt>While-loop</dt>
+            <dd>
+                Den enklaste loopen att lära sig och klarar av det mesta.
+                Obs! Kom ihåg att använder du ++ för att öka värdet på en variabel ska du tänka på att
+                <pre><code>
+                    ++foo = foo ökas med ett innan det bearbetas
+                    foo++ = foo ökas först efter att det bearbetats. Det kan ge olika resultat i vissa fall.
+                    //While loop
+                    var a= 0; //Vi behöver en variabel för att villkoret ska kunna gå från true till <i>false</i>
+                    while(a < 10){
+                        console.log("A är "+a++);
+                        //varianter på ovan
+                        a = a + 1;
+                        console.log("A är "+a);
+                        //få loopen att skriva ut 0 först istället för 1
+                        console.log("A är "+a);
+                        a++; //eller ++a, a+1;
+                    }
+                </code></pre>
+            </dd>
+            <dt>For-loop</dt>
+            <dd>
+                <pre><code>
+                    for(x=0;x< 10; x++){
+                        console.log("X är" + x);
+                    }
+                </code></pre>
+            </dd>
+            <dt>Foreach-loop</dt>
+            <dd>
+                Foreach används för att loopa igenom en array eller lista med objekt. Den körs en gång för varje värde.
+                I vårt exempel anropas en funktion varje varv, vilket kan göra din kod snyggare och lättare att dela upp.
+                Det går även bra att återanvända samma funktion i olika loopar. Mer om funktioner kan du läsa under nästa rubrik.
+                <pre><code>
+                    var nummer = ["a","b","c","d"];
+                    nummer.forEach(fooFunc());
+                    function fooFunc(item,index){
+                        console.log("item = " item + " index = " + index);
+                    }
+                </code></pre>
+            </dd>
+        </dl>
+    <h3>Funktioner</h3>
+    <p>
+        En funktion defineras med <dfn>function</dfn> följt av ett valfritt namn på funktionen som sen används för att
+        köra koden i <dfn>funktionskroppen</dfn>. En funktion kan även ha parametrar. En, flera eller ingen. En <dfn>parameter</dfn>
+        fungerar som en variabel, men enbart inom funktionen. Försöker du komma åt värdet utanför måsvingarna kommer du få ett error.
+
+    </p>
+    <pre><code>
+        //funktionen tar emot två parametrar och skapar en sträng av dem.
+        function myFunkyFunc(foo,bar){
+            return "foo = " + foo + ", bar = " + bar;
+        }
+        //anropa, sätter x till "foo = hej, bar = 341"
+        var x = myFunkyFunc("hej", 341);
+        //ett html element kan användas för att anropa funktioner i Javascript
+        &lt;button onclick='myFunkyFunk("hej",341)'&gt;MyFunkyFunk&lt;/button&gt;
+    </code></pre>
+    <h3>Reguljära uttryck</h3>
+    <p>
+        Ett reguljärt uttryck är ett mönster som körs mot en text för att hitta de instanser som passar in på mönstret
+        (uppfyller alla "krav" i uttrycket)
+    </p>
+</section>
 </body>
 </html>
