@@ -3,69 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>3.3</title>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <!--<script src="sampa.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<style>
-    .done{
-        background: darkred;
-        height: 30px;
-    }
-    .hover{
-        background: #00cc00;
-    }
-    .unhover{
-        background: #2e6da4;
-    }
-</style>
+<h5>Fokusera textfältet och skriv minst ett tecken innan du klickar på det som dyker upp</h5>
 <form>
-    <input type="text">
+    <input type="text" id="text">
+    <button>Ta bort eventet från bilden</button>
 </form>
-<script>
-    function formHoverIn(event){
-        $(this).removeClass("unhover");
-        $(this).addClass("hover");
-    }
-    function formHoverOut(event){
-        $(this).removeClass("hover");
-        $(this).addClass("unhover");
-    }
-    $("form").hover(formHoverIn,formHoverOut);
-    $("input").focus(function(){
-       $("form").append("<p id='type'>Skriv något...(klicka för att ta bort)</p>");
-    });
-    $("form").on('click',"#type",function(){
-        if($("input").val().length > 0){
-            $(this).remove();
-            $("form").addClass("done");
-        }else{
-            alert("Skriv något först");
-        }
-    });
-</script>
-<!--Välja ut ett HTML-element-->
-<!--Göra något med ett HTML-element:-->
-Ändra en egenskap för ett HTML-elementet
-<!--Lägga till nytt innehåll till ett HTML-elementet-->
-<!--Ta bort ett HTML-element-->
-<!--Utvinna information från ett HTML-element-->
-Lägga till och ta bort ett klass-attribut från ett HTML-element
-Gör även (eller ihop med ovanstående) ett eller flera JavaScript-program som använder jQuery för att använda DOM-objektet
-för att reagera på följande händelser:
-
-Mushändelser (någon av click, dblclick, mousedown, mouseup, mouseover, mouseout eller mousemove)
-Dokument och fönsterhändelser (någon av load, resize, scroll eller unload)
-Formulärhändelser (någon av submit, reset, change, focus eller blur)
-Tangentbordshändelser (någon av keypress, keydown eller keyup)
-Gör även ett program som använder den kombinerade jQuery händelsen hover (= mouseover + mouseout).
-
-Använd även händelse-objektet event och någon av dess egenskaper (pageX, pageY, screenX, screenY, shiftKey, which, target
-jeller data) för att exempelvis få fram koordinaterna för var en användare är med muspekaren.
-
-Gör till sist ett program som:
-
-Stoppar en händelses normala beteende (evt.preventDefault eller return false)
-Tar bort en händelse (off)
+<h5>Försök dra muspekaren över bilden</h5>
+<img src="http://placehold.it/150x50" id="bild" alt="Bild"/>
+<section id="musPos"></section>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 </body>
 </html>

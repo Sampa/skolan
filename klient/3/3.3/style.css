@@ -1,0 +1,21 @@
+  /* Class för formuläret när man skrivit något i textfältet och sen klickat på texten nedanför*/
+  .done{
+    width: 500px;
+  }
+  /* När man hoovrar över formuläret*/
+  .hover{
+    background: #00cc00;
+  }
+  /*När man flyttar ut musen från formuläret */
+  .unhover{
+    background: #2e6da4;
+  }
+  /*formulärets grundinställningar*/
+  form{
+    height: 60px;
+    border: 2px solid black;
+  }
+  /*Texten som visas när bilden laddats in*/
+  .load{
+    background: yellow;
+  }
