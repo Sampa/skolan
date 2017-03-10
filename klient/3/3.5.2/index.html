@@ -3,16 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>3.5.2</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-Gör ett JavaScript-program som med hjälp av jQuery implementerar:
-
-Bildbyte (attr)
-Bildbyte med rollover-effekt
-Använd förladdade bilder för att inte få några fördröjningar.
-
-Gör även ett JavaScript-program som implementerar:
-
+<section>
+    <header><h2>Bildbyten</h2></header>
+    <img id="img" src="http://placehold.it/250x150" alt=""/>
+    <button id="changeImg">Byt bild</button>
+    <section>
+        <header><h3>Hoovra över miniatyrerna för att byta den stora bilden</h3></header>
+        <img id="img3" src="http://placehold.it/25x15" alt=""/>
+        <img id="img4" src="http://placehold.it/35x15" alt=""/>
+    </section>
+</section>
+<section>
+    <header><h2>Dynamisk grafik</h2></header>
+    <canvas id="can1" width="300" height="100"></canvas>
+    <canvas id="can2" width="300" height="100"></canvas>
+</section>
 Dynamisk grafik med HTML5-elementet canvas:
 Rita raka linjer och kurvlinjer
 Rita bézier-kurvor och former ifyllda med både färg, mönster och gradienter
@@ -25,5 +33,13 @@ Om man vill så kan man använda ett ritbibliotek som CanvasPlus» och/eller Art
 HTML-dokumenten ska följa standarden HTML5 och varje JavaScript-fil ska vara extern. Testa att allt validerar med W3C:s validator.
 
 Frivillig överkurs är att även använda canvas för interaktivitet och animeringar.
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
+<script src="canvas.js"></script>
 </body>
 </html>
+<!--Gör ett JavaScript-program som med hjälp av jQuery implementerar:-->
+
+<!--Bildbyte (attr)-->
+<!--Bildbyte med rollover-effekt-->
+<!--Använd förladdade bilder för att inte få några fördröjningar.-->

@@ -8,13 +8,13 @@
 <body>
 <h1>Prova att scrolla, flytta fönstret eller ändra storlek på det</h1>
 <section>
-    <h2 id="clockInfo">Klockan stannar om 10 sekunder</h2>
+    <h2 id="clockInfo">Klockan stannar om 10 sekunder</h2></header>
     <span id="time"></span>
     <button onclick="stopTime()">Stoppa klockan nu</button>
     <button onclick="stopTimeOut()">Låt klockan gå mer än 10s</button>
 </section>
 <section>
-    <h2>Knappar för nytt fönster</h2>
+    <header><h2>Knappar för nytt fönster</h2></header>
     <button onclick="openW()">Öppna fönster</button>
     <button onclick="blurW()">Göm fönstret</button>
     <button onclick="closeW()">Stäng fönstret</button>
@@ -23,7 +23,7 @@
     <button onclick="moveW()">Flytta fönstret</button>
 </section>
 <section>
-    <h2>Knappar och info för huvudfönstret</h2>
+    <header><h2>Knappar och info för huvudfönstret</h2></header>
     <button onclick="window.scrollBy(0,100)">Scrolla 100px neråt</button>
     <button id="backtotop" onclick="window.scrollTo(0,0)">Scrolla längst upp</button>
     <button onclick="window.print()">Skriv ut sidan</button>
@@ -31,18 +31,18 @@
     <aside id="pageYX"></aside>
 </section>
 <section>
-    <h2>Info om Navigator objektet</h2>
+    <header><h2>Info om Navigator objektet</h2></header>
     <p id="navInfo"></p>
 </section>
 <section>
-    <h2>Knappar och info för location objektet</h2>
+    <header><h2>Knappar och info för location objektet</h2></header>
     <button onclick="location.reload();">Ladda om sidan</button>
     <button onclick="location.assign('http://www.google.se');">Gå till google.se</button>
     <button onclick="location.replace('http://www.dsv.su.se');">Ersätt sidan med dsv.su.se</button>
     <p id="locInfo"></p>
 </section>
 <section>
-    <h2>Info om Screen objektet</h2>
+    <header><h2>Info om Screen objektet</h2></header>
     <p id="screenInfo"></p>
 </section>
 
