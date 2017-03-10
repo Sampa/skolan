@@ -1,43 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <title>3.4</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-Gör ett eller flera JavaScript-program som använder följande webbläsar-objekt:
+<h1>Prova att scrolla, flytta fönstret eller ändra storlek på det</h1>
+<section>
+    <h2 id="clockInfo">Klockan stannar om 10 sekunder</h2>
+    <span id="time"></span>
+    <button onclick="stopTime()">Stoppa klockan nu</button>
+    <button onclick="stopTimeOut()">Låt klockan gå mer än 10s</button>
+</section>
+<section>
+    <h2>Knappar för nytt fönster</h2>
+    <button onclick="openW()">Öppna fönster</button>
+    <button onclick="blurW()">Göm fönstret</button>
+    <button onclick="closeW()">Stäng fönstret</button>
+    <button onclick="resizeBy()">Ändra storleken på fönstret</button>
+    <button onclick="resizeW()">Öka storleken på fönstret med 100x100px</button>
+    <button onclick="moveW()">Flytta fönstret</button>
+</section>
+<section>
+    <h2>Knappar och info för huvudfönstret</h2>
+    <button onclick="window.scrollBy(0,100)">Scrolla 100px neråt</button>
+    <button id="backtotop" onclick="window.scrollTo(0,0)">Scrolla längst upp</button>
+    <button onclick="window.print()">Skriv ut sidan</button>
+    <p id="winInfo"></p>
+    <aside id="pageYX"></aside>
+</section>
+<section>
+    <h2>Info om Navigator objektet</h2>
+    <p id="navInfo"></p>
+</section>
+<section>
+    <h2>Knappar och info för location objektet</h2>
+    <button onclick="location.reload();">Ladda om sidan</button>
+    <button onclick="location.assign('http://www.google.se');">Gå till google.se</button>
+    <button onclick="location.replace('http://www.dsv.su.se');">Ersätt sidan med dsv.su.se</button>
+    <p id="locInfo"></p>
+</section>
+<section>
+    <h2>Info om Screen objektet</h2>
+    <p id="screenInfo"></p>
+</section>
 
-Window:
-Egenskaper:
-navigator, screen, location
-screenLeft, screenTop, screenX, screenY
-innerHeight, innerWidth, outerHeight, outerWidth
-pageXOffset, pageYOffset
-Metoder:
-alert, confirm, prompt
-open, close
-focus, blur
-setInterval, clearInterval, setTimeout, clearTimeout
-moveBy, moveTo
-resizeBy, resizeTo
-scrollBy, scrollTo
-print
-Navigator:
-Egenskaper:
-appCodeName, appName, appVersion, platform, userAgent
-cookieEnabled
-Screen:
-Egenskaper:
-width, height, availWidth, availHeight
-colorDepth, pixelDepth
-Location:
-Egenskaper:
-host, hostname, port
-href, protocol, pathname, hash, search
-Metoder:
-assign
-reload
-replace
-HTML-dokumenten ska följa standarden HTML5 och varje JavaScript-fil ska vara extern. Testa att allt validerar med W3C:s validator.
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 </body>
 </html>
