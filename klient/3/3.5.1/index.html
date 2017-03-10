@@ -3,28 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>3.5.1</title>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-    <!--<script src="sampa.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<style>
-    #box{
-        width: 200px;
-        height: 200px;
-        background: red;
-    }
-</style>
 <body>
-Gör ett JavaScript-program som med hjälp av jQuery skapar följande effekter:
-
-Visar och gömmer ett HTML-element (show, hide och toggle)
-Fadar in ouch ut ett HTML-element (fadeIn, fadeOut, fadeToggle och fadeTo)
-Gör även ett program som skapar följande animation:
-
-Förändrar ett HTML-elements stilsättning (animate)
-Lägg till:
-
-Easing (linear eller swing) till animationen och testa med olika hastigheter
-Att en händelse sker efter animationen är klar (callback funktion)
 <button id="show">Visa</button>
 <button id="hide">Dölj</button>
 <button id="toggle">Toggle</button>
@@ -32,33 +13,10 @@ Att en händelse sker efter animationen är klar (callback funktion)
 <button id="fadeout">FadeOut</button>
 <button id="fadetoggle">FadeToggle</button>
 <button id="fadeto">FadeTo</button>
-<button id="fadetostart">FadeToStart</button>
+<button id="animate">Animera</button>
+<button id="fadetostart">ToStart</button>
 <div id="box"></div>
-<script>
-    $("#show").on("click",function(){
-        $("#box").show();
-    });
-    $("#hide").on("click",function(){
-        $("#box").hide();
-    });
-    $("#fadein").on("click",function(){
-        $("#box").fadeIn("6000");
-    });
-    $("#fadetoggle").on("click",function(){
-        $("#box").fadeToggle();
-    });
-    $("#fadeto").on("click",function(){
-        $("#box").fadeTo(5000,0,function(){});
-    });
-    $("#fadetostart").on("click",function(){
-        $("#box").fadeTo(5000,1,function(){});
-    });
-    $("#toggle").on("click",function(){
-        $("#box").toggle();
-    });
-    $("#fadeout").on("click",function(){
-        $("#box").fadeOut();
-    });
-</script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 </body>
 </html>
