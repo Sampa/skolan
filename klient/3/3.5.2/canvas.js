@@ -56,7 +56,7 @@ image.onload = drawP;
 */
 function drawP() {
     c3.fillStyle = c3.createPattern(image, "repeat");
-    c3.fillRect(0, 0, 250, 100);
+    c3.fillRect(0, 0, 300, 150);
 }
 c3.stroke();
 
@@ -65,32 +65,23 @@ var can4 = document.getElementById("can4");
 var c4 = can4.getContext("2d");
 //lite text (datum +tid)
 var d = new Date();
+var minutes = d.getMinutes() < 10 ? "0"+d.getMinutes() : d.getMinutes();
 var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " +
-d.getHours() + ":" + d.getMinutes();
+d.getHours() + ":" + minutes;
 c4.font = "30px Verdana";
 c4.strokeText(datestring,10,50);
 
-
-// skapar datasträng från bilden
-var dataURL1 = can1.toDataURL();
-// sätter attributen för nerladdningslänken
+/* Spara som bilder */
+// skapar datasträngangar för de ritade elementen
+var dataURL1 = can1.toDataURL(),dataURL2 = can2.toDataURL(),
+dataURL4 = can4.toDataURL(),dataURL3 = can3.toDataURL();
+// sätter attributen för nerladdningslänkarna
+//1
 document.getElementById('canvasImg1').href = dataURL1;
 document.getElementById('canvasImg1').download = "canvas1.jpg";
-
-// skapar datasträng från bilden
-var dataURL2 = can2.toDataURL();
-//// sätter attributen för nerladdningslänken
+//2
 document.getElementById('canvasImg2').href = dataURL2;
-//document.getElementById('canvasImg2').download = "canvas2.png";
-
-// skapar datasträng från bilden
-var dataURL3 = can3.toDataURL();
-// sätter attributen för nerladdningslänken
-document.getElementById('canvasImg3').href = dataURL3;
-//document.getElementById('canvasImg3').download = "canvas3.png";
-
-// skapar datasträng från bilden
-var dataURL4 = can4.toDataURL();
-// sätter attributen för nerladdningslänken
+document.getElementById('canvasImg2').download = "canvas2.png";
+//4
 document.getElementById('canvasImg4').href = dataURL4;
-//document.getElementById('canvasImg4').download = "canvas4.png";
+document.getElementById('canvasImg4').download = "canvas4.png";
