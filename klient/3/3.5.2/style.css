@@ -1,3 +1,14 @@
+#can1,#can2,#can3{
+
+}
+#can4{
+    height:100px;
+}
+.canvas{
+    width:350px;
+    height:200px;
+    border: 1px solid blue;
+}
 #preload-img1 { background: url(http://placehold.it/250x150) no-repeat -9999px -9999px; }
 #preload-img1 { background: url(http://placehold.it/350x150) no-repeat -9999px -9999px; }
 #preload-img3 { background: url(http://placehold.it/25x15) no-repeat -9999px -9999px; }
