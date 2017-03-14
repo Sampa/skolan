@@ -3,16 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <title>3.5.3</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-ör ett JavaScript-program som med hjälp av jQuery implementerar:
-
-Att alla externa länkar på en webbsida öppnas i ett nytt fönster med hjälp av automatiskt införande av attributet target="_blank" för dessa länkar
+<nav>
+    <ul>
+        <li class="top">
+            <a href="#">Hem</a>
+            <ul>
+                <li><a href="#">Adress</a></li>
+                <li class="sub">
+                    <a href="#">Kontakt</a>
+                    <ul>
+                        <li><a href="http://facebook.com">Facebook</a></li>
+                        <li><a href="http://twitter.com">Twitter</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li class="top">
+            <a href="#">Blog</a>
+            <ul>
+                <li><a href="#">Nya</a></li>
+                <li><a href="#">Mest kommenterade</a></li>
+                <li><a href="#">Arkiverade</a></li>
+            </ul>
+        </li>
+        <li class="top">
+            <a href="#">Utveckling</a>
+            <ul>
+                <li class="sub">
+                    <a href="http://w3schools.com">W3Schools</a>
+                    <ul>
+                        <li><a href="#">Ett</a></li>
+                        <li><a href="#.html">Två</a></li>
+                        <li class="sub">
+                            <a href="#">Tre</a>
+                            <ul>
+                                <li><a href="#">Ett</a></li>
+                                <li><a href="#">Två</a></li>
+                                <li class="sub">
+                                    <a href="#">Tre</a>
+                                    <ul>
+                                        <li><a href="#">Ett</a></li>
+                                        <li><a href="#">Två</a></li>
+                                        <li><a href="#">Tre</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="#">Annat</a></li>
+                <li class="sub">
+                    <a href="#">Mer</a>
+                    <ul>
+                        <li><a href="#">Ett</a></li>
+                        <li><a href="#">Två</a></li>
+                        <li><a href="#">Tre</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="http://omni.se">Nyheter</a></li>
+    </ul>
+</nav>
 Gör även ett JavaScript-program som med hjälp av jQuery implementerar:
-
 En animerad navigationslist med drop-down menyer eller liknande
+<br><br>
 HTML-dokumenten ska följa standarden HTML5 och varje JavaScript-fil ska vara extern. Testa att allt validerar med W3C:s validator.
 
-Frivillig överkurs är att även implementera en sida-i-en-sida med hjälp av jQuery FancyBox.
+Frivillig överkurs är att även implementera en sida-i-en-sida med hjälp av
+jQuery FancyBox.
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 </body>
 </html>

@@ -74,7 +74,7 @@ c4.strokeText(datestring,10,50);
 /* Spara som bilder */
 // skapar datasträngangar för de ritade elementen
 var dataURL1 = can1.toDataURL(),dataURL2 = can2.toDataURL(),
-dataURL4 = can4.toDataURL(),dataURL3 = can3.toDataURL();
+dataURL3 = can3.toDataURL(),dataURL4 = can4.toDataURL();
 // sätter attributen för nerladdningslänkarna
 //1
 document.getElementById('canvasImg1').href = dataURL1;
