@@ -1,30 +1,59 @@
-var errorMsg = "Felaktigt format, försök igen!";
-function readAnswer(){
-    var text = document.getElementById("answer").value; //hämta värdet från vår input
-    var regex = new RegExp(/^Min ålder\: ([1-9]+)$/); //mönstret för att se om användaren skrivit korrekt
-    var containsText  = text.match(regex); // pröva mönstret mot stringen, annan construct version
-    var didMatch = new Boolean(containsText[1]); //exe
-    if(didMatch){
-        document.getElementById("response").innerHTML = "Din ålder är "+ containsText[1]; //skriver ut "Din ålder är" + åldern
-    }else{
-        alert(errorMsg); //om man inte skrev korrekt
+    //när man rör musen in över formuläret byter vi class på det
+    function formHoverIn(event){
+        $(this).removeClass("unhover");
+        $(this).addClass("hover");
     }
-
-    var myArray = document.getElementsByName('color');
-    var number = new Number(0);
-    for (var i = 0, length = myArray.length; i < length; i++) {
-        if (myArray[i].checked) {
-            number++;
-            document.getElementById("response").innerHTML += "<br>"+myArray[i].value;
+    //när man rör musen ut från formuläret byter vi class på det.
+    function formHoverOut(event){
+        $(this).removeClass("hover");
+        $(this).addClass("unhover");
+    }
+    $("form").hover(formHoverIn,formHoverOut);
+    //när vi fokuserar i textfältet visar vi en text och ser till att den bara finns i en uppsättning
+    $("input").focus(function(){
+       $("#type").remove();
+       $("form").append("<p id='type'>Skriv något i fältet och tryck på 'Enter' (klicka på den här raden för att rensa)</p>");
+    });
+    /*när vi klickar på parapgrahpen #type tar vi bort den igen och rensar
+    textfältet samt lägger till en class på formuläret som ändrar dess bredd
+    vi kollar även att man skrivit minst ett tecken i fältet*/
+    $("form").on('click',"#type",function(){
+        if($("input").val().length > 0){
+            $(this).remove();
+            $("#text").val('');
+            $("form").addClass("done");
+        }else{
+            alert("Skriv något först");
         }
-    }
-    var num1 = parseInt(document.getElementById("nums").value);
-    var num2 = parseInt(document.getElementById("nums2").value);
-    var num3 = Math.floor(Math.random()*10);
-    console.log(num3);
-    document.getElementById("response").innerHTML += "<br>Du valde "+ number + " färger <br>";
-    document.getElementById("response").innerHTML += "<br>Tid: "+ new Date();
-    document.getElementById("response").innerHTML += "<br>Num1("+num1+") + Num2("+num2+") = ";
-    document.getElementById("response").innerHTML += num1+num2;
-    document.getElementById("response").innerHTML += "<br>Nummer 1, Nummer 2, Random. Högst är:" + Math.max(num1,num2,num3) + "<br>";
-}
+    });
+    //när bilden har laddats in lägger vi till lite text och en länk nedanför bilden
+    $("#bild").on('load', function(){
+        $('<p class="load">Text och länk som syns när bilden ovan laddats in</p><a href="../3.4/" alt="">Nästa uppgift(3.4)</a>').insertAfter("img");
+    });
+    //Trycka på enter inom formuläret utlöser en händelse
+    $("form").on("keypress", function(e) {
+            if (e.keyCode == 13) { //13 = enter knappen
+                e.preventDefault(); //hindrar standardbeteendet
+                alert("Du skrev: " + $("#text").val()); //visa innehållet i textfältet
+            }
+    });
+
+    //kombinerad mouseenter + mouseleave när man rör musen över bilden
+    $("#bild").hover(
+      function() {
+        $('<span id="stars"> ***jQuery hover function***</span>').insertAfter(this);
+      }, function() {
+        $("#stars").remove();
+      }
+    );
+
+    //för att visa musens position
+    $( document ).on( "mousemove", function( event ) {
+      $("#musPos").text("Mus position från vänster: " + event.pageX + "px, Mus position från toppen: " + event.pageY +"px" );
+    });
+
+    //formulärets submitknapp ska inte skicka iväg formuläret utan ta bort event från bilden
+    $("form").on("submit",function(e){
+        e.preventDefault();
+        $("#bild").off();
+    });
