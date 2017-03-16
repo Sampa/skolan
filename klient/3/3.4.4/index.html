@@ -2,14 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>3.5.4</title>
+    <title>3.4.4</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <link rel="stylesheet" href="jquery-ui.theme.min.css">
+
 </head>
 <body>
+<section id="flikar">
+    <header><h1>Flikar med jQuery</h1></header>
+    <ul>
+        <li><a href="#flikar-1">1</a></li>
+        <li><a href="#t2">2</a></li>
+        <li><a href="#t3">3</a></li>
+        <li><a href="#t4">4</a></li>
+    </ul>
+    <div id="flikar-1">
+        <p>Text i flik ett</p>
+    </div>
+    <div id="t2">
+        <p>Text i flik två</p>
+    </div>
+    <div id="t3">
+        <p>Text i flik tre</p>
+    </div>
+    <div id="t4">
+        <p>Text i flik fyra</p>
+    </div>
+</section>
+<section id="wrapper">
+    <header><h1>Content slider</h1></header>
+    <ul>
+        <li>
+            <h2>Reklam</h2>
+                <a href="#" class="next" title="Nästa bild">
+                    <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+                </a>
+                <a href="#" class="last" title="Gå till sista bilden">
+                    <span class="ui-icon ui-icon-arrowthickstop-1-e"></span>
+                </a>
+            <img src="http://placehold.it/300x300" alt="bild"/>
+        </li>
+        <li>
+            <h2>Erbjudande</h2>
+            <a href="#" class="prev" title="Föregående bild">
+                <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+            </a>
+            <a href="#" class="next" title="Nästa bild">
+                <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+            </a>
+            <img src="http://placehold.it/300x300" alt="bild">
+        </li>
+        <li>
+            <h2>Nyheter</h2>
+            <a href="#" class="prev" title="Föregående bild">
+                <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+            </a>
+            <a href="#" class="next" title="Nästa bild">
+                <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+            </a>
+            <img src="http://placehold.it/300x300" alt="bild">
+        </li>
+        <li>
+            <h2>Köp fler spara mer</h2>
+            <a href="#" class="prev" title="Föregående bild">
+                <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+            </a>
+            <a href="#" class="next" title="Nästa bild">
+                <span class="ui-icon ui-icon-arrowthick-1-e"></span>
+            </a>
+            <img src="http://placehold.it/300x300" alt="bild">
+        </li>
+        <li>
+            <h2>Populärt</h2>
+            <a href="#" class="prev" title="Föregående bild">
+                <span class="ui-icon ui-icon-arrowthick-1-w"></span>
+            </a>
+            <a href="#" class="first" title="Gå till första bilden">
+                <span class="ui-icon ui-icon-arrowthickstop-1-w"></span>
+            </a>
+            <img src="http://placehold.it/300x300" alt="bild">
+        </li>
+    </ul>
+</section>
+<br><br><br><br><br><br><br>
 Gör ett eller flera JavaScript-program som med hjälp av jQuery implementerar:
 
 Tabbade paneler
 Skiftande innehållsmeny (sök på content slider example)
 Tooltips
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 </body>
 </html>

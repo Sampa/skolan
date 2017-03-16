@@ -1,0 +1,38 @@
+#flikar{
+    overflow:hidden;
+    width:300px;
+}
+
+*{padding:0; margin:0;}
+ul li {
+   list-style:none;
+  float:left;
+  position:relative;
+}
+#wrapper ul li a {
+    /*position:relative;*/
+    margin-top: -20px;
+    text-decoration:none;
+    color:#dd9999;
+}
+ul li a:hover {
+    color:#660000;
+}
+ul li a.next {
+  position:absolute;
+  right:0px;
+}
+ul li a.prev{
+  position:absolute;
+  right:20px;
+}
+ul li a.first{
+  position:absolute;
+  right:0px;
+  top:28px;
+}
+ul li a.last{
+  position:absolute;
+  right:20px;
+  top:28px;
+}
