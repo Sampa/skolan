@@ -2,9 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>3.7.4</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+<section>
+    <header><h1>3.7.4 - postMessage</h1></header>
+    <iframe id="iframe" src="iframe.html"></iframe>
+</section>
+<section>
+    <header><h1>Formulär</h1></header>
+    <form id="form">
+        <label for="message">Meddelande (Enbart siffror och bokstäver):</label>
+        <input type="text" id="message">
+        <input type="button" id="send" value="Skicka meddelande">
+    </form>
+    <h2>Svar</h2>
+    <p id="response"></p>
+</section>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
 
 </body>
 </html>
+<!--
+Uppgiften introducerar till hur man kommunicerar mellan webbsidor som befinner sig i olika fönster eller där ena webbsidan ligger inbäddad i en iframe. Detta kan göras både inom samma domän och mellan olika domäner.
+
+Ett exempel är en webbsida med en iframe innehållande en webbsida (från en annan domän) med reklam. Då kan webbsidan sända information till webbsidan i iframe:n som den kan använda för att visa riktad reklam.
+
+Uppgift
+Gör ett JavaScript-program som med hjälp av jQuery använder webbmeddelanden mellan två dokument i olika webbläsarsammanhang.
+
+HTML-dokumentet ska följa standarden HTML5 och varje CSS- och JavaScript-fil ska vara extern. Testa att allt validerar med W3C:s validator.
+
+Exempel
+Inget exempel ges.
+
+Tips
+Ett exempel är om HTML-dokument A innehåller en iframe som har ett HTML-dokument B:
+
+Ett JavaScript i A anropar fönsterobjektet för B (med metoden postMessage)
+En message-händelse avfyras då i fönsterobjektet för B (med info om att det kommer från fönstret för A)
+JavaScriptet för A kan exempelvis se ut enligt:
+
+var o = document.getElementsByTagName('iframe')[0];
+o.contentWindow.postMessage('Hello world', 'http://b.example.org/');
+JavaScriptet för B kan exempelvis se ut enligt:
+
+window.addEventListener('message', receiver, false);
+function receiver(e) {
+  if (e.origin == 'http://example.com') {
+    if (e.data == 'Hello world') {
+      e.source.postMessage('Hello', e.origin);
+    } else {
+      alert(e.data);
+    }
+  }
+}
+Notera att detta program kontrollerar:
+
+Att meddelandet kommer från förväntad domän
+Att meddelandets syntax är korrekt
+Detta är mycket viktigt för att allt ska vara säkert!
+-->

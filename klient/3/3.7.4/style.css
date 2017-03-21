@@ -1,0 +1,29 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #333;
+    color: #FFF;
+    border-top: 5px solid #69c773;
+    padding: 0 1em;
+    margin: 0;
+}
+label,input[type=button]{
+    width: 306px;
+}
+input[type=text]{
+    width: 302px;
+}
+#form{
+    max-width:306px;
+}
+iframe{
+    height:80px;
+}
+iframe,#response {
+    background: #FFF;
+    border: 3px solid #000;
+    width: 300px;
+    color: #000;
+}
+#response{
+    height:50px;
+}
