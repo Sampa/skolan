@@ -1,15 +1,19 @@
-body{
+html,body{
+    height: 100%;
+    margin: 0;
+    padding: 0;
     background: #000;
 }
 form{
     background:#aaa;
     border: 3px solid #0000aa;
-    width: 320px;
+    width: 170px;
     position:relative;
     float:left;
+    margin-left: 50px;
 }
 input,label{
-    width:300px;
+    width:150px;
 }
 section,aside{
    /* padding:0px;*/
@@ -20,16 +24,12 @@ aside{
     position:relative;
     float:left;
     margin-left: 100px;
-    width: 200px;
     border: 3px solid #0000aa;
-    height: 99px;
+    width: 400px;
+    height: 300px;
 }
-h1,h2{
-   /* position:relative;
-    float:right;*/
-}
-#sum{
-    text-align:center;
-    color: #ff3366;
-    background: #999;
+ /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+#map {
+    height: 100%;
 }
