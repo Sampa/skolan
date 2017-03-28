@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3.5.1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<section>
+    <header><h1>Webblagring - Editera profil</h1></header>
+    <p>
+        Information i varje fält sparas automatiskt i <dfn>SessionStorage</dfn> var för sig,
+        så att den finns kvar när om du råkar uppdatera sidan eller backa och gå tillbaka.
+    </p>
+    <p>
+        När du klickar på <i>spara</i>-knappen så sparas information i LocalStorage.
+        Då finns den även tillgänglig på /home.html (som öppnas i nytt fönster/ny flik).
+    </p>
+    <p>
+        Trycker du på <i>töm storage & fält</i>-knappen töms både local storage och session storage
+        samt formuläret.
+    </p>
+    <form id="reg">
+        <label for="name">Namn: </label>
+        <input name="name" id="name" type="text">
+        <label for="email">E-post: </label>
+        <input name="email" id="email" type="email">
+        <label for="age">Ålder: </label>
+        <input name="age" id="age" type="number">
+        <label for="gender">Kön: </label>
+        <select name="gender" id="gender">
+            <option value="m">Man</option>
+            <option value="f">Kvinna</option>
+        </select>
+        <label for="about">Om dig: </label>
+        <textarea name="about" id="about"></textarea>
+        <button>Spara</button>
+    </form>
+    <button id="remove">Töm storage & fält</button>
+</section>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="sampa.js"></script>
+</body>
+</html>

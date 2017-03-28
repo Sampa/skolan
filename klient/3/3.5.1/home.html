@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3.5.1</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<section>
+    <header><h1>Info från localstorage</h1></header>
+    <p>
+        När du trycker på töm <dfn>local storage </dfn>töms det för båda sidorna.
+        Men du kan ångra det eftersom det lagrade objektet finns som backup i
+        <dfn>session storage</dfn>.
+    </p>
+    <p>
+        Om du ångrar raderingen sparas information återigen
+        i local storage och formuläret på index.html fylls igen.
+    </p>
+    <p>
+        Klickar du på töm session storage tas backup-objektet bort och det går det inte
+        längre att ångra tömningen från local storage.
+    </p>
+    <div id="profile"></div>
+</section>
+<button id="removeLocal">Töm local storage</button>
+<button id="removeSession">Töm session storage</button>
+<button id="reverse">Återställ local storage</button>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script src="home.js"></script>
+</body>
+</html>

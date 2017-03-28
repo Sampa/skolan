@@ -1,0 +1,27 @@
+form{
+    width:300px;
+}
+label{
+    width:80px;
+    display: inline-block;
+}
+label[for="about"]{
+    position:relative;
+    top: -18px;
+}
+input{
+}
+input,textarea,select{
+    margin:3px 0 0 0;
+    padding:0px;
+}
+select{
+    width: 173px;
+}
+textarea{
+    width: 171px;
+    margin-top: 5px;
+}
+#reverse{
+    display:none;
+}
