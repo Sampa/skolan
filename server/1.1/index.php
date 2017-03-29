@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Happyjuiced
- * Date: 2015-02-10
- * Time: 16:00
- */
 /*
  * Öpnnar filen för att kunna läsa antalet besök och spara det i en variabel (+1 för det nyaste besöket)
  * utan att nollställa filen först med file_get_contents

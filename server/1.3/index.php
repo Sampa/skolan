@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Happyjuiced
- * Date: 2015-02-10
- * Time: 17:05
- */
 header("Content-Type: image/jpeg");
 //text
 $text = sha1(rand(0,999));

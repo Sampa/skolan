@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Happyjuiced
- * Date: 2015-02-10
- * Time: 16:11
- */
 header('Content-type: text/plain');
 //Alla omgivningssvariabler i två array:er, en för server värden och en för env vi kan arbeta med
 $server = array("PHP_SELF","REQUEST_TIME_FLOAT","REQUEST_TIME","SERVER_SIGNATURE","QUERY_STRING",);
