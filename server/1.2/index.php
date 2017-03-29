@@ -6,6 +6,8 @@
  * Time: 16:11
  */
 header('Content-type: text/plain');
+//Alla omgivningssvariabler i två array:er, en för server värden och en för env vi kan arbeta med
+$server = array("PHP_SELF","REQUEST_TIME_FLOAT","REQUEST_TIME","SERVER_SIGNATURE","QUERY_STRING",);
 $values = array(
 	"REMOTE_ADDR",
 	"REMOTE_PORT",
@@ -30,7 +32,6 @@ $values = array(
 	"SERVER_PORT",
 	"SERVER_PROTOCOL",
 	"SERVER_SOFTWARE",
-
 	"REDIRECT_STATUS",
 	"HTTP_COOKIE",
 	"HTTP_REFERER",
@@ -38,10 +39,15 @@ $values = array(
 	"SCRIPT_URL",
 );
 
+/*
+ * Vi loopar igenom vår array  och hämtar ut värdet för varje omgivningsvariabler med getenv() i varje iteration
+ */
 foreach($values as $key){
 	echo $key . ":". getenv($key)."\n";
 }
-$server = array("PHP_SELF","REQUEST_TIME_FLOAT","REQUEST_TIME","SERVER_SIGNATURE","QUERY_STRING",);
+/*
+ * Samma som ovan fast för vår server array där vi behöver $_Server istället för getenv()
+ */
 foreach($server as $key){
 	echo $key.":".$_SERVER[$key]."\n";
 }
