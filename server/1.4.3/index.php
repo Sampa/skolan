@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Happyjuiced
- * Date: 2015-02-10
- * Time: 16:00
+/*
+ * Funkar bara i firefox
+ */
+//först sätter vi headern för att använda oss av server-push
+header('Content-type: multipart/x-mixed-replace;boundary=endofsection');
+/*
+ * Functionen tar emot innehåll och skriver ut det som vanlig text
+ * Sen tömmer vi buffern med ob_flush() och flush() för annars blir det problem med headern
  */
 header('Content-type: multipart/x-mixed-replace;boundary=endofsection');
 
@@ -14,9 +17,9 @@ function write($content,$contentType="text/plain"){
 	ob_flush();
 	flush();
 }
-// Displays plain text
+//vi börjar med vanlig text
 $contentType="text/plain";
-//for($i=10;$i>=0;$i--){
+//evighetsloop som kollar contentType och  skriver ut lite innehåll baserat på den och ändrar sedan contentType till något annat
 while(true){
 	if($contentType=="text/plain"){
 		write(date("Y-m-d H:i:s "),$contentType);
