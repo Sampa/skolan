@@ -23,11 +23,12 @@ ImageFill($picture, 0, 0, $c1);
 //Textfärg
 ImageString($picture, 5, 30, 3, $text, $c2);
 
-//Fyll bilden med lite kludd
-ImageRectangle($picture,0,0,$width-1,$height-1,$c3);
-ImageRectangle($picture,0,0,$width-30,$height-30,$c2);
-imageline($picture, 0, $height/2, $width, $height/2, $c3);
-imageline($picture, $width/3, 0, $width/3, $height, $c3);
+//Fyll bilden med lite kludd, vi slumpar ett nummer för att få lite variation på våra linjer och rektanglar
+$div = rand(2,10);
+ImageRectangle($picture,0,0,$width-$div,$height-$div,$c3);
+ImageRectangle($picture,0,0,$width-$div*5,$height-$div*5,$c2);
+imageline($picture, 0, $height/$div, $width, $height/$div, $c3);
+imageline($picture, $width/$div+1, 0, $width/$div+1, $height, $c3);
 
 ImageJpeg($picture);
 ImageDestroy($picture);
