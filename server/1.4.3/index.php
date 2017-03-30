@@ -2,13 +2,13 @@
 /*
  * Funkar bara i firefox
  */
+
 //först sätter vi headern för att använda oss av server-push
 header('Content-type: multipart/x-mixed-replace;boundary=endofsection');
 /*
  * Functionen tar emot innehåll och skriver ut det som vanlig text
  * Sen tömmer vi buffern med ob_flush() och flush() för annars blir det problem med headern
  */
-header('Content-type: multipart/x-mixed-replace;boundary=endofsection');
 
 function write($content,$contentType="text/plain"){
 	echo "Content-type: ".$contentType."\n\n";
