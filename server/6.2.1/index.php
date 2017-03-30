@@ -1,15 +1,18 @@
 <?php
 include_once("form.html");
-//strippar html taggar
+//strippar html taggar och kollar om fältet är ifyllt
 function validateField($field){
+	if(empty($field)){
+		die("Fyll i alla fält");
+	}
 	return strip_tags($field);
 }
-//databasinställningar + connecta
+//sätter databasinställningarna och ansluter till den och returnerar anslutningen om det funkar
 function connectDb(){
 	//db inställningar
 	$servername = "localhost";
 	$username = "root";
-	$password = "root";
+	$password = "4319";
 	$db = "skolan";
 	$conn = new mysqli($servername, $username, $password,$db);
 	if ($conn->connect_error) {
@@ -18,27 +21,30 @@ function connectDb(){
 	return $conn;
 }
 
-//Om man har skrivit ett inlägg
+//Om man har skrivit ett inlägg så ansluter vi till databasen och validerar alla fält innan vi lägger till inlägget
+//om allt går bra så uppdaterar vi sidan och stänger anslutningen
 if(isset($_POST['submit'])){
 	if($conn = connectDb()){
+		$name = validateField($_POST['name']);
 		$comment = validateField($_POST['comment']);
 		$site = validateField($_POST['site']);
 		$email = validateField($_POST['email']);
-		$name = validateField($_POST['name']);
-		if($insert = $conn->prepare("INSERT INTO gbook(name ,comment,site,email) VALUES(?,?,?,?)")){
+		if($insert = $conn->prepare("INSERT INTO gb(name ,comment,site,email) VALUES(?,?,?,?)")){
 			//se till att det är strängar (bind params skyddar mot sql injections
 			$insert->bind_param("ssss",$name,$comment,$site,$email);
 			$insert->execute();
 			$insert->close();
 			$conn->close();
-			header("Location: php.php");
-		}
+			header("Location: index.php");
+		}else{
+            echo "Misslyckades med att lägga till inlägget";
+        }
 	}
 }
 
-//Hämta och visa alla nuvarande inlägg
+//Hämtar och visa alla nuvarande inlägg med comments.html som mall
 if($conn = connectDb()){
-	$sql = "SELECT * FROM gbook ORDER BY 'time' DESC";
+	$sql = "SELECT * FROM gb ORDER BY 'time' DESC";
 	$result = $conn->query($sql);
 	$html = file_get_contents("comments.html");
 	//mer än ett resultat

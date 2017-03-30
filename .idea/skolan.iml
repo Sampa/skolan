@@ -4,25 +4,5 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
-      <library name="PHP">
-        <CLASSES>
-          <root url="file://D:/Programmering/Webb/UniServerZ/core/php54" />
-        </CLASSES>
-        <SOURCES>
-          <root url="file://D:/Programmering/Webb/UniServerZ/core/php54" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library name="PHARS">
-        <CLASSES>
-          <root url="phar://D:/Programmering/Webb/UniServerZ/core/php54/pharcommand.phar/" />
-        </CLASSES>
-        <SOURCES>
-          <root url="phar://D:/Programmering/Webb/UniServerZ/core/php54/pharcommand.phar/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
   </component>
 </module>
