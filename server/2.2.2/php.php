@@ -28,6 +28,9 @@ function display_filesize($filesize){
 }
 /*
  * Detta har jag skrivit själv
+ * När man försöker ladda upp filen sätts $_POST['upload']
+ * Då skapas en array med de contenttypes vi vill behandla på ett sätt, om filen har en av de typerna skrivs den ut med den
+ * typen. Annars skrivs filnamnet, filstorleken och typen ut
  */
 if(isset($_POST['upload'])){
 	$mimeTypes = ["text/plain","image/jpeg","image/png"];
@@ -37,8 +40,8 @@ if(isset($_POST['upload'])){
 		header("Content-Type: ".$_FILES['file']['type']);
 		echo file_get_contents($_FILES['file']['tmp_name']);
 	}else{
-		echo "Filnamn: ".$_FILES['file']['name'] ."<br/>";
-		echo "Filstorlek: ".display_filesize($_FILES['file']['size']) ."<br/>";
+		echo "Filnamn: ".$_FILES['file']['name'] ."\n";
+		echo "Filstorlek: ".display_filesize($_FILES['file']['size']) ."\n";
 		echo "Mime-type: ".$_FILES['file']['type'];
 	}
 }
