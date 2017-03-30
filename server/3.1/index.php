@@ -17,7 +17,7 @@
     }
     fclose($countFile);
     //vi hämtar vårt html dokument och ersätter --$count-- med räkningen med hjälp av preg_replace och eval() gör att vi skriver ut det hela
-    $html = file_get_contents("task3.1.html");
+    $html = file_get_contents("task3.index.html");
     eval("print \"" . addcslashes(preg_replace("/(--(.+?)--)/", "\\2", $html), '"') . "\";");
 
 ?>
