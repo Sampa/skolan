@@ -1,59 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Guestbook</title>
+    <title>Gästbok med bild</title>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<form method="post" action="index.php" enctype="multipart/form-data">
-    <input type="hidden" name="pw" value="31415924">
-    <table>
-        <tr>
-            <td>
-                Namn:
-            </td>
-            <td>
-                <input type="text" name="name" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                E-post:
-            </td>
-            <td>
-                <input type="text" name="email" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Hemsida:
-            </td>
-            <td>
-                <input type="text" name="site" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Bild:
-            </td>
-            <td>
-                <input type="file" name="file"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Kommentar:
-            </td>
-            <td>
-                <textarea name="comment" rows="10" cols="15">
-                </textarea>
-            </td>
-        </tr>
-    </table>
-    <p>
-        <input type="submit" value="Lägg till" name="submit" />
-    </p>
-</form>
-<hr />
+    <form method="post" action="index.php" enctype="multipart/form-data">
+        <input type="hidden" name="pw" value="31415924">
+        <label for="name">Namn:</label>
+        <input type="text" name="name" id="name">
+        <label for="email">E-post:</label>
+        <input type="text" name="email" id="email">
+        <label for="site">Hemsida:</label>
+        <input type="text" name="site" id="site">
+        <label for="file">Bild:</label>
+        <input type="file" name="file" id="file">
+        <label for="comment">Kommentar:</label>
+        <textarea name="comment" rows="10" cols="15" id="comment"></textarea>
+        <input type="submit" value="Lägg till" name="submit">
+    </form>
+    <hr>
 </body>
 </html>
