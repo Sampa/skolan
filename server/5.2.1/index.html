@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inkorg</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <section>
+        <header><h1>Hämta din e-post</h1></header>
+        <p> Formuläret är förifyllt för att ge ett exempel på hur man hämtar e-post från Gmail</p>
+        <form method="post" action="php.php">
+            <label for="user">Användare: </label>
+            <input type="text" id="user" name="user" value="namn@gmail.com">
+            <label for="password">Lösenord: </label>
+            <input type="password" id="password" name="password" value="lösenord">
+            <label for="address">Mail-serverns adress: </label>
+            <input type="text" id="address" name="address" value="{imap.gmail.com/imap/ssl}INBOX">
+            <label for="port">Mail-serverns port: </label>
+            <input type="text" id="port" name="port" value="993">
+            <button>Hämta mail</button>
+        </form>
+    </section>
+    <section id="inbox">
+        <header><h2>Dagens email</h2></header>
+        <div>
+            <div class="toggler" >
+                <span class="subject"></span>
+                <span class="from"></span>
+                <span class="date"></span>
+            </div>
+            <div class="body"></div>
+        </div>
+    </section>
+</body>
+</html>

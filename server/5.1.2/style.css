@@ -1,0 +1,18 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #333;
+    color: #FFF;
+    border-top: 5px solid #69c773;
+    padding: 0 1em;
+    margin: 0;
+}
+label,input{
+    display: inline-block;
+    width: 306px;
+}
+input[type=text],textarea{
+    width: 302px;
+}
+form{
+    max-width:306px;
+}

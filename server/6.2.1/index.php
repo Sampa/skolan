@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
 			$insert->execute();
 			$insert->close();
 			$conn->close();
-			header("Location: index.php");
+			header("Location: php.php");
 		}else{
             echo "Misslyckades med att lägga till inlägget";
         }

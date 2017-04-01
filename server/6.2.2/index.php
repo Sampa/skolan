@@ -45,7 +45,7 @@ if(isset($_POST['submit'])){
 				//eftersom vi gör en transaction och har autocommit false behöver vi denna
 				$conn->commit();
 			}
-			header("Location: index.php");
+			header("Location: php.php");
 		}//no insert of gb
 		$conn->close();
 	}else{

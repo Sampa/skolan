@@ -1,0 +1,41 @@
+
+div.toggler	{
+    border:1px solid #ccc;
+    cursor:pointer;
+    padding:10px 32px;
+    background: #69c773;
+}
+div.toggler .subject{
+    font-weight:bold;
+}
+div.read{
+    color:#666;
+}
+div.toggler .from, div.toggler .date {
+    font-style:italic; 
+    font-size:11px; 
+}
+div.body{
+    padding:10px 20px; 
+}
+#inbox div {
+    /*display: none;*/
+}
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    background: #333;
+    color: #fff;
+    border-top: 5px solid #69c773;
+    padding: 0 1em;
+    margin: 0;
+}
+label,input[type=button]{
+    width: 306px;
+}
+input[type=text],input[type=password]{
+    width: 302px;
+}
+
+form{
+    max-width:306px;
+}
