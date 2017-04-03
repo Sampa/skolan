@@ -1,11 +1,12 @@
-var diceResultDiv = "#diceResult",user;
 window.onload = function() {
     //get the latest toplist from the database
     getTopList();
+    /* Toggle top list visibility */
     $('#collapseToplist').collapse({
         parent:"#collapseToplist"
 
     });
+    /* toggle information visibility */
     $('#collapseInfo').collapse({
         parent:"#collapseInfo"
     });
@@ -16,24 +17,25 @@ window.onload = function() {
     });
     /* To start a new game we remove the old scoreboard, hide the endview and displays the modal/button to enter usernames*/
     $("#newgame").on('click',function(){
-       $("#scoreboard tr td[data-user]").remove();
-       $("#scoreboard .playername").remove();
+        var scoreboard = $("#scoreboard");
+        scoreboard.find("tr td[data-user]").remove();
+        scoreboard.find(".playername").remove();
         $("#enterNamesButton").show();
         $("#endview").modal("hide");
         $("#modal").modal("show");
     });
     /*
-        Js related to entering playernames
+     Js related to entering playernames
      */
-
     //display modal and focus on first input
-    $("#modal").modal();
-    $('#modal').on('hide.bs.modal', function (event) {
-    });
-    $('#modal').on('shown.bs.modal', function () {
+    var modal = $("#modal");
+    modal.modal();
+    modal.on('hide.bs.modal', function (event) {});
+    modal.on('shown.bs.modal', function () {
+        console.log(1);
         $('[name="setplayer1"]').focus();
     });
-    $("#modal").on("click","#setPlayerNames",function(){
+    modal.on("click","#setPlayerNames",function(){
         $("#playerNames").submit();
     });
     /*submitting the player names form*/
@@ -43,19 +45,19 @@ window.onload = function() {
         sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
     });
     //controls which inputfields that should be active
-    $("[name^='setplayer']").keydown(function(event){
-       var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
+    $("[name^='setplayer']").keydown(function(){
+        var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
         next = 1+playerNumber;
         nextElement = $("[name='setplayer"+next+"']");
         //if input field is not empty
         if($("[name='setplayer"+playerNumber+"']").val().length > 0){
-           nextElement.prop("disabled",false);
-       }else{ //empty
-           nextElement.prop("disabled",true);
-       }
+            nextElement.prop("disabled",false);
+        }else{ //empty
+            nextElement.prop("disabled",true);
+        }
     });
     /*
-        Various click triggers
+     Various click triggers
      */
     //clicking a dice after making a roll
     //.selecteddice
@@ -76,11 +78,10 @@ window.onload = function() {
     $("tr").on("click",".clickable",function(){
         var element = $(this);
         user = element.attr("data-user");
-        //user = $("thead").find("td[data-user='"+name+"']");
         $.confirm({
             text: "Are you sure?",
             title: "Confirm choice",
-            confirm: function(button) {
+            confirm: function() {
                 //sets score for element and resets unused fields and allow new throws
                 setRowScore(element);
                 setTotals(user);
@@ -95,17 +96,22 @@ window.onload = function() {
             dialogClass: "modal-dialog modal-sm"
         });
     });
-    /**
+    // adjust the animation dices so they do not have an invisible shadow over the result dices
+    $(".dice:first").css("margin-left","-40px");
+    $(".dice:last").css("margin-right","-40px");
+    /*
      * Clicks on the animated dices makes a roll
-
      */
     $(".dice").on("click",function(){
         //find span element inside the countor and get the content as an int
-        var element = $("#start").find("span");
+        var start = $("#start");
+        var element = start.find("span");
         var number = parseInt(element.html()) +1;
-        if(number > 3  ){
-            $("#start").removeClass("alert-success").addClass("alert-danger");
+        //if we reached our maximum number of throws prohibit more
+        if(number >  3  ) {
             return;
+        }else if( number == 3){ // it's the last throw so make it the counter red
+            start.removeClass("alert-success").addClass("alert-danger");
         }
         //reset unused fields because we are doing a new roll
         clearRowFields();
@@ -114,6 +120,7 @@ window.onload = function() {
         setTimeout(rollDices,1000);
         //replace with the new count of rolls
         element.html(number);
-        //if we reached our maximum number of throws prohibit more
+
     });
-}
+};
+var diceResultDiv = "#diceResult",user;

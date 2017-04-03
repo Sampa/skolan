@@ -21,39 +21,37 @@
 <?php include_once("playerform.html");?>
 	<!-- visible content -->
 	<div class="container-fluid">
-		<div class="row">
+		<div class="row toprow">
 			<!-- dices -->
-			<div id="dices" class="row col-md-1 col-lg-1 col-sm-1">
+			<div id="dices" class="col-md-4 col-lg-3 col-sm-4">
 				<!-- Counter for throws per turn -->
-				<div id="start" class="alert alert-success largefont"><span>0</span>/3</div>
-				<!-- templates for dices showing the result uses css to display correct image-->
-				<div id="diceTemplate" class="hidden">
-					<div href="#" name="d1" ><img src="img_trans.gif" alt=""/></div>
-					<div href="#" name="d2" ><img src="img_trans.gif" alt=""/></div>
-					<div href="#" name="d3" ><img src="img_trans.gif" alt=""/></div>
-					<div href="#" name="d4" ><img src="img_trans.gif" alt=""/></div>
-					<div href="#" name="d5" ><img src="img_trans.gif" alt=""/></div>
-					<div href="#" name="d6" ><img src="img_trans.gif" alt=""/></div>
-				</div>
-				<!-- hidden checkboxes to control animation -->
-				<div id="wrapper">
-					<input id="secondroll" name="roll" type="checkbox"/>
-					<input id="roll" name="roll" type="checkbox"/>
-					<!-- get 5 animated dices -->
-					<div id="platform">
-						<?php for($i=0;$i<5;$i++) {require("animation.html");}?>
-					</div>
-				</div>
+				<div id="start" class="col-md-2 col-lg-2 col-sm-2 alert alert-success largefont"><span>0</span>/3</div>
+<!--			<div id="start" class="col-md-11 col-lg-11 col-sm-11 alert alert-success largefont"><span>0</span>/3</div>-->
+               <!-- templates for dices showing the result uses css to display correct image-->
+                <div id="diceTemplate" class="hidden col-md-9 col-lg-9 col-sm-9 ">
+                    <div href="#" name="d1" ><img src="img_trans.gif" alt=""/></div>
+                    <div href="#" name="d2" ><img src="img_trans.gif" alt=""/></div>
+                    <div href="#" name="d3" ><img src="img_trans.gif" alt=""/></div>
+                    <div href="#" name="d4" ><img src="img_trans.gif" alt=""/></div>
+                    <div href="#" name="d5" ><img src="img_trans.gif" alt=""/></div>
+                    <div href="#" name="d6" ><img src="img_trans.gif" alt=""/></div>
+                </div>
+                <!-- Target div for the result from each throw-->
+                <div id="diceResult" class="col-md-9 col-lg-9 col-sm-9"></div>
 			</div>
+            <!-- hidden checkboxes to control animation -->
+            <input id="secondroll" name="roll" type="checkbox">
+            <input id="roll" name="roll" type="checkbox">
+            <div id="wrapper" class="col-md-3 col-lg-3 col-sm-4">
+                <!-- get 5 animated dices -->
+                    <?php for($i=0;$i<5;$i++) {require("animation.html");}?>
+            </div>
+        </div>
+		<div class="row">
 			<div class="col-md-7 col-lg-7 col-sm-7">
-				<h2>Leaderboard</h2>
-				<!-- Target div for the result from each throw-->
-				<div id="diceResult" class=""></div>
-				<?php require_once("scoreboard.html");?>
+<!--				<h2>Leaderboard</h2>
+-->				<?php require_once("scoreboard.html");?>
 			</div>
-<!--			<div class="col-md-3 col-lg-3 col-sm-3">-->
-
-<!--			</div>-->
 			<div class="col-md-4 col-lg-4 col-sm-4 ">
 				<a class="" data-toggle="collapse" href="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
 					<h2>Information <span class="caret"></span></h2>
@@ -74,7 +72,7 @@
 				</a>
 				<div id="collapseToplist">
 					<!-- Top 10 list -->
-<!--					--><?php //include_once("toplist.php");?>
+<!--					--><?php //include_once("toplist.html");?>
 				</div>
 			</div>
 			<?php include_once("endview.html");?>

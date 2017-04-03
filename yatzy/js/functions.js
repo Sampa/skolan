@@ -17,7 +17,7 @@ function rollDices(){
     $("#roll").prop("checked", false);
     for(var i=0;i<5;i++){
         getCorrectDiceValue(i);
-    };
+    }
     diceResultDiv.html("");//empty the div with the dices
     $.each(diceElements,function(key,element){
         diceResultDiv.append(element); //add/display the elements from our merged array
@@ -58,25 +58,29 @@ function sendToServer(data,callback){
             }
         },
         error: function(data){
-            console.log("error"+data);
+            console.log(data);
         },
         dataType: "json"
     });
 }
 /**
  * shows the possible scoring options and what point  each would give
- * adds classes to the element for visibily and to make other js triggers work
+ * adds classes to the element for visibily if it does not already have an score and to make other js triggers work
+ * data is an array of possible scoring options
  */
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
         if(value && value !="user") {
-            prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top");
+            prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
             if (!element.attr("data-score")){
                 element.addClass("bg-primary clickable").html(value);
             }
         }
+    });
+    $.each($("td[data-user]:not(.clickable,[data-score],.score)"),function(key,value){
+        $(value).addClass("zero clickable").html(0);
     });
 
 }
@@ -87,8 +91,9 @@ function showScoreOptions(data){
 function setRowScore(element){
     $.each($(scoreOptionClass),function(key,value){
         var obj = $(value);
-        obj.removeClass("bg-primary clickable");
+        obj.removeClass("bg-primary clickable zero");
         if (obj.is(element)){
+            //if(obj.hasClass())
             obj.addClass("bg-success").attr("data-score",obj.html());
         } else {
             obj.empty();
@@ -100,7 +105,7 @@ function setRowScore(element){
  */
 function clearRowFields(){
     $.each($(scoreOptionClass),function(key,value) {
-        $(value).removeClass("bg-primary clickable").empty();
+        $(value).removeClass("bg-primary clickable zero").empty();
     });
 }
 /*
@@ -138,7 +143,6 @@ function endgame(data){
         sendToServer({"saveToDB":results});
         //show endview with results and winner
         $("#endview").modal();
-
     }
 }
 /*
@@ -167,8 +171,8 @@ function createEndTable(sortable){
         row = $("<tr></tr>");
         table.append(row);
         row.html("<td>"+(i+1)+"</td>>");//placement
-        row.append("<td>"+player[1]+"</td>");//player
-        row.append("<td>"+player[0]+"</td>");// score
+        row.append("<td>"+player[0]+"</td>");//player
+        row.append("<td>"+player[1]+"</td>");// score
         row.append("<td>"+(sortable[0][1] - player[1])+"</td>");//diff
         i++;
     });
@@ -179,13 +183,14 @@ function resetTurnCount(){
 //calculates the total for the top half (1-6)
 function setTopTotal(user){
     var topTotal = 0,number=0,elements = $("[id^=top][id$="+user+"]");
-    $("#topTotal"+user).html("");
-    $.each(elements,function(key,value){
+    var topTotalUser = $("#topTotal"+user);
+    topTotalUser.html("");
+    $.each(elements,function(){
         number = $(this).attr("data-score");
         if(!isNaN(number))
             topTotal = parseInt(topTotal) + parseInt(number);
     });
-    $("#topTotal"+user).html(topTotal);
+    topTotalUser.html(topTotal);
     setBonus(topTotal,user);
 }
 //when the toptotal is 63 or more, this adds the 50 bonus points
@@ -196,16 +201,16 @@ function setBonus(topTotal,user){
 }
 //Sets the bottom result (toptotal+bonus+bottom half)
 function setTotal(user){
-    var topScore = parseInt($("#topTotal"+user).html()) + parseInt($("#bonus" + user).html());
-    var number=0, result = 0, elements = $("[id^=bottom][id$="+user+"]");
-    $("#result"+user).html("");//topScore+result);
-    $.each(elements, function(key,value){
+    var topScore = parseInt($("#topTotal"+user).html()) + parseInt($("#bonus" + user).html()),
+    number=0, result = 0, elements = $("[id^=bottom][id$="+user+"]"), resultUser = $("#result"+user);
+    resultUser.html("");//topScore+result);
+    $.each(elements, function(){
         number = $(this).attr("data-score");
         if(!isNaN(number) && number > 0) {
-            result = parseInt(result) + parseInt(number);;
+            result = parseInt(result) + parseInt(number);
         }
     });
-    $("#result"+user).html(topScore+result);//topScore+result);
+    resultUser.html(topScore+result);//topScore+result);
 }
 function setTotals(user){
     setTopTotal(user);
@@ -247,8 +252,9 @@ function createScoreboard(data){
             currentCell = $(currentRow.insertCell(i));
             currentCell.attr("id",fields[r]+player).attr("data-user",player);
             //toptotal/bonus/endresult
-            if(r == 6|| r== 7 || r ==fields.length-1){
+            if(r == 6 || r== 7 || r ==fields.length-1){
                 currentCell.html(0);
+                currentCell.attr("class","score")
             }
         }
         i++;

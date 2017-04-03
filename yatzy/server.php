@@ -7,8 +7,8 @@ include_once("yatzy.php"); //yatzy methods
  */
 
 /* A request is sent from the client after each throw*/
-$dices = $_POST["dices"];
-if(isset($dices)) {
+if(isset($_POST["dices"])) {
+    $dices = $_POST["dices"];
     $numbers = array_count_values($dices); // frequency of each number (1-6)
     $results = []; //gets filled with the possible scoring options
     $results["chance"] = array_sum($dices); //chance is always possible
@@ -67,7 +67,6 @@ if(isset($_POST["playerNames"])) {
     $_SESSION['players'] =[];
     foreach($_POST['playerNames'] as $key=>$values) {
         //only accept the inputs with atleast 1 character
-        $values = $values;
         if(strlen($values['value']) > 0)
             $_SESSION['players'][$values['name']] = htmlspecialchars($values['value']);
     }
@@ -82,7 +81,7 @@ if(isset($_POST["playerNames"])) {
 /* fetching the toplist is done at page load and after the endview is displayed*/
 if(isset($_POST['toplist'])){
     //get table wrapper html
-    $table = file_get_contents("toplist.php");
+    $table = file_get_contents("toplist.html");
     //fetch the top 10 scores within tr/td's
     echo json_encode(array("table"=>$table,"toplist"=>getTopList()))    ;
 }

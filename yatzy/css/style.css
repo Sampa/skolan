@@ -1,73 +1,112 @@
-.clickable{
+/* classes to set points, clickable is for points, zero is for nulling a column */
+.clickable, .zero{
     cursor: pointer;
+}
+.zero{
+    background: #d9534f;
 }
 /* added to / removed from a dice when clicked*/
 .selectedDice{
-    /*border: 1px solid black;*/
-    /*margin-left: 35px;*/
     margin-top: 10px;
-    width: 50px;
+    width: 35px;
 }
-#diceResult div{
+#diceResult div,#diceTemplate div{
     float:left;
-    margin-left:3px;
+    margin-left:0;
 }
 /* inserted and displayed when a dice is clicked */
-#diceResult div span{
+#diceResult div span, #diceTemplate div span{
     margin-left: -35px;
-    width: 0; height: 0px;
+    width: 0; height: 0;
     border-left: 10px dashed transparent;
     border-top: 20px inset #5cb85c;
     border-right: 10px ridge transparent;
-    /*float:left;*/
 }
 /* the dices that are showed as roll result*/
-#diceResult{
-    height: 60px;
+#diceResult,#diceTemplate{
+    /*
+    height: 40px;
+    */
+    max-width: 210px;
     cursor: pointer;
     position: absolute;
-    top: 3px;
-    left:205px;
+    top: -1px;
+    left:50px;
+    padding: 0;
+    margin-bottom: 0;
 }
 /* diceresults, roll button and animation */
 #dices{
     margin-top:10px;
+    padding: 0;
+    height: 33px;
+    width: 240px;
 }
 #start{
-    margin-left: 10px;
+    margin-left: 5px;
+    margin-bottom: 0;
+    padding: 0 5px 0 5px;
+    max-width: 40px;
+    display: inline-block;
     /*margin-right: 35px;*/
+}
+/* wrapper for the animation dices */
+#wrapper {
+    position: relative;
+    width: auto;
+    margin-right: 0;
+    margin-left: -10px;
+    height: 50px;
+    padding: 0;
+    perspective: 200px;
+    top: 10px;
+}
+#platform {
+    margin-top:0;
+}
+#roll, #secondroll{
+    display: none;
+    position: absolute;
+    top: 0;
+    left:90%;
+}
+.toprow{
+    height: 80px;
+    /*
+    margin-bottom: 20px;
+    */
 }
 /* dice results show after a roll */
 div[name="d1"] img{
-width: 50px;
-height: 50px;
+width: 35px;
+height: 35px;
 background: url('../dice.png') -3px  0;
 cursor: pointer;
 }
 div[name="d2"] img{
-width: 50px;
-height: 50px;
-background: url('../dice.png') -66px 0;
+width: 35px;
+height: 35px;
+background: url('../dice.png') -47px 0;
 }
 div[name="d3"] img{
-width: 50px;
-height: 50px;
-background: url('../dice.png') -129px 0;
+width: 35px;
+height: 35px;
+background: url('../dice.png') -90px 0;
 }
 div[name="d4"] img{
-width: 50px;
-height: 50px;
-background: url('../dice.png') -3px 66px;
+width: 35px;
+height: 35px;
+background: url('../dice.png') 126px 46px;
 }
 div[name="d5"] img{
-width: 50px;
-height: 50px;
-background: url('../dice.png') -66px 66px;
+width: 35px;
+height: 35px;
+background: url('../dice.png') 210px 46px;
 }
 div[name="d6"] img{
-width: 50px;
-height: 50px;
-background: url('../dice.png') -129px 66px;
+width: 35px;
+height: 35px;
+background: url('../dice.png') 293px 46px;
 }
 .largefont{
     font-size: 150%;
@@ -105,48 +144,37 @@ background: url('../dice.png') -129px 66px;
     87% { transform: translate3d(0px,-50px,-200px) }
     100% { transform: translate3d(-100px,-25px,-200px) }
 }
-#roll:checked ~ #platform > .dice {
+#roll:checked ~ #wrapper > .dice {
     animation: spin-duplicate 2s infinite linear;
 }
-#roll:checked ~ #platform {
-    width:200px;
-    height:200px;
+#roll:checked ~ #wrapper {
+    width:400px;
+    height:50px;
     transform-style: preserve-3d;
     animation: roll 1.6s infinite linear;
 }
-#secondroll:checked ~ #roll:checked ~ #platform > .dice,
-#secondroll:checked ~ #roll:checked ~ #platform {
+#secondroll:checked ~ #roll:checked ~ #wrapper > .dice,
+#secondroll:checked ~ #roll:checked ~ #wrapper {
     animation-play-state: paused;
 }
-#wrapper {
-    position: absolute;
-    width: 100px;
-    margin-top: 0px;
-    /*margin-left: 10px;*/
-    max-height: 400px;
-    padding-top: 00px;
-    perspective: 200px;
-    top: 75px;
-    left: 30px;
-}
-#platform {
-    margin-top:0px;
-}
+
 .dice span {
     position:absolute;
-    margin:10px 0 0 10px;
+    margin: 0 0 0 0;
     display: block;
     font-size: 2.5em;
-    padding: 10px;
+    padding: 0;
 }
 .dice {
     position: relative;
+    float: left;
     width: 50px;
     height: 50px;
-    margin-top: 25px;
+    margin-left: 25px;
     transform-style: preserve-3d;
     animation: spin 50s infinite linear;
     cursor: pointer;
+    padding: 0;
 }
 .side {
     position: absolute;
@@ -235,14 +263,14 @@ background: url('../dice.png') -129px 66px;
 .dot.center.dright {
     margin:19px 0 0 33px;
 }
-#roll, #secondroll{
-    display: none;
-}
+
 #roll:checked ~ label[for=roll] {
+    /*
     margin-top:-100px;
+    */
 }
 #roll:checked ~ label[for=secondroll] {
-    margin-top:0px;
+    margin-top: 0;
 }
 #secondroll:checked ~ label[for=secondroll] {
     text-shadow:0 -1px 0 #336633;

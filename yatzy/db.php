@@ -4,7 +4,7 @@ function connectDb(){
 	//db inställningar
 	$servername = "localhost";
 	$username = "root";
-	$password = "root";
+	$password = "4319";
 	$db = "yatzy";
 	$conn = new mysqli($servername, $username, $password,$db);
 	if ($conn->connect_error) {
