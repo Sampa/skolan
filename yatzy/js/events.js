@@ -32,7 +32,6 @@ window.onload = function() {
     modal.modal();
     modal.on('hide.bs.modal', function (event) {});
     modal.on('shown.bs.modal', function () {
-        console.log(1);
         $('[name="setplayer1"]').focus();
     });
     modal.on("click","#setPlayerNames",function(){
@@ -74,21 +73,29 @@ window.onload = function() {
             element.removeClass("selectedDice").find("span").remove();
         }
     });
-    //pressing a scoring option td, confirm choice
+    /*pressing a scoring option td, ask to confirm choice
+    * if yes, set the score for that row, update the totals and run function
+    * newTurn() that prepares the game or if its over displays final scores
+    */
     $("tr").on("click",".clickable",function(){
         var element = $(this);
         user = element.attr("data-user");
+        element.addClass("bg-info");
         $.confirm({
             text: "Are you sure?",
             title: "Confirm choice",
             confirm: function() {
-                //sets score for element and resets unused fields and allow new throws
+                //sets score for the row and updates total scores and resets unused fields and allow new throws
                 setRowScore(element);
                 setTotals(user);
                 //prepare the game for a new turn (also calls endgame callback)
                 newTurn(user);
+                element.removeClass("bg-info");
             },
-            confirmButton: "Yes I am",
+            cancel: function(){
+                element.removeClass("bg-info");
+            },
+            confirmButton: "Yes",
             cancelButton: "No, I want to repick",
             post: true,
             confirmButtonClass: "btn-success",

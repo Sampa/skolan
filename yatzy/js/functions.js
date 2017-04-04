@@ -75,12 +75,12 @@ function showScoreOptions(data){
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
             if (!element.attr("data-score")){
-                element.addClass("bg-primary clickable").html(value);
+                element.addClass("text-primary clickable").html(value);
             }
         }
     });
-    $.each($("td[data-user]:not(.clickable,[data-score],.score)"),function(key,value){
-        $(value).addClass("zero clickable").html(0);
+    $.each($("td[data-user="+data.user+"]:not(.clickable,[data-score],.score)"),function(key,value){
+        $(value).addClass("text-danger clickable").html(0);
     });
 
 }
@@ -90,11 +90,11 @@ function showScoreOptions(data){
  **/
 function setRowScore(element){
     $.each($(scoreOptionClass),function(key,value){
-        var obj = $(value);
-        obj.removeClass("bg-primary clickable zero");
+        var obj = $(value),bgclass;
+        obj.removeClass("text-primary clickable text-danger");
         if (obj.is(element)){
-            //if(obj.hasClass())
-            obj.addClass("bg-success").attr("data-score",obj.html());
+            bgclass = parseInt(obj.html()) > 0 ? "bg-success" : "zero";
+            obj.addClass(bgclass).attr("data-score",obj.html());
         } else {
             obj.empty();
         }
@@ -105,7 +105,7 @@ function setRowScore(element){
  */
 function clearRowFields(){
     $.each($(scoreOptionClass),function(key,value) {
-        $(value).removeClass("bg-primary clickable zero").empty();
+        $(value).removeClass("text-primary clickable text-danger").empty();
     });
 }
 /*
@@ -254,7 +254,7 @@ function createScoreboard(data){
             //toptotal/bonus/endresult
             if(r == 6 || r== 7 || r ==fields.length-1){
                 currentCell.html(0);
-                currentCell.attr("class","score")
+                currentCell.attr("class","score text-info");
             }
         }
         i++;

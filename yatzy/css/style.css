@@ -1,3 +1,7 @@
+#scoreboard td{
+    padding: 2px;
+    text-align: center;
+}
 /* classes to set points, clickable is for points, zero is for nulling a column */
 .clickable, .zero{
     cursor: pointer;
@@ -37,7 +41,7 @@
 }
 /* diceresults, roll button and animation */
 #dices{
-    margin-top:10px;
+    margin-top:0px;
     padding: 0;
     height: 33px;
     width: 240px;
@@ -59,7 +63,7 @@
     height: 50px;
     padding: 0;
     perspective: 200px;
-    top: 10px;
+    top: 0px;
 }
 #platform {
     margin-top:0;
@@ -71,7 +75,9 @@
     left:90%;
 }
 .toprow{
+    position: relative;
     height: 80px;
+    top: 15px;
     /*
     margin-bottom: 20px;
     */
@@ -109,10 +115,10 @@ height: 35px;
 background: url('../dice.png') 293px 46px;
 }
 .largefont{
-    font-size: 150%;
+    font-size: 125%;
 }
 .mediumfont{
-    font-size: 125%;
+    font-size: 110%;
 }
 /* dice animation */
 @keyframes spin {
@@ -262,12 +268,6 @@ background: url('../dice.png') 293px 46px;
 }
 .dot.center.dright {
     margin:19px 0 0 33px;
-}
-
-#roll:checked ~ label[for=roll] {
-    /*
-    margin-top:-100px;
-    */
 }
 #roll:checked ~ label[for=secondroll] {
     margin-top: 0;

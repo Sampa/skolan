@@ -48,33 +48,41 @@
             </div>
         </div>
 		<div class="row">
-			<div class="col-md-7 col-lg-7 col-sm-7">
-<!--				<h2>Leaderboard</h2>
--->				<?php require_once("scoreboard.html");?>
-			</div>
-			<div class="col-md-4 col-lg-4 col-sm-4 ">
-				<a class="" data-toggle="collapse" href="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
-					<h2>Information <span class="caret"></span></h2>
-				</a>
-				<div id="collapseInfo">
-					<button id="enterNamesButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal">
-						Enter player names
-					</button>
-					<ul class="text-info mediumfont">
-						<li>Press the spinning dices to throw</li>
-						<li>Each player have 3 throws per turn</li>
-						<li>The toplist shows the best scores of all time</li>
-						<li>A player needs to score atleast 63 points in the top half to get bonus</li>
-					</ul>
-				</div>
-				<a data-toggle="collapse" href="#collapseToplist" aria-expanded="false" aria-controls="collapseToplist">
-					<h2>Toplist <span class="caret"></span></h2>
-				</a>
-				<div id="collapseToplist">
-					<!-- Top 10 list -->
-<!--					--><?php //include_once("toplist.html");?>
-				</div>
-			</div>
+			<section class="col-md-7 col-lg-7 col-sm-7"> <!-- spelplanen -->
+                <header><h4>Scoreboard</h4></header>
+    			<?php require_once("scoreboard.html");?>
+			</section>
+			<aside class="col-md-4 col-lg-4 col-sm-4 ">
+                <section>
+                    <header><h4> <!-- spel information -->
+                            <a data-toggle="collapse" href="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
+                                Information <span class="caret"></span>
+                            </a>
+                        </h4></header>
+                    <div id="collapseInfo">
+                        <button id="enterNamesButton" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal">
+                            Enter player names
+                        </button>
+                        <ul class="text-info mediumfont">
+                            <li>Press the spinning dices to throw</li>
+                            <li>Each player have 3 throws per turn</li>
+                            <li>The toplist shows the best scores of all time</li>
+                            <li>A player needs to score atleast 63 points in the top half to get bonus</li>
+                        </ul>
+                    </div>
+                </section>
+                <section>  <!-- Top 10 list -->
+                    <header><h4>
+                        <a data-toggle="collapse" href="#collapseToplist" aria-expanded="false" aria-controls="collapseToplist">
+                            Toplist <span class="caret"></span>
+                        </a>
+                    </h4></header>
+                    <div id="collapseToplist">
+                        <?php include_once("toplist.html");?>
+                    </div>
+                </section>
+			</aside>
+
 			<?php include_once("endview.html");?>
 		</div>
 </body>
