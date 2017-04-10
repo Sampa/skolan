@@ -1,40 +1,46 @@
+var user, rollCounter = $("#play").find("span");
 window.onload = function() {
-    //get the latest toplist from the database
+/***
+ * IMPORTS of templates files
+ */
+    //INSERTS THE SCOREBOARD.HTML IMPORT TEMPLATE to #scoreSection
+    importTemplate("scoreboard",$("#scoreSection"));
+    //INSERTS THE TOPLIST.HTML TEMPLATE to #toplist
+    importTemplate("toplist");
+    //INSERTS THE ENDVIEW.HTML MODAL TEMPLATE to #endviewWrapper
+    importTemplate("endview",$("#endviewWrapper"));
+    //INSERT THE PLAYERFORM.HTML MODAL TEMPLATE to #playerform
+    importTemplate("playerform");
+/*END IMPORT templates*/
+
+/**
+ *  TOPLIST
+ *  GETS THE TOPLIST TEMPLATE, FETCHES THE TOPLIST DATA AND ADDS TOGGLE TRIGGER
+ */
+    /*get the latest toplist from the database*/
     getTopList();
     /* Toggle top list visibility */
-    $('#collapseToplist').collapse({
-        parent:"#collapseToplist"
-
-    });
-    /* toggle information visibility */
-    $('#collapseInfo').collapse({
-        parent:"#collapseInfo"
+    $('#toplistTitle').on("click",function(){
+        $("#toplist").slideToggle(800,"easeInOutCirc",function(){});
     });
     /* update the toplist when the user hides the endgame view*/
     $("#endview").on("hide.bs.modal",function(){
-        //update to latest database
-        getTopList();
+        getTopList(); //get the latest topList scores
     });
-    /* To start a new game we remove the old scoreboard, hide the endview and displays the modal/button to enter usernames*/
-    $("#newgame").on('click',function(){
-        var scoreboard = $("#scoreboard");
-        scoreboard.find("tr td[data-user]").remove();
-        scoreboard.find(".playername").remove();
-        $("#enterNamesButton").show();
-        $("#endview").modal("hide");
-        $("#modal").modal("show");
-    });
-    /*
-     Js related to entering playernames
-     */
-    //display modal and focus on first input
+/* END TOPLIST */
+
+/**
+ * JS RELATED TO ENTERING PLAYERNAMES IN MODAL
+ */
     var modal = $("#modal");
-    modal.modal();
-    modal.on('hide.bs.modal', function (event) {});
     modal.on('shown.bs.modal', function () {
         $('[name="setplayer1"]').focus();
     });
+    /* Removes players from old game, and submits the playerform*/
     modal.on("click","#setPlayerNames",function(){
+        var scoreboard = $("#scoreboard");
+        scoreboard.find("tr td[data-user]").remove();
+        scoreboard.find(".playername").remove();
         $("#playerNames").submit();
     });
     /*submitting the player names form*/
@@ -43,91 +49,72 @@ window.onload = function() {
         //save the names in a session
         sendToServer({"playerNames":$(this).serializeArray()},setPlayerNames);
     });
-    //controls which inputfields that should be active
-    $("[name^='setplayer']").keydown(function(){
-        var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9));
+    //controls which inputfields that should be accessible
+    $("[name^='setplayer']").keydown(function(){ //starts to write in a inputfield for playernames
+        var next, nextElement, playerNumber = parseInt($(this).attr("name").substr(9)); //too see which field it is
         next = 1+playerNumber;
-        nextElement = $("[name='setplayer"+next+"']");
+        nextElement = $("[name='setplayer"+next+"']"); //the next field in the form
         //if input field is not empty
         if($("[name='setplayer"+playerNumber+"']").val().length > 0){
             nextElement.prop("disabled",false);
-        }else{ //empty
+        }else{ //the field has been emptied
             nextElement.prop("disabled",true);
         }
     });
-    /*
-     Various click triggers
-     */
-    //clicking a dice after making a roll
-    //.selecteddice
-    $(diceResultDiv).on("click","div",function(){
-        var element = $(this);
-        var pos = element.attr("data-position");
+/*END SETTING PLAYERNAMES */
+
+/**
+ * DICES ROLL & SELECT TO KEEP
+ */
+    //selects a dice to keep it for next roll
+    $("#dices").on("click",".cubeWrapper",function(){
+        if(rollCounter.html()==0)//no throws made yet
+            return;
+        var element = $(this); //the wrapper around the cubes
         //reverse selected status
         element.prop("selected",!element.prop("selected"));
         if(element.prop("selected")){
-            dices[pos] = true;
-            element.addClass("selectedDice").append('<span></span>');
+            element.addClass("selectedDice").find("span").show();
         }else{
-            dices[pos] = false;
-            element.removeClass("selectedDice").find("span").remove();
+            element.removeClass("selectedDice").find("span").hide();
         }
-    });
-    /*pressing a scoring option td, ask to confirm choice
-    * if yes, set the score for that row, update the totals and run function
-    * newTurn() that prepares the game or if its over displays final scores
-    */
-    $("tr").on("click",".clickable",function(){
-        var element = $(this);
-        user = element.attr("data-user");
-        element.addClass("bg-info");
-        $.confirm({
-            text: "Are you sure?",
-            title: "Confirm choice",
-            confirm: function() {
-                //sets score for the row and updates total scores and resets unused fields and allow new throws
-                setRowScore(element);
-                setTotals(user);
-                //prepare the game for a new turn (also calls endgame callback)
-                newTurn(user);
-                element.removeClass("bg-info");
-            },
-            cancel: function(){
-                element.removeClass("bg-info");
-            },
-            confirmButton: "Yes",
-            cancelButton: "No, I want to repick",
-            post: true,
-            confirmButtonClass: "btn-success",
-            cancelButtonClass: "btn-danger",
-            dialogClass: "modal-dialog modal-sm"
-        });
-    });
-    // adjust the animation dices so they do not have an invisible shadow over the result dices
-    $(".dice:first").css("margin-left","-40px");
-    $(".dice:last").css("margin-right","-40px");
-    /*
-     * Clicks on the animated dices makes a roll
-     */
-    $(".dice").on("click",function(){
+    });//#dices click trigger
+    //THROW THE DICES
+    $("#play").on("click",function (e) {
+        e.preventDefault();
+        //updateThrowCount(rollCounter);
         //find span element inside the countor and get the content as an int
-        var start = $("#start");
-        var element = start.find("span");
-        var number = parseInt(element.html()) +1;
+        var number = parseInt(rollCounter.html()) +1;
+        //show the new count of rolls
         //if we reached our maximum number of throws prohibit more
         if(number >  3  ) {
             return;
         }else if( number == 3){ // it's the last throw so make it the counter red
-            start.removeClass("alert-success").addClass("alert-danger");
+           $(this).disable();
         }
+        rollCounter.html(number);
         //reset unused fields because we are doing a new roll
         clearRowFields();
-        //start animation ,pause 1s and then generate a random result
-        $("#roll").prop("checked", true);
-        setTimeout(rollDices,1000);
-        //replace with the new count of rolls
-        element.html(number);
+        rollDices();
+    }); //#play click trigger
+/* END DICES */
 
+/* DIFFERENT TRIGGERS */
+    /* toggle information visibility */
+    $("#infoTitle").on("click",function(){
+        $("#info").fadeToggle(800,"easeInOutCirc",function(){});
     });
-};
-var diceResultDiv = "#diceResult",user;
+
+    /* To start a new game we remove the old scoreboard, hide the endview and displays the modal/button to enter usernames*/
+    $("#newgame").on('click',function(){
+       newGame();
+    });//newgame click trigger
+
+    /** pressing a row td to select it for points asks to confirm choice
+     * if yes, set the score for that row, update the totals and prepares the game for a newturn
+     */
+    $("#scoreSection tr").on("click",".clickable",function(){
+        confirmOption($(this),"blend-gradient");
+    });//clickable tr click
+$(document).uitooltip({tooltipClass: "blend-gradient",position: { my: "left top+15 center", at: "center" }});
+};//document load

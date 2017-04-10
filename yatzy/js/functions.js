@@ -1,48 +1,71 @@
-var playerTurnClass = "bg-warning",scoreOptionClass =".clickable",dices,
-    diceElements = [],diceResults = [],diceResultDiv = "#diceResult",user;
-dices ={
-    0:false,
-    1:false,
-    2:false,
-    3:false,
-    4:false
-};
-//get a random number without decimals
+var playerTurnClass = "blend-gradient",scoreOptionClass =".clickable",diceResults = [],user,
+    posScoreClass = "text-primary", negScoreClass = "text-danger", tdWithPointsClass = "bg-success", tdNoPointsClass = "zero";
+/***
+ * jQuery extended disable function for input,button, textarea, select elements
+ */
+jQuery.fn.extend({
+    disable: function(state) {
+        return this.each(function() {
+            var $this = $(this);
+            if($this.is('input, button, textarea, select'))
+                this.disabled = state;
+            else if ($this.is('select') && state)
+                $this.attr('disabled', 'disabled');
+            else if ($this.is('select') && !state)
+                $this.removeAttr('disabled');
+            else
+                $this.toggleClass('disabled', state);
+        });
+    }
+});
+
+/**
+ * Accepts a 2 integer range and returns a random number inbetween without decimals
+ */
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min +1 ) + min);
 }
-//Generates a random number between 1-6 for each dice and sends them to the server for calculations
+
+/**
+ * Generates a random number between 1-6 for each dice
+ * Calls animateDice() on each to start animation
+ * sends the roll results to the server for score option calculations
+ */
 function rollDices(){
-    diceResultDiv = $(diceResultDiv);
-    $("#roll").prop("checked", false);
-    for(var i=0;i<5;i++){
-        getCorrectDiceValue(i);
-    }
-    diceResultDiv.html("");//empty the div with the dices
-    $.each(diceElements,function(key,element){
-        diceResultDiv.append(element); //add/display the elements from our merged array
+    $.each($(".cubeWrapper").not(".selectedDice"), function(index,dice) {
+        var face = randomNumber(1,6);
+        var cube = $(this).children(".cube");
+        var id=cube.attr("id").slice(-1); //the number in the id
+        diceResults[id-1] = face; //id numbers  are 1-5 indexes 0-4
+        animateDice(face,cube,0);
     });
-    //send the result to the server to calculate the options
-    sendToServer({"dices":diceResults},showScoreOptions);
+    //send the result to the server to calculate the options (delay so that the dices animates first)
+    setTimeout(function(){sendToServer({"dices":diceResults},showScoreOptions)},1300);
 }
 /**
- * keeps the users selected dices and rolls new values for the others
+ *  recursion, Animates the dice face for a single dice no different sides and stops on the result
+ *  @result A randomnized interger(1-6)
+ *  @obj The dice that is animated
+ *  @done how many times the dice face has been changed
  */
-function getCorrectDiceValue(dicePosition){
-    var element;
-    if(!dices[dicePosition]) { //first roll or the dice isn't selected
-        //get a dice result
-        diceResults[dicePosition] = randomNumber(1, 6);
-        //find the element with the corresponding backgroundimage
-        element = $("#diceTemplate").find("[name='d" + diceResults[dicePosition] + "']").clone();
-        element.attr("data-position", dicePosition); //give the cloned copy a dicePosition value (can be 0-4)
-        diceElements[dicePosition] = element; //save the copied element so it can be inserted later
-    }else{//it must be the second or third roll and the element is selected so we fetch its dicePosition
-        element = $('[data-position="'+dicePosition+'"]');
-        diceResults[dicePosition] = element.attr("name").substring(1); //add the value to the result list again
-        diceElements[dicePosition] = element; //save the selected dice element so it can be inserted later
+function animateDice(result,obj,done) {
+    var showFace,notDuplicateCheck
+    if(done==10) { //if we are done making it look nice we animate the dice to the rolled result and exit the recursion
+        done = 0;
+        obj.attr('class', 'cube show'+result);
+        obj.attr('name', result);
+        return;
     }
-}
+    notDuplicateCheck = randomNumber(1,6);
+    while(notDuplicateCheck == showFace){ //to make it show a different side
+        notDuplicateCheck = randomNumber(1,6);
+    }
+    done++;
+    obj.attr('class', 'cube show'+notDuplicateCheck); //actually animates the dice
+    showFace = notDuplicateCheck;
+    setTimeout(function(){animateDice(result,obj,done)},100); //pause so we get to animate it again for effect
+};
+
 /**
  * passes data (json object) to the server as $_POST[postname] and calls
  * the function callback(optional) on success
@@ -66,7 +89,7 @@ function sendToServer(data,callback){
 /**
  * shows the possible scoring options and what point  each would give
  * adds classes to the element for visibily if it does not already have an score and to make other js triggers work
- * data is an array of possible scoring options
+ * @data is an array of possible scoring options
  */
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
@@ -75,25 +98,27 @@ function showScoreOptions(data){
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
             if (!element.attr("data-score")){
-                element.addClass("text-primary clickable").html(value);
+                element.addClass(posScoreClass+" clickable").html(value);
             }
         }
     });
+    //each td that has no score set, and would only give 0 points is marked as red
     $.each($("td[data-user="+data.user+"]:not(.clickable,[data-score],.score)"),function(key,value){
-        $(value).addClass("text-danger clickable").html(0);
+        $(value).addClass(negScoreClass+" clickable").html(0);
     });
 
 }
 /**
  * after the user confirms his pick among the scoring options,
  * set the correct score and restore the other fields
+ * @element the td element where the score is inserted for the active player
  **/
 function setRowScore(element){
     $.each($(scoreOptionClass),function(key,value){
         var obj = $(value),bgclass;
-        obj.removeClass("text-primary clickable text-danger");
+        obj.removeClass(posScoreClass+" clickable "+negScoreClass);
         if (obj.is(element)){
-            bgclass = parseInt(obj.html()) > 0 ? "bg-success" : "zero";
+            bgclass = parseInt(obj.html()) > 0 ? tdWithPointsClass : tdNoPointsClass;
             obj.addClass(bgclass).attr("data-score",obj.html());
         } else {
             obj.empty();
@@ -105,7 +130,7 @@ function setRowScore(element){
  */
 function clearRowFields(){
     $.each($(scoreOptionClass),function(key,value) {
-        $(value).removeClass("text-primary clickable text-danger").empty();
+        $(value).removeClass(posScoreClass+" clickable "+negScoreClass).empty();
     });
 }
 /*
@@ -116,39 +141,42 @@ function newTurn(user){
     var element = $("#playername"+user);
     element.removeClass(playerTurnClass);
     var next = element.next(".playername");
+    $(".cubeWrapper").removeAttr("title");
+    $("#play").removeAttr("title");
+    $(".scoreTd").removeAttr("title");
     if(next.length ==0){ //there is no next element, this was the last player
         next = $(".playername").first();
     }
     next.addClass(playerTurnClass);
-    $(diceResultDiv).empty();
-    for(i=0;i<5;i++){
-        dices[i] = false;
-    }
+    $.each($(".selectedDice"),function(index,value){
+        $(this).removeClass("selectedDice").find("span").hide();
+        $(this).prop("selected",false);
+    });
     resetTurnCount();
     //next turn and see if its end of game
     sendToServer({turn:""},endgame);
 }
 
 /* A callback that runs after each turn
- * data is a json object from the server with a boolean telling us if the game is over
+ * @data is a json object from the server with a boolean telling us if the game is over
  * saves the endresult to the database and notify the players
  */
 function endgame(data){
     if(data.gameOver){
         //gets and array with the players sorted (index 0] and as json objekt [index 1]
         var arr = sortPlayers();
-        createEndTable(arr[0]);
         var results = arr[1];
+        createEndTable(arr[0]);
         //save end result to database
         sendToServer({"saveToDB":results});
         //show endview with results and winner
         $("#endview").modal();
     }
 }
-/*
-    Sorts the players by result and returns an array with
-    a) the sorted result as array
-    b) all the players and their score in a objekt
+/***
+ * Sorts the players by result and returns an array with
+ * a) the sorted result as array
+ * b) all the players and their score in a objekt
  */
 function sortPlayers(){
     var resultElement,results={},result=[],sortable = [];
@@ -164,6 +192,10 @@ function sortPlayers(){
     result[1] = results;
     return result;
 }
+/**
+ * Adds the neccessary data and fields to the endgame result table
+ * @sortable is a sorted array of the players with their scores
+ */
 function createEndTable(sortable){
     var row, table = $("#endboard"), i = 0;
     table.find("tr:not(:first)").remove();
@@ -177,10 +209,14 @@ function createEndTable(sortable){
         i++;
     });
 }
+/* Resets the count for the number of throws per turn */
 function resetTurnCount(){
-    $("#start").removeClass("alert-danger").addClass("alert-success").find("span").html("0");
+    $("#play").disable(false).find("span").html("0");
 }
-//calculates the total for the top half (1-6)
+/**
+ * calculates the total for the top half (1-6)
+ * @user is the active player
+ */
 function setTopTotal(user){
     var topTotal = 0,number=0,elements = $("[id^=top][id$="+user+"]");
     var topTotalUser = $("#topTotal"+user);
@@ -193,13 +229,20 @@ function setTopTotal(user){
     topTotalUser.html(topTotal);
     setBonus(topTotal,user);
 }
-//when the toptotal is 63 or more, this adds the 50 bonus points
+/**
+ * if the toptotal is 63 or more, add the 50 bonus points
+ * @user the active player
+ * @topTotal the active players total score on the top half
+ */
 function setBonus(topTotal,user){
     if(topTotal > 62){
-        $("#bonus"+user).html("50").addClass("bg-success");
+        $("#bonus"+user).html("50").addClass(tdWithPointsClass);
     }
 }
-//Sets the bottom result (toptotal+bonus+bottom half)
+/**
+ * Sets the bottom result (toptotal+bonus+bottom half)
+ * @user is the active player
+ */
 function setTotal(user){
     var topScore = parseInt($("#topTotal"+user).html()) + parseInt($("#bonus" + user).html()),
     number=0, result = 0, elements = $("[id^=bottom][id$="+user+"]"), resultUser = $("#result"+user);
@@ -212,10 +255,18 @@ function setTotal(user){
     });
     resultUser.html(topScore+result);//topScore+result);
 }
+/**
+ * wrapper function called by the end of each turn
+ * @user the active player
+ */
 function setTotals(user){
     setTopTotal(user);
     setTotal(user);
 }
+/**
+ * Checks the playernames for dublicates and calls createScoreboard(data)
+ * @data is the form data from the player form
+ */
 function setPlayerNames(data){
     //if dublicate usernames
     if(data.status=="dublicate"){
@@ -228,7 +279,6 @@ function setPlayerNames(data){
     }
     createScoreboard(data);
     $("#modal").modal("hide");
-    $("#enterNamesButton").hide();
 }
 //generates the scoreboard
 function createScoreboard(data){
@@ -245,25 +295,101 @@ function createScoreboard(data){
         nameCell.setAttribute("class","playername");
         nameCell.setAttribute("id","playername"+player);
         if(i==1)
-            nameCell.setAttribute("class","playername bg-warning");
+            nameCell.setAttribute("class","playername "+playerTurnClass);
         //create each field and sets it proper attributes
         for(var r= 0; r<fields.length;r++){
             currentRow = table.rows.item(r+1);
             currentCell = $(currentRow.insertCell(i));
             currentCell.attr("id",fields[r]+player).attr("data-user",player);
             //toptotal/bonus/endresult
-            if(r == 6 || r== 7 || r ==fields.length-1){
+            if(r == 6 || r== 7 || r ==fields.length-1){//toptotal,bonus,result
                 currentCell.html(0);
-                currentCell.attr("class","score text-info");
+                currentCell.attr("class","score bg-info");
+            }else{
+                currentCell.addClass("scoreTd").attr("title","Click to save score");
             }
         }
         i++;
     });
+    $(".cubeWrapper").attr("Click to keep this dice");
+    $("#play").attr("title","Throw dices");
+    resetTurnCount();
 }
+/**
+ * TOPLIST Callback that recieves the toplist from the server and inserts it in the table
+ **/
 function displayToplist(data){
-    $("#collapseToplist").html(data.table);
+    $("#leaderboard").find("tr:gt(0)").remove();
     $(data.toplist).insertAfter("#leaderboard tr");
 }
+/**
+ * TOPLIST ask the server to fetch the toplist from the database
+ */
 function getTopList(){
     sendToServer({"toplist":true}, displayToplist);
 }
+/***
+ * accepts a filename (without fileext) and a html element as jQuery object
+ */
+function importTemplate(fileName,target){
+    var href = "import/"+fileName+".html";
+    if(target==undefined){
+        target = $("#"+fileName);
+    }
+    var link = document.querySelector('link[href="'+href+'"]');
+    // Clone the <template> in the import.
+    var template = link.import.querySelector("template");
+    var clone = document.importNode(template.content, true);
+    target.append(clone);
+}
+
+/***
+ * NEWGAME clears the scoreboard table
+ * shows the new game button
+ * replaces the endview modal with the form to enter player names
+ */
+function newGame(){
+    var scoreboard = $("#scoreboard");
+    scoreboard.find("tr td[data-user]").remove();
+    scoreboard.find(".playername").remove();
+    $("#endview").modal("hide");
+    $("#modal").modal("show");
+    $(".cubeWrapper").attr("Click to keep this dice");
+    $("#play").attr("title","Throw dices");
+    resetTurnCount();
+}
+
+/**
+ * Show dialog that asks user to confirm the selected score-option
+ * If the user confirms it runs 3 functions to
+ * 1)set the options score
+ * 2)update the totals
+ * 3)prepare the game for a new turn
+ */
+function confirmOption(element,bgclass){
+    user = element.attr("data-user");
+    var option = element.parent("tr").children("td:first").html(), points = element.html();
+    element.addClass(bgclass);
+    $.confirm({
+        text: "Are you sure?",
+        title: "Confirm "+points+" points for "+option+"?",
+        confirm: function() {
+            //sets score for the row and updates total scores and resets unused fields and allow new throws
+            setRowScore(element);
+            setTotals(user);
+            //prepare the game for a new turn (also calls endgame callback)
+            newTurn(user);
+            element.removeClass(bgclass);
+        },
+        cancel: function(){
+            element.removeClass(bgclass);
+        },
+        confirmButton: "Yes",
+        cancelButton: "No, I want to repick",
+        post: true,
+        confirmButtonClass: "btn gradient",
+        cancelButtonClass: "btn-danger",
+        dialogClass: "modal-dialog"
+    }); //confirm
+} //confirmOption
+

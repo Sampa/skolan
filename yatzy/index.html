@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Yatzy</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8">
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/jquery-ui.min.css">
+	<!--<link rel="stylesheet" href="css/jquery-ui.theme.min.css">-->
+	<!-- Yatzy css-->
+	<link rel="stylesheet" href="css/style.css">
+    <!-- HTML Imports -->
+    <link rel="import" href="import/scoreboard.html">
+    <link rel="import" href="import/toplist.html">
+    <link rel="import" href="import/endview.html">
+    <link rel="import" href="import/playerform.html">
+</head>
+<body>
+<!-- modal with form for setting playernames-->
+<div id="playerform"><!--import--></div>
+<!-- visible content -->
+<div class="container-fluid">
+    <nav class="navbar navbar-default reverse-gradient">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <div id="dices">
+                    <div class="cubeWrapper" title="Click to keep this dice">
+                        <div class="cube" id="d1">
+                            <div class="top"></div>
+                            <div class="front"></div>
+                            <div class="left"></div>
+                            <div class="back"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <span class="glyphicon glyphicon-pushpin"></span>
+                    </div>
+                    <div class="cubeWrapper"  title="Click to keep this dice">
+                        <div class="cube" id="d2">
+                            <div class="top"></div>
+                            <div class="front"></div>
+                            <div class="left"></div>
+                            <div class="back"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <span class="glyphicon glyphicon-pushpin"></span>
+                    </div>
+                    <div class="cubeWrapper" title="Click to keep this dice">
+                        <div class="cube" id="d3">
+                            <div class="top"></div>
+                            <div class="front"></div>
+                            <div class="left"></div>
+                            <div class="back"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <span class="glyphicon glyphicon-pushpin"></span>
+                    </div>
+                    <div class="cubeWrapper" title="Click to keep this dice">
+                        <div class="cube" id="d4">
+                            <div class="top"></div>
+                            <div class="front"></div>
+                            <div class="left"></div>
+                            <div class="back"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <span class="glyphicon glyphicon-pushpin"></span>
+                    </div>
+                    <div class="cubeWrapper" title="Click to keep this dice">
+                        <div class="cube" id="d5">
+                            <div class="top"></div>
+                            <div class="front"></div>
+                            <div class="left"></div>
+                            <div class="back"></div>
+                            <div class="right"></div>
+                            <div class="bottom"></div>
+                        </div>
+                        <span class="glyphicon glyphicon-pushpin"></span>
+                    </div>
+                </div>
+                <a role="button" class="btn gradient navbar-btn" id="play" title="Throw dices"><span>0</span>/3</a>
+            </div>
+           <button id="newGame" class="btn gradient navbar-btn" data-toggle="modal" data-target="#modal">New</button></li>
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="row">
+        <section id="scoreSection" class="col-md-7 col-lg-7 col-sm-7"> <!-- spelplanen --></section>
+        <aside class="col-md-4 col-lg-4 col-sm-4 ">
+            <section> <!-- information -->
+                <header>
+                    <button class="btn gradient" id="infoTitle">Help <span class="caret"></span></button>
+                    <button  class="btn gradient" id="toplistTitle">Toplist <span class="caret"></span></button>
+                </header>
+                <div id="info" class="well">
+                    <ul class="text-info mediumfont">
+                        <li>Press roll to throw the dices</li>
+                        <li>Click a dice to save it for the next throw</li>
+                        <li>Each player have 3 throws per turn</li>
+                        <li>The toplist shows the best scores of all time</li>
+                        <li>A player needs to score atleast 63 points in the top half to get the bonus</li>
+                    </ul>
+                </div>
+            </section>
+            <section>  <!-- Top 10 list -->
+                <div id="toplist"></div>
+            </section>
+        </aside>
+        <div id="endviewWrapper"></div>
+    </div>
+</div>
+<!-- For quicker page load -->
+<!-- Javascript libraries/functions-->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.easing.js"></script>
+<script type="text/javascript" src='js/jquery.confirm.min.js'></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+<script>
+    /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
+    $.widget.bridge('uibutton', $.ui.button);
+    $.widget.bridge('uitooltip', $.ui.tooltip);
+</script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- Yatzy javascript -->
+<script type="text/javascript" src='js/functions.js'></script>
+<script type="text/javascript" src='js/events.js'></script>
+</body>
+</html>

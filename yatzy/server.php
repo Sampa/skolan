@@ -81,7 +81,7 @@ if(isset($_POST["playerNames"])) {
 /* fetching the toplist is done at page load and after the endview is displayed*/
 if(isset($_POST['toplist'])){
     //get table wrapper html
-    $table = file_get_contents("toplist.html");
+    $table = file_get_contents("import/toplist.html");
     //fetch the top 10 scores within tr/td's
     echo json_encode(array("table"=>$table,"toplist"=>getTopList()))    ;
 }

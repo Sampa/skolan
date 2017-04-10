@@ -1,21 +1,22 @@
+<template>
 <!-- Modal with form for entering playernames -->
 <div id="endview" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <section class="modal-content">
-            <header class="modal-header">
+            <header class="modal-header gradient">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h3 class="modal-title">Game over</h3>
             </header>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-6 col-lg-8 col-sm-12">
+                    <div class="col-md-12 col-lg-12 col-sm-12">
                         <table id="endboard" class="table table-hover table-striped table-bordered">
                             <thead>
-                                <tr class="largefont">
+                                <tr class="largefont blend-gradient">
                                     <td>#</td>
                                     <td class="col-md-4 col-xs-4 col-lg-4">Player</td>
                                     <td class="col-md-4 col-xs-4 col-lg-4">Score</td>
-                                    <td>Diff</td>
+                                    <td>Diff from winner</td>
                                 </tr>
                             </thead>
                         </table>
@@ -23,9 +24,10 @@
                 </div>
             </div>
             <footer class="modal-footer">
-                <button id="newgame" class="btn btn-primary">New game</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="newgame" class="btn gradient">New game</button>
+                <button type="button" class="btn btn-default btn-danger" data-dismiss="modal">Close</button>
             </footer>
         </section><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+</template>

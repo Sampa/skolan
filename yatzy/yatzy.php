@@ -8,11 +8,13 @@ function getTopList(){
     $i = 1;
     $table ="";
     foreach($result as $row){
+        $date = date_create($row['date']);
+        $date = date_format($date,"Y/m/d H:i");
         $table .="<tr>";
         $table .="<td>".$i."</td>";
         $table .="<td>".$row['player']."</td>";
         $table .="<td>".$row['score']."</td>";
-        $table .="<td>".$row['date']."</td>";
+        $table .="<td>".$date."</td>";
         $table .="</tr>";
         $i++;
     }
