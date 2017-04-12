@@ -2,6 +2,7 @@
 session_start();
 include_once("db.php"); //db settings
 include_once("yatzy.php"); //yatzy methods
+require 'phpmailer/PHPMailerAutoload.php';
 /*
  * Server.php handles all the ajax request (all in post format) sent from the client
  */
@@ -11,15 +12,15 @@ if(isset($_POST["dices"])) {
     $dices = $_POST["dices"];
     $numbers = array_count_values($dices); // frequency of each number (1-6)
     $results = []; //gets filled with the possible scoring options
+//    $results = [1,2,3,4,5,6,'pair','twopair','toak','foak','little','big','fullhouse','chance','yatzy'];
     $results["chance"] = array_sum($dices); //chance is always possible
     $results = setTopPoints($numbers,$results); //calculates the points for each number (1-6)
-    if (!has_duplicates($dices)) { //no doubles, might be a straight
-        $results = littleStraight($dices,$results);
-        $results = bigStraight($dices,$results);
-    }else{ //must be atleast one pair
-        $results = yatzy($numbers,$results);
-        $results = pairs($numbers,$results); //pair,2pairs,three/four of a kind
-    }
+//    echo json_encode($results);
+//    return;
+    $results = littleStraight($dices,$results);
+    $results = bigStraight($dices,$results);
+    $results = yatzy($numbers,$results);
+    $results = pairs($numbers,$results); //pair,2pairs,three/four of a kind
     $results['user'] = getUser();
     echo json_encode($results);
 }
@@ -84,4 +85,34 @@ if(isset($_POST['toplist'])){
     $table = file_get_contents("import/toplist.html");
     //fetch the top 10 scores within tr/td's
     echo json_encode(array("table"=>$table,"toplist"=>getTopList()))    ;
+}
+/**
+ * When someone tries to send a question we take the values and email ourselves with phpmailer
+ */
+if(isset($_POST['contactForm'])){
+    $data = json_decode($_POST['contactForm'],true);
+    $name = $data[0]["value"];
+    $email = $data[1]["value"];
+    $message = $data[2]["value"];
+//    && !empty($_POST['from']) && !empty($_POST['message'])){
+    $mail = new PHPMailer;
+    $mail->IsSMTP();
+    $mail->CharSet = 'UTF-8';
+    $mail->Host = 'smtp.gmail.com';
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'idrini@gmail.com'; //add your email
+    $mail->Password = 'draddydagols666'; //add your password
+    $mail->SMTPSecure = 'tls';
+    $mail->AddReplyTo($email, 'Svar på Yatzy fråga');
+    $mail->From = $email;
+    $mail->FromName = $name;
+    $mail->addAddress("idrini@gmail.com");
+    $mail->Subject = "Fråga från Yatzy spelet";
+    $mail->Body    = $message;
+    if($mail->send()){
+        echo json_encode(array("status"=>true,"message"=>"Skickat"));
+    }else{
+        echo json_encode(array("status"=>false,"message"=>$mail->ErrorInfo));
+    }
 }

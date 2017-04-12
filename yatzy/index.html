@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Yatzy</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="UTF-8">
-	<!-- Latest compiled and minified Bootstrap CSS -->
-	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" href="css/jquery-ui.min.css">
-	<!--<link rel="stylesheet" href="css/jquery-ui.theme.min.css">-->
-	<!-- Yatzy css-->
-	<link rel="stylesheet" href="css/style.css">
+    <title>Yatzy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <!--<link rel="stylesheet" href="css/jquery-ui.theme.min.css">-->
+    <!-- Yatzy css-->
+    <link rel="stylesheet" href="css/style.css">
     <!-- HTML Imports -->
-    <link rel="import" href="import/scoreboard.html">
     <link rel="import" href="import/toplist.html">
+    <link rel="import" href="import/scoreboard.html">
     <link rel="import" href="import/endview.html">
     <link rel="import" href="import/playerform.html">
 </head>
@@ -82,48 +82,84 @@
                         <span class="glyphicon glyphicon-pushpin"></span>
                     </div>
                 </div>
-                <a role="button" class="btn gradient navbar-btn" id="play" title="Throw dices"><span>0</span>/3</a>
+                <a role="button" class="btn btn-sm gradient navbar-btn" id="play" title="Throw dices"><span>0</span>/3</a>
             </div>
-           <button id="newGame" class="btn gradient navbar-btn" data-toggle="modal" data-target="#modal">New</button></li>
+            <a  role="button" id="newGame" class="btn gradient btn-sm navbar-btn" title="Start new game" data-toggle="modal" data-target="#modal">New</a>
         </div><!-- /.container-fluid -->
     </nav>
-    <div class="row">
-        <section id="scoreSection" class="col-md-7 col-lg-7 col-sm-7"> <!-- spelplanen --></section>
-        <aside class="col-md-4 col-lg-4 col-sm-4 ">
-            <section> <!-- information -->
+    <!-- information alerts that are shown when neccessary -->
+    <div class="alert alert-success alert-dismissable" id="emailSuccessAlert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Your email has been sent successefully!</strong>
+    </div>
+    <div class="alert alert-danger alert-dismissable" id="emailFailAlert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Your email couldn't be sent, please try again later</strong>
+    </div>
+    <div id="gameArea" class="row container-fluid">
+        <section id="scoreSection" style="" class="col-md-7 col-lg-7 col-sm-7">
+            <header class="reverse-gradient"><h3>Yatzy</h3></header>
+            <!-- spelplanen -->
+        </section>
+        <aside>
+            <section class="col-md-5 col-lg-5 col-sm-5 "> <!-- information -->
                 <header>
-                    <button class="btn gradient" id="infoTitle">Help <span class="caret"></span></button>
-                    <button  class="btn gradient" id="toplistTitle">Toplist <span class="caret"></span></button>
+                    <h3>
+                        <a role="button" class="btn btn-sm gradient" title="Toggle information" id="infoTitle">Help <span class="caret"></span></a>
+                    </h3>
                 </header>
                 <div id="info" class="well">
                     <ul class="text-info mediumfont">
-                        <li>Press roll to throw the dices</li>
+                        <li>Click turn-button("x/3") to hrow the dices</li>
                         <li>Click a dice to save it for the next throw</li>
                         <li>Each player have 3 throws per turn</li>
                         <li>The toplist shows the best scores of all time</li>
-                        <li>A player needs to score atleast 63 points in the top half to get the bonus</li>
+                        <li>A player need 63 points in the top half to get the 50p bonus </li>
                     </ul>
                 </div>
             </section>
-            <section>  <!-- Top 10 list -->
+            <section class="col-md-5 col-lg-5 col-sm-5">  <!-- Top 10 list -->
+                <header>
+                    <h3>
+                        <a role="button" id="toplistTitle" class="btn gradient tltoggle" title="Toggle toplist">Toplist <span class="caret"></span></a>
+                    </h3>
+                </header>
                 <div id="toplist"></div>
             </section>
         </aside>
         <div id="endviewWrapper"></div>
     </div>
 </div>
+<footer class="footer navbar-fixed-bottom">
+    <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 well">
+        <form id="contactForm" method="post" action="server.php" >
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
+                <label for="email" class="col-lg-3 col-md-3 col-xs-12 gradient">Email:</label>
+                <input type="email" id="email" name="email" class="col-lg-9 col-md-9 col-xs-12" placeholder="email@foobar.com">
+            </div>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <label for="name" class="col-lg-3 col-md-3 col-xs-12 gradient">Name:</label>
+                <input type="text" id="name" name="name" class="col-lg-9 col-md-9 col-xs-12" placeholder="Name...">
+            </div>
+            <div class="form-group col-lg-5 col-md-5 col-sm-4 col-xs-9">
+                <label for="message" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 gradient">Message:</label>
+                <textarea id="message" name="message" class="col-lg-9 col-md-9 col-sm-12 col-xs-12" placeholder="Type your message" ></textarea>
+            </div>
+            <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-3">
+                <button type="submit" name="send" class="btn btn-sm gradient" title="Email a question">Send</button>
+            </div>
+        </form>
+    </div>
+</footer>
 <!-- For quicker page load -->
 <!-- Javascript libraries/functions-->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src='js/jquery.confirm.min.js'></script>
+<script type="text/javascript" src='js/loading.min.js'></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-<script>
-    /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
-    $.widget.bridge('uibutton', $.ui.button);
-    $.widget.bridge('uitooltip', $.ui.tooltip);
-</script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script src="js/webcomponentsjs/webcomponents-loader.js"></script>
 <!-- Yatzy javascript -->
 <script type="text/javascript" src='js/functions.js'></script>
 <script type="text/javascript" src='js/events.js'></script>

@@ -1,12 +1,52 @@
+/*font loading icon for contact form overlay*/
+@font-face {font-family: "overlay";src: url('../fonts/icons.woff') format("woff"), url('../fonts/icons.ttf') format("truetype");}
+@keyframes loadingStart {0% {opacity: 0;}100% {opacity: 1;}}
+@keyframes loading {0% {transform: rotate(0deg);}50% {transform: rotate(180deg);}100% {transform: rotate(360deg);}}
+
+body.modal-open{overflow:hidden!important;}
+/*tables*/
 #scoreboard td,#leaderboard td{padding: 2px;text-align: center;}
-.scoreTd{cursor: pointer;}
+#scoreboard{margin-bottom: 0;}
+#leaderboard{margin-bottom: 0;} /*toplist table*/
+.table>tbody>tr>th:first-child{ padding: 0; max-width: 46px; !important}
+.table>tbody>tr>th{ display:table-cell; max-height: 32px; padding: 1px 8px;!important;}
+.scoreTd{cursor: pointer;} /* bonus/top/bottom total*/
 /* classes to set points, clickable is for points, zero is for nulling a column */
-.clickable, .zero{ cursor: pointer;}
-.zero{background: #d9534f;}
+.clickable, .zero{ cursor: pointer;} /* td's to give point*/
+.zero{background: #d9534f;} /*td that gives 0 points*/
+
+#gameArea{margin: -10px 0 0 0;} /*info+toplist+scoreboard*/
+#gameArea h3{ margin: 0 0;} /*scoreboard h*/
+#scoreSection{padding: 0;}
+#scoreSection header{ text-align: center;padding: 1px 0; margin-bottom: 3px; }/*scoreboard  title*/
+aside h3{margin: 0 0 4px 0;} /*info and toplist h3*/
+/*information/help*/
+#infoTitle{float:left; } /*button*/
+#info{ padding-right: 5px; margin-bottom: 3px;} /*info section*/
+#info ul{clear: both; position: relative; top:5px;padding-left: 10px;}
+/*toplist*/
+#toplistTitle{position: relative; float: left;  display: none} /*button*/
+#toplist{} /*entire toplist section*/
+
+#newGame{float:right;position: relative;margin-right: -15px;} /*newgame button*/
+#play{position: absolute;left: 5px;}/* start, dices, roll button */
+
+/*BOOTSTRAP CUSTOMS*/
+.container-fluid{padding:0 1px;}
+nav > .container-fluid{padding-left: 20px; padding-right: 20px;}
+.navbar-right{position: relative;margin-left: 60px;margin-right: 10px;}
+.navbar-right li{display: inline-block;}
+.navbar-toggle {border:0px; }
+.navbar-default  .navbar-toggle  .icon-bar{background-color: whitesmoke}
+
 /*DICES*/
+#dices .cubeWrapper{float: left; cursor: pointer;position:relative;padding: 0px;width: 33px;height: 33px;margin-right: 0px;}
+/* the dices that are showed as roll result*/
+#dices{position: absolute;top: 8px;left: 50px;padding: 0;margin:0;width: auto;}
+/*each single dice*/
 .cube{transform-style: preserve-3d;transition: transform .5s;margin: 0 0 0 0;width: 33px;height: 33px;position: relative;}
 .cube div{border:2px solid #000;margin: 0;border-radius:6px;width:33px;height:33px;position:absolute;
-    background-image: url(../dice.png);background-repeat:no-repeat;opacity:0.85;}
+background-image: url(../dice.png);background-repeat:no-repeat;opacity:0.85;}
 .front{transform: rotateY(   0deg ) translateZ( 15px );background-position: -3px  -1px; /*1*/}
 .back{transform: rotateX( 180deg ) translateZ( 15px );background-position: -91px -50px; /* 6 */}
 .right{transform: rotateY(  90deg ) translateZ( 15px );background-position: -47px -1px; /*2*/}
@@ -19,26 +59,28 @@
 .cube.show4{ transform: translateZ( -100px ) rotateX(   90deg ); }
 .cube.show5{ transform: translateZ( -100px ) rotateX(  -90deg );  }
 .cube.show6{ transform: translateZ( -100px ) rotateX( -180deg ); }
-#dices .cubeWrapper{float: left; cursor: pointer;position:relative;padding: 0px;width: 33px;height: 33px;margin-right: 5px;}
-/* the dices that are showed as roll result*/
-#dices{position: absolute;top: 8px;left: 80px;padding: 0;margin:0;width: auto;}
 /* added to / removed from a dice when clicked*/
 .selectedDice{margin-top: 3px;}
 /* inserted and displayed when a dice is clicked */
 #dices .cubeWrapper span{display: none;position: relative;top: -40px;left: 25px;}
-/* start, dices, roll button */
-#play{position: absolute;left: 10px;}
-/*BOOTSTRAP CUSTOMS*/
-.container-fluid{padding: 0px;}
-.navbar-right{position: relative;margin-left: 60px;margin-right: 10px;}
-.navbar-right li{display: inline-block;}
-.navbar-toggle {border:0px; }
-.navbar-default  .navbar-toggle  .icon-bar{background-color: whitesmoke}
-#newGame{float:right;position: relative;margin-right: 10px;}
+
+/**
+*different random classes
+**/
+.alert{display: none;}
 /*font classes*/
 .largefont{font-size: 125%;}
 .mediumfont{font-size: 110%;}
-/* Gradient glass */
+
+/*footer*/
+.footer{float: left;}
+.footer textarea {margin-bottom: 0;}
+.footer div {margin-bottom: 1px; padding-bottom: 0;}
+.footer button { margin: 0px 0 0 0;}
+.footer textarea, .footer input{color:black;}
+.footer>div>form>.form-group{padding: 0;}
+.footer>div>form>.form-group>label{padding: 3px 5px;margin-bottom: 0;}
+/* Gradient classes */
 .blend-gradient {
     color: whitesmoke;
     background: -webkit-linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
@@ -79,3 +121,58 @@
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
 }
 .gradient:focus{color: #FAFFFE;}
+
+/*overlay for contact form classes*/
+.loading {position: relative;pointer-events: none;}
+.loading .loading-overlay {
+    position: absolute;
+    width:100%;
+    height:100%;
+    z-index: 9999999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    -webkit-animation: loadingStart 3s 300ms linear 1 both;
+    -moz-animation: loadingStart 3s 300ms linear 1 both;
+    -o-animation: loadingStart 3s 300ms linear 1 both;
+    animation: loadingStart 3s 300ms linear 1 both;
+    color: whitesmoke;
+    background: -webkit-linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
+    background: linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
+    text-align: center;
+}
+.loading .loading-text {
+    font-size: 0.875rem;
+    line-height: 1.3125rem;
+    text-shadow: white 0 0 1em, white 0 0 0.5em, white 0 0 0.25em;
+    position: relative;
+    top:-30px;
+    left:100px;
+    display: block;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.loading .loading-text:after {content: "...";}
+.loading .loading-spinner {
+    position: absolute;
+    top: 70%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: -3.9375rem auto 0;
+    color: #1a1d1d;
+    text-align: center;
+}
+.loading .loading-icon {
+    font-size: 4.8125rem;
+    line-height: 5.25rem;
+    text-shadow: rgba(255, 255, 255, 0.75) 0 0 0.5em;
+    -webkit-animation: loading 1s steps(4) infinite;
+    -moz-animation: loading 1s steps(4) infinite;
+    -o-animation: loading 1s steps(4) infinite;
+    animation: loading 1s steps(4) infinite;
+    display: block;
+    vertical-align: middle;
+}
+.loading .loading-icon:before {vertical-align: middle;content: "\e000";font-family: "overlay";}

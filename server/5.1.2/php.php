@@ -18,8 +18,8 @@ if(isset($_POST['submit']) && !empty($_POST['to']) && !empty($_POST['from'])
     $mail->Host = 'smtp.gmail.com';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'idrini@gmail.com';
-    $mail->Password = 'draddydagols666';
+    $mail->Username = 'addYourEmailHere';
+    $mail->Password = 'addYourPasswordHere';
     $mail->SMTPSecure = 'tls';
     $mail->setFrom($_POST['from'], 'Mailer');
     $mail->addAddress($_POST['to']);

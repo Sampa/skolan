@@ -94,19 +94,18 @@ function sendToServer(data,callback){
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
-        if(value && value !="user") {
+        if(value !="user") {
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
             if (!element.attr("data-score")){
-                element.addClass(posScoreClass+" clickable").html(value);
+                if(value > 0) {
+                    element.addClass(posScoreClass + " clickable").html(value);
+                }else{
+                    element.addClass(negScoreClass +" clickable").html(0);
+                }
             }
         }
     });
-    //each td that has no score set, and would only give 0 points is marked as red
-    $.each($("td[data-user="+data.user+"]:not(.clickable,[data-score],.score)"),function(key,value){
-        $(value).addClass(negScoreClass+" clickable").html(0);
-    });
-
 }
 /**
  * after the user confirms his pick among the scoring options,
@@ -290,12 +289,12 @@ function createScoreboard(data){
     ];
     //for each player
     $.each(data,function(key,player){
-        nameCell = row.insertCell(i);
-        nameCell.innerHTML = player;
-        nameCell.setAttribute("class","playername");
-        nameCell.setAttribute("id","playername"+player);
+        nameCell = $(row.insertCell(i));
+        nameCell.html(player);
+        nameCell.addClass("playername bg-warning");
+        nameCell.attr("id","playername"+player);
         if(i==1)
-            nameCell.setAttribute("class","playername "+playerTurnClass);
+            nameCell.addClass(playerTurnClass); //first player starts of with specific bgglass
         //create each field and sets it proper attributes
         for(var r= 0; r<fields.length;r++){
             currentRow = table.rows.item(r+1);
@@ -333,14 +332,11 @@ function getTopList(){
  */
 function importTemplate(fileName,target){
     var href = "import/"+fileName+".html";
-    if(target==undefined){
+    if(target==undefined) //if no obj was passed create one from the filename
         target = $("#"+fileName);
-    }
-    var link = document.querySelector('link[href="'+href+'"]');
-    // Clone the <template> in the import.
-    var template = link.import.querySelector("template");
-    var clone = document.importNode(template.content, true);
-    target.append(clone);
+    var link = document.querySelector('link[href="'+href+'"]');//the correct import file
+    var template = link.import.querySelector("template");     // Clone the <template> in the import.
+    target.append(document.importNode(template.content, true)); //add it to the dom
 }
 
 /***
@@ -393,3 +389,64 @@ function confirmOption(element,bgclass){
     }); //confirm
 } //confirmOption
 
+/**
+ * Takes care of the response from the server when an email has been sent
+ */
+function emailCallback(data){
+    var form = $("#contactForm");
+    if(data.status==true) {
+        $("#emailSuccessAlert").fadeIn({easing: "easeInOutQuad"});
+        form.trigger("reset");
+    }else {
+        $("#emailFailAlert").fadeIn({easing: "easeInOutQuad"});
+    }
+    $("footer > .container-fluid").loadingOverlay("remove");
+}
+/**
+ * Updates the number of throws made on the current turn
+ * Rolls the dices and clears the scoreboard
+ * @rollCounter is the element where the count is beeing displayed
+ */
+function newRoll(rollCounter){
+    //find span element inside the countor and get the content as an int
+    var number = parseInt(rollCounter.html()) +1;
+    //if we reached our maximum number of throws prohibit more
+    if(number >  3  ) {
+        return;
+    }else if( number == 3) { // it's the last throw so make it the counter red
+        $(this).disable();
+    }
+    //show the new count of rolls
+    rollCounter.html(number);
+    //reset unused fields because we are doing a new roll
+    clearRowFields();
+    rollDices(); //roll dices
+}
+/**
+ * Keeps a dice for the next roll
+ * @element is the wrapper object around the dice that the user clicked
+ */
+function keepDice(element){
+    //reverse selected status
+    element.prop("selected", !element.prop("selected"));
+    if (element.prop("selected")) {
+        element.addClass("selectedDice").find("span").show();
+    } else {
+        element.removeClass("selectedDice").find("span").hide();
+    }
+}
+/**
+ * Enables the next input field in the player form
+ * @input is the text input in the form that the user has started typing in
+ */
+function enableNextInput(input){
+    var next, nextElement, playerNumber = parseInt(input.attr("name").substr(9)); //too see which field it is
+    next = 1+playerNumber;
+    nextElement = $("[name='setplayer"+next+"']"); //the next field in the form
+    //if input field is not empty
+    if($("[name='setplayer"+playerNumber+"']").val().length > 0){
+        nextElement.prop("disabled",false);
+    }else{ //the field has been emptied
+        nextElement.prop("disabled",true);
+    }
+}
