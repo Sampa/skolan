@@ -94,6 +94,7 @@ function sendToServer(data,callback){
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
+        console.log(key+":"+value);
         if(value !="user") {
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
@@ -106,6 +107,10 @@ function showScoreOptions(data){
             }
         }
     });
+    //each td that has no score set, and would only give 0 points is marked as red
+    //$.each($("td[data-user="+data.user+"]:not(.clickable,[data-score],.score)"),function(key,value){
+    //});
+
 }
 /**
  * after the user confirms his pick among the scoring options,
@@ -235,7 +240,7 @@ function setTopTotal(user){
  */
 function setBonus(topTotal,user){
     if(topTotal > 62){
-        $("#bonus"+user).html("50").addClass(tdWithPointsClass);
+        $("#bonus"+user).html("50").addClass(tdWithPointsClass).css("color","black");
     }
 }
 /**
@@ -303,7 +308,7 @@ function createScoreboard(data){
             //toptotal/bonus/endresult
             if(r == 6 || r== 7 || r ==fields.length-1){//toptotal,bonus,result
                 currentCell.html(0);
-                currentCell.attr("class","score bg-info");
+                currentCell.attr("class","score");
             }else{
                 currentCell.addClass("scoreTd").attr("title","Click to save score");
             }

@@ -21,7 +21,7 @@
 <div id="playerform"><!--import--></div>
 <!-- visible content -->
 <div class="container-fluid">
-    <nav class="navbar navbar-default reverse-gradient">
+    <nav class="navbar">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -84,7 +84,7 @@
                 </div>
                 <a role="button" class="btn btn-sm gradient navbar-btn" id="play" title="Throw dices"><span>0</span>/3</a>
             </div>
-            <a  role="button" id="newGame" class="btn gradient btn-sm navbar-btn" title="Start new game" data-toggle="modal" data-target="#modal">New</a>
+            <a  role="button" id="newGame" class="newgame btn gradient btn-sm navbar-btn" title="Start new game">Start</a>
         </div><!-- /.container-fluid -->
     </nav>
     <!-- information alerts that are shown when neccessary -->
@@ -96,21 +96,25 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Your email couldn't be sent, please try again later</strong>
     </div>
+    <div class="alert alert-info alert-dismissable" id="mobileHelp">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>If you are on a mobile and might need to click twice on start/roll/dices to hide the tooltips until your first turn is over.</strong>
+    </div>
     <div id="gameArea" class="row container-fluid">
         <section id="scoreSection" style="" class="col-md-7 col-lg-7 col-sm-7">
+<!--
             <header class="reverse-gradient"><h3>Yatzy</h3></header>
+-->
             <!-- spelplanen -->
         </section>
         <aside>
             <section class="col-md-5 col-lg-5 col-sm-5 "> <!-- information -->
                 <header>
-                    <h3>
-                        <a role="button" class="btn btn-sm gradient" title="Toggle information" id="infoTitle">Help <span class="caret"></span></a>
-                    </h3>
+                    <a role="button" class="btn btn-sm gradient" title="Toggle information" id="infoTitle">Help <span class="caret"></span></a>
                 </header>
-                <div id="info" class="well">
+                <div id="info" class="">
                     <ul class="text-info mediumfont">
-                        <li>Click turn-button("x/3") to hrow the dices</li>
+                        <li>Click turn-button("x/3") to throw the dices</li>
                         <li>Click a dice to save it for the next throw</li>
                         <li>Each player have 3 throws per turn</li>
                         <li>The toplist shows the best scores of all time</li>
@@ -120,9 +124,7 @@
             </section>
             <section class="col-md-5 col-lg-5 col-sm-5">  <!-- Top 10 list -->
                 <header>
-                    <h3>
-                        <a role="button" id="toplistTitle" class="btn gradient tltoggle" title="Toggle toplist">Toplist <span class="caret"></span></a>
-                    </h3>
+                    <a role="button" id="toplistTitle" class="btn btn-sm gradient" title="Toggle toplist">Toplist <span class="caret"></span></a>
                 </header>
                 <div id="toplist"></div>
             </section>
@@ -131,28 +133,33 @@
     </div>
 </div>
 <footer class="footer navbar-fixed-bottom">
-    <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12 well">
+    <a id="hideContactForm" class="btn btn-xs gradient" title="Hide the contact form">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        <span class="glyphicon glyphicon-menu-down" aria-hidden="false"></span>
+    </a>
+    <div id="cfw" class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <form id="contactForm" method="post" action="server.php" >
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 ">
-                <label for="email" class="col-lg-3 col-md-3 col-xs-12 gradient">Email:</label>
+            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 " title="Email we should respond to">
+                <label for="email" class="col-lg-3 col-md-3 col-xs-12 gradient" >Email:</label>
                 <input type="email" id="email" name="email" class="col-lg-9 col-md-9 col-xs-12" placeholder="email@foobar.com">
             </div>
             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6">
                 <label for="name" class="col-lg-3 col-md-3 col-xs-12 gradient">Name:</label>
-                <input type="text" id="name" name="name" class="col-lg-9 col-md-9 col-xs-12" placeholder="Name...">
+                <input type="text" id="name" name="name" class="col-lg-9 col-md-9 col-xs-12" placeholder="Your name...">
             </div>
             <div class="form-group col-lg-5 col-md-5 col-sm-4 col-xs-9">
                 <label for="message" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 gradient">Message:</label>
-                <textarea id="message" name="message" class="col-lg-9 col-md-9 col-sm-12 col-xs-12" placeholder="Type your message" ></textarea>
+                <textarea id="message" name="message" class="col-lg-9 col-md-9 col-sm-12 col-xs-12" placeholder="Type your question or message" ></textarea>
             </div>
             <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-3">
-                <button type="submit" name="send" class="btn btn-sm gradient" title="Email a question">Send</button>
+                <button type="submit" name="send" class="btn btn-sm gradient" title="Email a question">Contact</button>
             </div>
         </form>
     </div>
 </footer>
 <!-- For quicker page load -->
 <!-- Javascript libraries/functions-->
+
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src='js/jquery.confirm.min.js'></script>
@@ -163,5 +170,22 @@
 <!-- Yatzy javascript -->
 <script type="text/javascript" src='js/functions.js'></script>
 <script type="text/javascript" src='js/events.js'></script>
+<script>
+    $("#hideContactForm").on("click", function () {
+        $("#cfw").slideToggle();
+        var span = $(this).children("span:nth-child(2)");
+        var down = "glyphicon-menu-down";
+        var up = "glyphicon-menu-up";
+        if(span.hasClass(down)){
+            span.removeClass(down);
+            span.addClass(up);
+            $(this).attr("title","Show contact form");
+        }else{
+            span.removeClass(up);
+            span.addClass(down);
+            $(this).attr("title","Hide contact form");
+        }
+    });
+</script>
 </body>
 </html>

@@ -1,19 +1,30 @@
+body{padding-bottom: 50px; background: url("../son_of_battles.jpg"); background-size: cover;}
+@media screen and (min-width: 0px) and (max-width: 400px) {
+    #mobileHelp { display: block; }  /* show it on small screens */
+}
+@media screen and (min-width: 401px) and (max-width: 1024px) {
+    #mobileHelp { display: none; }   /* hide it elsewhere */
+}
 /*font loading icon for contact form overlay*/
 @font-face {font-family: "overlay";src: url('../fonts/icons.woff') format("woff"), url('../fonts/icons.ttf') format("truetype");}
 @keyframes loadingStart {0% {opacity: 0;}100% {opacity: 1;}}
 @keyframes loading {0% {transform: rotate(0deg);}50% {transform: rotate(180deg);}100% {transform: rotate(360deg);}}
 
-body.modal-open{overflow:hidden!important;}
+body .modal-open{overflow:hidden!important;}
 /*tables*/
 #scoreboard td,#leaderboard td{padding: 2px;text-align: center;}
 #scoreboard{margin-bottom: 0;}
-#leaderboard{margin-bottom: 0;} /*toplist table*/
+#leaderboard{margin-bottom: 0; color:floralwhite;} /*toplist table*/
 .table>tbody>tr>th:first-child{ padding: 0; max-width: 46px; !important}
-.table>tbody>tr>th{ display:table-cell; max-height: 32px; padding: 1px 8px;!important;}
-.scoreTd{cursor: pointer;} /* bonus/top/bottom total*/
+.table>tbody>tr>th{ text-align:center;display:table-cell; max-height: 32px; padding: 1px 8px;!important;}
+.scoreTd{cursor: pointer; } /* bonus/top/bottom total*/
+.optionTd,.score{color: floralwhite;}
+
 /* classes to set points, clickable is for points, zero is for nulling a column */
-.clickable, .zero{ cursor: pointer;} /* td's to give point*/
-.zero{background: #d9534f;} /*td that gives 0 points*/
+.clickable{ cursor: pointer;font-weight: bolder;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+} /* td's to give point*/
+.zero{background: #d9534f;cursor: pointer;} /*td that gives 0 points*/
 
 #gameArea{margin: -10px 0 0 0;} /*info+toplist+scoreboard*/
 #gameArea h3{ margin: 0 0;} /*scoreboard h*/
@@ -21,11 +32,11 @@ body.modal-open{overflow:hidden!important;}
 #scoreSection header{ text-align: center;padding: 1px 0; margin-bottom: 3px; }/*scoreboard  title*/
 aside h3{margin: 0 0 4px 0;} /*info and toplist h3*/
 /*information/help*/
-#infoTitle{float:left; } /*button*/
+#infoTitle{ position: relative; width: 100%;} /*button*/
 #info{ padding-right: 5px; margin-bottom: 3px;} /*info section*/
-#info ul{clear: both; position: relative; top:5px;padding-left: 10px;}
+#info ul{clear: both; position: relative; top:5px; color:floralwhite;}
 /*toplist*/
-#toplistTitle{position: relative; float: left;  display: none} /*button*/
+#toplistTitle{position: relative; float: left; width:100%;} /*button*/
 #toplist{} /*entire toplist section*/
 
 #newGame{float:right;position: relative;margin-right: -15px;} /*newgame button*/
@@ -33,11 +44,11 @@ aside h3{margin: 0 0 4px 0;} /*info and toplist h3*/
 
 /*BOOTSTRAP CUSTOMS*/
 .container-fluid{padding:0 1px;}
-nav > .container-fluid{padding-left: 20px; padding-right: 20px;}
+nav > .container-fluid{padding-left: 20px; padding-right: 20px;background-color:rgba(255,0,0,0.5);border:0;}
 .navbar-right{position: relative;margin-left: 60px;margin-right: 10px;}
 .navbar-right li{display: inline-block;}
 .navbar-toggle {border:0px; }
-.navbar-default  .navbar-toggle  .icon-bar{background-color: whitesmoke}
+.navbar-default  .navbar-toggle  .icon-bar{background-color: white}
 
 /*DICES*/
 #dices .cubeWrapper{float: left; cursor: pointer;position:relative;padding: 0px;width: 33px;height: 33px;margin-right: 0px;}
@@ -62,7 +73,7 @@ background-image: url(../dice.png);background-repeat:no-repeat;opacity:0.85;}
 /* added to / removed from a dice when clicked*/
 .selectedDice{margin-top: 3px;}
 /* inserted and displayed when a dice is clicked */
-#dices .cubeWrapper span{display: none;position: relative;top: -40px;left: 25px;}
+#dices .cubeWrapper span{display: none;position: relative;top: -40px;left: 25px;color:#fff;}
 
 /**
 *different random classes
@@ -74,15 +85,26 @@ background-image: url(../dice.png);background-repeat:no-repeat;opacity:0.85;}
 
 /*footer*/
 .footer{float: left;}
+/*
+.footer label, .footer input,.footer button{position: relative; top:22px;}
+*/
 .footer textarea {margin-bottom: 0;}
 .footer div {margin-bottom: 1px; padding-bottom: 0;}
-.footer button { margin: 0px 0 0 0;}
+.footer button {position:relative;left:5px;}
 .footer textarea, .footer input{color:black;}
 .footer>div>form>.form-group{padding: 0;}
 .footer>div>form>.form-group>label{padding: 3px 5px;margin-bottom: 0;}
+.footer>#cfw>form{margin-top: 2px; opacity: 1;}
+.footer #hideContactForm{
+    position: absolute;
+    bottom: 2px;
+    right:0px;
+    z-index: 999;
+}
+#cfw{background-color:rgba(255,0,0,0.5);border:0;}
 /* Gradient classes */
 .blend-gradient {
-    color: whitesmoke;
+    color: floralwhite;
     background: -webkit-linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
     background: linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
 }
@@ -137,7 +159,7 @@ background-image: url(../dice.png);background-repeat:no-repeat;opacity:0.85;}
     -moz-animation: loadingStart 3s 300ms linear 1 both;
     -o-animation: loadingStart 3s 300ms linear 1 both;
     animation: loadingStart 3s 300ms linear 1 both;
-    color: whitesmoke;
+    color: floralwhite;
     background: -webkit-linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
     background: linear-gradient(170deg, rgb(201, 157, 29), rgb(9, 100, 190));
     text-align: center;

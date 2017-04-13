@@ -7,9 +7,8 @@ window.onload = function() {
     /*get the latest toplist from the database*/
     getTopList();
     /* Toggle top list visibility */
-    $("aside > section").on("click",".tltoggle",function(){
-        $("#toplist").slideToggle(800,"easeInOutCirc",function(){});
-        $("#toplistTitle").toggle(800);
+    $("aside > section").on("click","#toplistTitle",function(){
+        $("#toplist").fadeToggle(800,"easeInOutCirc",function(){});
     });
     /* update the toplist when the user hides the endgame view*/
     $("#endview").on("hide.bs.modal",function(){
@@ -74,7 +73,7 @@ window.onload = function() {
     });
 
     /* To start a new game we remove the old scoreboard, hide the endview and displays the modal/button to enter usernames*/
-    $("#newgame").on('click',function(){
+    $(".newgame").on('click',function(){
        newGame();
     });//newgame click trigger
 
