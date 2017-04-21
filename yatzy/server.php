@@ -94,7 +94,7 @@ if(isset($_POST['toplist'])){
 /**
  * When someone tries to send a question we take the values and email ourselves with phpmailer
  */
-if(isset($_POST['contactForm']) && !empty($_POST['from']) && !empty($_POST['message'])){
+if(isset($_POST['contactForm'])){
     $data = json_decode($_POST['contactForm'],true);
     $name = $data[0]["value"];
     $email = $data[1]["value"];
@@ -121,3 +121,26 @@ if(isset($_POST['contactForm']) && !empty($_POST['from']) && !empty($_POST['mess
         echo json_encode(array("status"=>false,"message"=>$mail->ErrorInfo));
     }
 }
+/*$email = 'idrini@gmail.com';
+$name = 'daniel';
+$message = "testing";
+$mail = new PHPMailer;
+$mail->IsSMTP();
+$mail->CharSet = 'UTF-8';
+$mail->Host = 'smtp.gmail.com';
+$mail->Port = 587;
+$mail->SMTPAuth = true;
+$mail->Username = 'idrini@gmail.com'; //add your email
+$mail->Password = 'draddydagols666'; //add your password
+$mail->SMTPSecure = 'tls';
+$mail->AddReplyTo($email, 'Svar på Yatzy fråga');
+$mail->From = $email;
+$mail->FromName = $name;
+$mail->addAddress("idrini@gmail.com");
+$mail->Subject = "Fråga från Yatzy spelet";
+$mail->Body    = $message;
+if($mail->send()){
+    echo json_encode(array("status"=>true,"message"=>"Skickat"));
+}else{
+    echo json_encode(array("status"=>false,"message"=>$mail->ErrorInfo));
+}*/

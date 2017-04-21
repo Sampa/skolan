@@ -94,7 +94,6 @@ function sendToServer(data,callback){
 function showScoreOptions(data){
     var element,prefix,top = [1,2,3,4,5,6];
     $.each(data,function(key,value){
-        console.log(key+":"+value);
         if(value !="user") {
             prefix = ($.inArray(parseInt(key),top) == -1 ? "bottom" :"top"); //prefix top or bottom part
             element = $("[id='" + prefix + key + data.user+"']");
@@ -229,18 +228,30 @@ function setTopTotal(user){
         number = $(this).attr("data-score");
         if(!isNaN(number))
             topTotal = parseInt(topTotal) + parseInt(number);
+
     });
     topTotalUser.html(topTotal);
-    setBonus(topTotal,user);
+    setBonus(topTotal, user,elements);
 }
 /**
  * if the toptotal is 63 or more, add the 50 bonus points
  * @user the active player
  * @topTotal the active players total score on the top half
  */
-function setBonus(topTotal,user){
-    if(topTotal > 62){
-        $("#bonus"+user).html("50").addClass(tdWithPointsClass).css("color","black");
+function setBonus(topTotal,user,elements){
+    var element = $("#bonus"+user),topDone = true;
+    $.each(elements,function(key,obj){
+        console.log(obj);
+       if(!$(obj).attr("data-score") && $(obj).attr("id") != "topTotal"+user){
+           topDone = false;
+       }
+    });
+    if(topDone) {
+        if (topTotal > 62) {
+            element.html("50").addClass(tdWithPointsClass).css("color", "black");
+        } else {
+            element.html("0").addClass(tdNoPointsClass).css("color", "black");
+        }
     }
 }
 /**
