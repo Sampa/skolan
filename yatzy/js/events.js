@@ -126,5 +126,7 @@ window.addEventListener('WebComponentsReady', function() {
     importTemplate("endview",$("#endviewWrapper"));
     //INSERT THE PLAYERFORM.HTML MODAL TEMPLATE to #playerform
     importTemplate("playerform");
+    //INSERTS THE CONTACTFORM.HTML IMPORT to #cfw (contact form wrapper)
+    importTemplate("contactform",$("#cfw"));
     /*END IMPORT templates*/
 });

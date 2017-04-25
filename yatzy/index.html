@@ -7,7 +7,6 @@
     <!-- Latest compiled and minified Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <!--<link rel="stylesheet" href="css/jquery-ui.theme.min.css">-->
     <!-- Yatzy css-->
     <link rel="stylesheet" href="css/style.css">
     <!-- HTML Imports -->
@@ -15,10 +14,13 @@
     <link rel="import" href="import/scoreboard.html">
     <link rel="import" href="import/endview.html">
     <link rel="import" href="import/playerform.html">
+    <link rel="import" href="import/contactform.html">
 </head>
 <body>
+
 <!-- modal with form for setting playernames-->
-<div id="playerform"><!--import--></div>
+<div id="playerform"><!--imported playerform goes here--></div>
+
 <!-- visible content -->
 <div class="container-fluid">
     <nav class="navbar">
@@ -110,7 +112,7 @@
     <!-- game area -->
     <div id="gameArea" class="row container-fluid">
         <section id="scoreSection" style="" class="col-md-7 col-lg-7 col-sm-7">
-            <!-- scoreboard template goes here -->
+            <!-- scoreboard template import goes here -->
         </section>
 
         <aside>
@@ -141,7 +143,7 @@
                     <a role="button" id="toplistTitle" class="btn btn-sm gradient" title="Toggle toplist">Toplist <span class="caret"></span></a>
                 </header>
 
-                <div id="toplist"><!-- toplist templade goes here --></div>
+                <div id="toplist"><!-- toplist import goes here --></div>
 
             </section>
 
@@ -153,6 +155,10 @@
 </div>
 
 <!-- footer -->
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<!-- For quicker page load we place these here -->
+
+<!-- Javascript libraries/functions-->
 <footer class="footer navbar-fixed-bottom">
 
     <!-- toggle form visibility-->
@@ -161,37 +167,11 @@
         <span class="glyphicon glyphicon-menu-up" aria-hidden="false"></span>
     </a>
 
-    <!-- the contact form-->
     <div id="cfw" class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <form id="contactForm" method="post" action="server.php" >
-
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 " title="Email we should respond to">
-                <label for="email" class="col-lg-3 col-md-3 col-xs-12 gradient" >Email:</label>
-                <input type="email" id="email" name="email" class="col-lg-9 col-md-9 col-xs-12" placeholder="email@foobar.com">
-            </div>
-
-            <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6">
-                <label for="name" class="col-lg-3 col-md-3 col-xs-12 gradient">Name:</label>
-                <input type="text" id="name" name="name" class="col-lg-9 col-md-9 col-xs-12" placeholder="Your name...">
-            </div>
-
-            <div class="form-group col-lg-5 col-md-5 col-sm-4 col-xs-9">
-                <label for="message" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 gradient">Message:</label>
-                <textarea id="message" name="message" class="col-lg-9 col-md-9 col-sm-12 col-xs-12" placeholder="Type your question or message" ></textarea>
-            </div>
-
-            <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-3">
-                <button type="submit" name="send" class="btn btn-sm gradient" title="Email a question">Contact</button>
-            </div>
-
-        </form>
+        <!-- the contact form import goes here-->
     </div>
 
 </footer>
-<!-- For quicker page load we place these here -->
-
-<!-- Javascript libraries/functions-->
-<script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src='js/jquery.confirm.min.js'></script>
 <script type="text/javascript" src='js/loading.min.js'></script>

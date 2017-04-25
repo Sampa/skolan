@@ -1,0 +1,24 @@
+<template>
+<form id="contactForm" method="post" action="server.php" >
+
+    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 " title="Email we should respond to">
+        <label for="email" class="col-lg-3 col-md-3 col-xs-12 gradient" >Email:</label>
+        <input type="email" id="email" name="email" class="col-lg-9 col-md-9 col-xs-12" placeholder="email@foobar.com">
+    </div>
+
+    <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6">
+        <label for="name" class="col-lg-3 col-md-3 col-xs-12 gradient">Name:</label>
+        <input type="text" id="name" name="name" class="col-lg-9 col-md-9 col-xs-12" placeholder="Your name...">
+    </div>
+
+    <div class="form-group col-lg-5 col-md-5 col-sm-4 col-xs-9">
+        <label for="message" class="col-lg-3 col-md-3 col-sm-12 col-xs-12 gradient">Message:</label>
+        <textarea id="message" name="message" class="col-lg-9 col-md-9 col-sm-12 col-xs-12" placeholder="Type your question or message" ></textarea>
+    </div>
+
+    <div class="form-group col-lg-1 col-md-1 col-sm-1 col-xs-3">
+        <button type="submit" name="send" class="btn btn-sm gradient" title="Email a question">Contact</button>
+    </div>
+
+</form>
+</template>
