@@ -45,17 +45,17 @@ window.onload = function() {
 /**
  * DICES ROLL & SELECT TO KEEP
  */
-    //selects a dice to keep it for next roll
+    /* click on a single dice selects the dice to keep it for next roll */
     $("#dices").on("click",".cubeWrapper",function(){
         if(rollCounter.html()==0)//no throws made yet
             return;
         keepDice($(this));
-    });//#dices click trigger
-    //THROW THE DICES
+    });
+    /* we click the roll dice button */
     $("#play").on("click",function (e) {
         e.preventDefault();
         newRoll(rollCounter);
-    }); //#play click trigger
+    });
 /* END DICES */
 
 /* DIFFERENT TRIGGERS */
@@ -77,7 +77,28 @@ window.onload = function() {
        newGame();
     });//newgame click trigger
 
-    /** pressing a row td to select it for points asks to confirm choice
+    /**
+     *  Toggle the contactform's visibility
+     *  We toggle the icon on the button to provide better user experience
+    **/
+    $("#hideContactForm").on("click", function () {
+        $("#cfw").slideToggle();
+        var span = $(this).children("span:nth-child(2)");
+        var down = "glyphicon-menu-down";
+        var up = "glyphicon-menu-up";
+        if(span.hasClass(down)){
+            span.removeClass(down);
+            span.addClass(up);
+            $(this).attr("title","Show contact form");
+        }else{
+            span.removeClass(up);
+            span.addClass(down);
+            $(this).attr("title","Hide contact form");
+        }
+    });
+
+    /**
+     * pressing a row td to select it for points asks to confirm choice
      * if yes, set the score for that row, update the totals and prepares the game for a newturn
      */
     $("#scoreSection").on("click",".clickable",function(){
@@ -92,7 +113,7 @@ window.onload = function() {
 
 /**
  * webcomponents used for ff,edge,safari for html5 imports to work
-  */
+ */
 window.addEventListener('WebComponentsReady', function() {
     /***
      * IMPORTS of templates files

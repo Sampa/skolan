@@ -25,6 +25,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
+                <!-- the five dices -->
                 <div id="dices">
                     <div class="cubeWrapper" title="Click to keep this dice">
                         <div class="cube" id="d1">
@@ -82,9 +83,11 @@
                         <span class="glyphicon glyphicon-pushpin"></span>
                     </div>
                 </div>
+                <!-- roll the dices -->
                 <a role="button" class="btn btn-sm gradient navbar-btn" id="play" title="Throw dices"><span>0</span>/3</a>
             </div>
-            <a  role="button" id="newGame" class="newgame btn gradient btn-sm navbar-btn" title="Start new game">Start</a>
+            <!-- new game -->
+            <a  role="button" id="newGame" class="newgame btn gradient btn-sm navbar-btn" title="Start new game">New</a>
         </div><!-- /.container-fluid -->
     </nav>
     <!-- information alerts that are shown when neccessary -->
@@ -102,13 +105,11 @@
     </div>
     <div id="gameArea" class="row container-fluid">
         <section id="scoreSection" style="" class="col-md-7 col-lg-7 col-sm-7">
-<!--
-            <header class="reverse-gradient"><h3>Yatzy</h3></header>
--->
-            <!-- spelplanen -->
+            <!-- scoreboard template goes here -->
         </section>
         <aside>
-            <section class="col-md-5 col-lg-5 col-sm-5 "> <!-- information -->
+            <!-- information -->
+            <section class="col-md-5 col-lg-5 col-sm-5 ">
                 <header>
                     <a role="button" class="btn btn-sm gradient" title="Toggle information" id="infoTitle">Help <span class="caret"></span></a>
                 </header>
@@ -122,21 +123,25 @@
                     </ul>
                 </div>
             </section>
-            <section class="col-md-5 col-lg-5 col-sm-5">  <!-- Top 10 list -->
+            <!-- Top 10 list -->
+            <section class="col-md-5 col-lg-5 col-sm-5">
                 <header>
                     <a role="button" id="toplistTitle" class="btn btn-sm gradient" title="Toggle toplist">Toplist <span class="caret"></span></a>
                 </header>
-                <div id="toplist"></div>
+                <div id="toplist"><!-- toplist templade goes here --></div>
             </section>
         </aside>
-        <div id="endviewWrapper"></div>
+        <div id="endviewWrapper"><!-- wrapper for the endview modal containing final scores--></div>
     </div>
 </div>
+<!-- footer -->
 <footer class="footer navbar-fixed-bottom">
+    <!-- toggle form visibility-->
     <a id="hideContactForm" class="btn btn-xs gradient" title="Hide the contact form">
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        <span class="glyphicon glyphicon-menu-down" aria-hidden="false"></span>
+        <span class="glyphicon glyphicon-menu-up" aria-hidden="false"></span>
     </a>
+    <!-- the contact form-->
     <div id="cfw" class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <form id="contactForm" method="post" action="server.php" >
             <div class="form-group col-lg-3 col-md-3 col-sm-3 col-xs-6 " title="Email we should respond to">
@@ -157,9 +162,9 @@
         </form>
     </div>
 </footer>
-<!-- For quicker page load -->
-<!-- Javascript libraries/functions-->
+<!-- For quicker page load we place these here -->
 
+<!-- Javascript libraries/functions-->
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.easing.js"></script>
 <script type="text/javascript" src='js/jquery.confirm.min.js'></script>
@@ -167,25 +172,9 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script src="js/webcomponents-loader.js"></script>
+
 <!-- Yatzy javascript -->
 <script type="text/javascript" src='js/functions.js'></script>
 <script type="text/javascript" src='js/events.js'></script>
-<script>
-    $("#hideContactForm").on("click", function () {
-        $("#cfw").slideToggle();
-        var span = $(this).children("span:nth-child(2)");
-        var down = "glyphicon-menu-down";
-        var up = "glyphicon-menu-up";
-        if(span.hasClass(down)){
-            span.removeClass(down);
-            span.addClass(up);
-            $(this).attr("title","Show contact form");
-        }else{
-            span.removeClass(up);
-            span.addClass(down);
-            $(this).attr("title","Hide contact form");
-        }
-    });
-</script>
 </body>
 </html>
