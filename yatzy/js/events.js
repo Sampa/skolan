@@ -81,8 +81,8 @@ window.onload = function() {
      *  Toggle the contactform's visibility
      *  We toggle the icon on the button to provide better user experience
     **/
-    $("#hideContactForm").on("click", function () {
-        $("#cfw").slideToggle();
+    $("footer").on("click", '#hideContactForm', function () {
+        $("#cfw").fadeToggle();
         var span = $(this).children("span:nth-child(2)");
         var down = "glyphicon-menu-down";
         var up = "glyphicon-menu-up";

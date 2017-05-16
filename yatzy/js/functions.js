@@ -221,7 +221,7 @@ function resetTurnCount(){
  * @user is the active player
  */
 function setTopTotal(user){
-    var topTotal = 0,number=0,elements = $("[id^=top][id$="+user+"]");
+    var topTotal = 0,number=0,elements = $('[id^=top][id$="+user+"]');
     var topTotalUser = $("#topTotal"+user);
     topTotalUser.html("");
     $.each(elements,function(){
@@ -240,8 +240,8 @@ function setTopTotal(user){
  */
 function setBonus(topTotal,user,elements){
     var element = $("#bonus"+user),topDone = true;
+    console.log(element);
     $.each(elements,function(key,obj){
-        console.log(obj);
        if(!$(obj).attr("data-score") && $(obj).attr("id") != "topTotal"+user){
            topDone = false;
        }
@@ -260,7 +260,7 @@ function setBonus(topTotal,user,elements){
  */
 function setTotal(user){
     var topScore = parseInt($("#topTotal"+user).html()) + parseInt($("#bonus" + user).html()),
-    number=0, result = 0, elements = $("[id^=bottom][id$="+user+"]"), resultUser = $("#result"+user);
+    number=0, result = 0, elements = $('[id^=bottom][id$="+user+"]'), resultUser = $("#result"+user);
     resultUser.html("");//topScore+result);
     $.each(elements, function(){
         number = $(this).attr("data-score");
